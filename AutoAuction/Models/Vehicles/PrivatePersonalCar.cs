@@ -28,7 +28,8 @@ namespace AutoAuction.Models.Vehicles
             throw new NotImplementedException();
         }
         /// <summary>
-        /// Isofix Fittings proberty
+        /// Isofix Fittings 
+        /// 
         /// </summary>
         public bool HasIsofixFittings { get; set; }
         /// <summary>

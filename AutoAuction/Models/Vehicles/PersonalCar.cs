@@ -26,11 +26,11 @@ namespace AutoAuction.Models.Vehicles
             this.TrunkDimentions = trunkDimentions;
         }
         /// <summary>
-        /// Number of seat proberty
+        /// Number of seat property
         /// </summary>
         public ushort NumberOfSeat { get; set; }
         /// <summary>
-        /// Trunk dimentions proberty and struct
+        /// Trunk dimentions property and struct
         /// </summary>
         public TrunkDimentionsStruct TrunkDimentions { get; set; }
         public readonly struct TrunkDimentionsStruct
@@ -47,7 +47,7 @@ namespace AutoAuction.Models.Vehicles
             public override string ToString() => $"(Height: {Height}, Width: {Width}, Depth: {Depth})";
         }
         /// <summary>
-        /// Engine size proberty
+        /// Engine size property
         /// must be between 0.7 and 10.0 L or cast an out of range exection.
         /// </summary>
         public override double EngineSize
