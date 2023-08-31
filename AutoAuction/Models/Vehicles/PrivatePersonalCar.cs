@@ -9,6 +9,7 @@ namespace AutoAuction.Models.Vehicles
     public class PrivatePersonalCar : PersonalCar
     {
         public PrivatePersonalCar(
+            uint id,
             string name,
             double km,
             string registrationNumber,
@@ -19,13 +20,15 @@ namespace AutoAuction.Models.Vehicles
             double kmPerLiter,
             FuelTypeEnum fuelType,
             ushort numberOfSeat,
-            TrunkDimentionsStruct trunkDimentions,
+            TrunkDimensionsStruct trunkDimensions,
+            DriversLicenseEnum driversLicense,
             bool hasIsofixFittings)
-            : base(name, km, registrationNumber, year, newPrice, hasTowbar, engineSize, kmPerLiter, fuelType, numberOfSeat, trunkDimentions)
+            : base(id, name, km, registrationNumber, year, newPrice, hasTowbar, engineSize, kmPerLiter, fuelType, numberOfSeat, driversLicense, trunkDimensions)
         {
             //TODO: V19 - PrivatePersonalCar constructor. DriversLicense should be 'B'
             //TODO: V20 - Add to database and set ID
-            throw new NotImplementedException();
+            this.HasIsofixFittings = hasIsofixFittings;
+            //throw new NotImplementedException();
         }
         /// <summary>
         /// Isofix Fittings 

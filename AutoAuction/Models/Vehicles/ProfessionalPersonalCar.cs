@@ -9,6 +9,7 @@ namespace AutoAuction.Models.Vehicles
     public class ProfessionalPersonalCar : PersonalCar
     {
         public ProfessionalPersonalCar(
+            uint id,
             string name,
             double km,
             string registrationNumber,
@@ -18,10 +19,11 @@ namespace AutoAuction.Models.Vehicles
             double kmPerLiter,
             FuelTypeEnum fuelType,
             ushort numberOfSeat,
-            TrunkDimentionsStruct trunkDimentions,
+            DriversLicenseEnum driversLicense,
+            TrunkDimensionsStruct trunkDimentions,
             bool hasSafetyBar,
             double loadCapacity)
-            : base(name, km, registrationNumber, year, newPrice, true, engineSize, kmPerLiter, fuelType, numberOfSeat, trunkDimentions)
+            : base(id, name, km, registrationNumber, year, newPrice, true, engineSize, kmPerLiter, fuelType, numberOfSeat, driversLicense, trunkDimentions)
         {
             //TODO: V16 - ProfessionalPersonalCar constructor. DriversLicense should be 'B' if load capasity is below 750 otherwise it should be 'BE'
             //TODO: V17 - Add to database and set ID
