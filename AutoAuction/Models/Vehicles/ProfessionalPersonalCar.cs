@@ -28,11 +28,12 @@ namespace AutoAuction.Models.Vehicles
             throw new NotImplementedException();
         }
         /// <summary>
-        /// Safety Bar proberty
+        /// Safety Bar 
+        /// 
         /// </summary>
         public bool HasSafetyBar { get; set; }
         /// <summary>
-        /// Load Capacity proberty
+        /// Load Capacity property
         /// </summary>
         public double LoadCapacity { get; set; }
         /// <summary>
