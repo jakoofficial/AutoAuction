@@ -8,7 +8,8 @@ namespace AutoAuction.Models.Vehicles
 {
     public abstract class Vehicle
     {
-        protected Vehicle(int id,
+        protected Vehicle(
+            uint id,
             string name,
             double km,
             string registrationNumber,
@@ -20,6 +21,7 @@ namespace AutoAuction.Models.Vehicles
             FuelTypeEnum fuelType,
             DriversLicenseEnum driversLicense)
         {
+            this.ID = id;
             this.Name = name;
             this.Km = km;
             this.RegistrationNumber = registrationNumber;
@@ -120,6 +122,7 @@ namespace AutoAuction.Models.Vehicles
         /// <returns>The Veihcle as a string</returns>
         public new virtual string ToString()
         {
+            StringBuilder sb = new StringBuilder();
             //TODO: V3 - Vehicle tostring
             throw new NotImplementedException();
         }
