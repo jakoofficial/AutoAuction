@@ -69,8 +69,8 @@ namespace AutoAuction.Models.Vehicles
         /// <summary>
         /// Drivers lisence Enum, field and proberty
         /// </summary>
-        public DriversLisenceEnum DriversLisence { get; set; }
-        public enum DriversLisenceEnum
+        public DriversLicenseEnum DriversLicense { get; set; }
+        public enum DriversLicenseEnum
         {
             A,
             B,
