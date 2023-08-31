@@ -26,7 +26,9 @@ namespace AutoAuction.Models.Vehicles
             throw new NotImplementedException();
         }
         /// <summary>
-        /// Engine size proberty
+        /// Engine size 
+        /// 
+        /// 
         /// must be between 4.2 and 15.0 L or cast an out of range exection.
         /// </summary>
         /// <returns>The size the the engine as a double</returns>
@@ -42,7 +44,7 @@ namespace AutoAuction.Models.Vehicles
             }
         }
         /// <summary>
-        /// Load Capacity field and proberty
+        /// Load Capacity field and property
         /// </summary>
         public double LoadCapacity { get; set; }
         /// <summary>

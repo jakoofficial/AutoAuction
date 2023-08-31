@@ -31,7 +31,8 @@ namespace AutoAuction.Models.Vehicles
             throw new NotImplementedException();
         }
         /// <summary>
-        /// Engine size proberty
+        /// Engine size 
+        /// 
         /// must be between 4.2 and 15.0 L or cast an out of range exection.
         /// </summary>
         public override double EngineSize
@@ -45,14 +46,14 @@ namespace AutoAuction.Models.Vehicles
             }
         }
         /// <summary>
-        /// NumberOfSeats proberty
+        /// NumberOfSeats property
         /// </summary>
         public ushort NumberOfSeats { get; set; }
         /// <summary>
-        /// NumberOfSeats proberty
+        /// NumberOfSeats property
         /// </summary>
         public ushort NumberOfSleepingSpaces { get; set; }
-        /// Towbar proberty
+        /// Towbar property
         /// </summary>
         public bool HasToilet { get; set; }
         /// <summary>

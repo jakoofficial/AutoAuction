@@ -9,6 +9,7 @@ namespace AutoAuction.Models.Vehicles
     public abstract class HeavyVehicle : Vehicle
     {
         public HeavyVehicle(
+         uint id,
          string name,
          double km,
          string registrationNumber,
@@ -18,16 +19,18 @@ namespace AutoAuction.Models.Vehicles
          double engineSize,
          double kmPerLiter,
          FuelTypeEnum fuelType,
-         VehicleDimensionsStruct vehicleDimentions) : base(name, km, registrationNumber, year, newPrice, hasTowbar, engineSize, kmPerLiter, fuelType)
+         DriversLicenseEnum driversLicense,
+         VehicleDimensionsStruct vehicleDimension) : base(id, name, km, registrationNumber, year, newPrice, hasTowbar, engineSize, kmPerLiter, fuelType, driversLicense)
         {
-            this.VehicleDimensions = vehicleDimentions;
+            this.VehicleDimensions = vehicleDimension;
         }
         /// <summary>
-        /// Vehicle dimentions proberty and struct
+        /// Vehicle dimensions
+        /// and struct
         /// </summary>
         public VehicleDimensionsStruct VehicleDimensions { get; set; }
         /// <summary>
-        /// The dimensions of the vehicle i meters.
+        /// The dimensions of the vehicle in meters.
         /// </summary>
         public struct VehicleDimensionsStruct
         {
@@ -43,8 +46,10 @@ namespace AutoAuction.Models.Vehicles
             public override string ToString() => $"(Height: {Height}, Weight: {Weight}, Depth: {Length})";
         }
         /// <summary>
-        /// Returns the HeavyVehicle in a string with relivant information.
+        /// Returns the HeavyVehicle in a string with relevant information.
         /// </summary>
+        /// 
+        //public override string ToString() => "";
         public override string ToString()
         {
             //TODO: V6 - ToString for HeavyVehicle
