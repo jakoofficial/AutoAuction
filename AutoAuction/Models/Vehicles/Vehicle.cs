@@ -8,7 +8,8 @@ namespace AutoAuction.Models.Vehicles
 {
     public abstract class Vehicle
     {
-        protected Vehicle(string name,
+        protected Vehicle(int id,
+            string name,
             double km,
             string registrationNumber,
             int year,
@@ -16,7 +17,8 @@ namespace AutoAuction.Models.Vehicles
             bool hasTowbar,
             double engineSize,
             double kmPerLiter,
-            FuelTypeEnum fuelType)
+            FuelTypeEnum fuelType,
+            DriversLicenseEnum driversLicense)
         {
             this.Name = name;
             this.Km = km;
@@ -27,6 +29,7 @@ namespace AutoAuction.Models.Vehicles
             this.EngineSize = engineSize;
             this.KmPerLiter = kmPerLiter;
             this.FuelType = fuelType;
+            this.DriversLicense = driversLicense;
             //TODO: V1 - Constructor for Vehicle
             //TODO: V2 - Add to database and set ID
         }
