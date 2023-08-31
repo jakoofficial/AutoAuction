@@ -45,3 +45,4 @@ namespace AutoAuction.Models.Vehicles
             throw new NotImplementedException();
         }
     }
+}
