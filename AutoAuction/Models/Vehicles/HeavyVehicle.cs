@@ -23,7 +23,8 @@ namespace AutoAuction.Models.Vehicles
             this.VehicleDimensions = vehicleDimentions;
         }
         /// <summary>
-        /// Vehicle dimentions proberty and struct
+        /// Vehicle dimentions 
+        /// and struct
         /// </summary>
         public VehicleDimensionsStruct VehicleDimensions { get; set; }
         /// <summary>
