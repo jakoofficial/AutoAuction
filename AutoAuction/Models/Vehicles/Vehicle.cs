@@ -123,8 +123,27 @@ namespace AutoAuction.Models.Vehicles
         public new virtual string ToString()
         {
             StringBuilder sb = new StringBuilder();
+            sb.Append($"ID: {ID}, ");
+            sb.Append($"Name: {Name}, ");
+            sb.Append($"Km: {Km}, ");
+            sb.Append($"Registration Number: {RegistrationNumber}, ");
+            sb.Append($"Year: {Year}, ");
+            sb.Append($"New price: {NewPrice}, ");
+            if (HasTowbar == true)
+            {
+                sb.Append("Towbar: Yes, ");
+            }
+            else
+            {
+                sb.Append("Towbar: No");
+            }
+            sb.Append($"Engine size: {EngineSize}, ");
+            sb.Append($"Km/l: {KmPerLiter}, ");
+            sb.Append($"Fuel type: {FuelType.ToString()}, ");
+            sb.Append($"Drivers license required: {DriversLicense.ToString()}");
+            return sb.ToString();
             //TODO: V3 - Vehicle tostring
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }
