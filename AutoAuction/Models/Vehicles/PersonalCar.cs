@@ -27,6 +27,7 @@ namespace AutoAuction.Models.Vehicles
         {
             this.NumberOfSeat = numberOfSeat;
             this.TrunkDimensions = trunkDimensions;
+            this.DriversLicense = DriversLicenseEnum.B;
         }
         /// <summary>
         /// Number of seat property

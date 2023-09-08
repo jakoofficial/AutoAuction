@@ -9,7 +9,7 @@ namespace AutoAuction.Models.Vehicles
     public abstract class Vehicle
     {
         protected Vehicle(
-            uint id,
+            uint? id,
             string name,
             double km,
             string registrationNumber,
@@ -32,13 +32,12 @@ namespace AutoAuction.Models.Vehicles
             this.KmPerLiter = kmPerLiter;
             this.FuelType = fuelType;
             this.DriversLicense = driversLicense;
-            //TODO: V1 - Constructor for Vehicle
             //TODO: V2 - Add to database and set ID
         }
         /// <summary>
         /// ID field and property
         /// </summary>
-        public uint ID { get; private set; }
+        public uint? ID { get; private set; }
         /// <summary>
         /// Name field and property
         /// </summary>
@@ -113,7 +112,44 @@ namespace AutoAuction.Models.Vehicles
         /// </returns>
         private EnergyClassEnum GetEnergyClass()
         {
-            //TODO: V4 - Implement GetEnergyClass
+            if(Year <= 2010)
+            {
+                if(FuelType == FuelTypeEnum.Benzin)
+                {
+                    if (KmPerLiter >= 23) return EnergyClassEnum.A;
+                    else if (KmPerLiter >= 18 && KmPerLiter < 23) return EnergyClassEnum.B;
+                    else if (KmPerLiter >= 13 && KmPerLiter < 18) return EnergyClassEnum.C;
+                    else return EnergyClassEnum.D;
+                }
+
+                else
+                {
+                    if(KmPerLiter >= 18) return EnergyClassEnum.A;
+                    else if (KmPerLiter >= 14 && KmPerLiter <18) return EnergyClassEnum.B;
+                    else if (KmPerLiter >= 10 && KmPerLiter <14) return EnergyClassEnum.C;
+                    else return EnergyClassEnum.D;
+                }
+            }
+            else
+            {
+                if (FuelType == FuelTypeEnum.Benzin)
+                {
+                    if (KmPerLiter >= 25) return EnergyClassEnum.A;
+                    else if (KmPerLiter >= 20  && KmPerLiter <25) return EnergyClassEnum.B;
+                    else if (KmPerLiter >= 15 && KmPerLiter <20) return EnergyClassEnum.C;
+                    else return EnergyClassEnum.D;
+                }
+
+                else
+                {
+                    if (KmPerLiter >= 20) return EnergyClassEnum.A;
+                    else if (KmPerLiter >= 16 && KmPerLiter < 20) return EnergyClassEnum.B;
+                    else if (KmPerLiter >= 12 && KmPerLiter < 16) return EnergyClassEnum.C;
+                    else return EnergyClassEnum.D;
+                }
+            }
+
+
             throw new NotImplementedException();
         }
         /// <summary>
@@ -142,8 +178,6 @@ namespace AutoAuction.Models.Vehicles
             sb.Append($"Fuel type: {FuelType.ToString()}, ");
             sb.Append($"Drivers license required: {DriversLicense.ToString()}");
             return sb.ToString();
-            //TODO: V3 - Vehicle tostring
-            //throw new NotImplementedException();
         }
     }
 }
