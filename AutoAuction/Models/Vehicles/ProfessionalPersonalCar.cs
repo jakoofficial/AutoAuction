@@ -32,7 +32,6 @@ namespace AutoAuction.Models.Vehicles
                 DriversLicense = DriversLicenseEnum.BE;
             }
             //TODO: V17 - Add to database and set ID
-            throw new NotImplementedException();
         }
 
         /// <summary>
