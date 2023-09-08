@@ -9,7 +9,6 @@ namespace AutoAuction.Models.Vehicles
    public class Bus : HeavyVehicle
     {
         public Bus(
-            uint id,
             string name,
             double km,
             string registrationNumber,
@@ -23,7 +22,7 @@ namespace AutoAuction.Models.Vehicles
             DriversLicenseEnum driversLicense,
             ushort numberOfSeats,
             ushort numberOfSleepingSpaces,
-            bool hasToilet) : base(id, name, km, registrationNumber, year, newPrice, hasTowbar, engineSize, kmPerLiter, fuelType, driversLicense, vehicleDimension)
+            bool hasToilet) : base(0, name, km, registrationNumber, year, newPrice, hasTowbar, engineSize, kmPerLiter, fuelType, driversLicense, vehicleDimension)
         {
             if (HasTowbar)
             {
@@ -38,7 +37,6 @@ namespace AutoAuction.Models.Vehicles
             this.HasToilet = hasToilet;
             //TODO: V7 - set contructor and DriversLisence to DE if the car has a towbar or D if not.
             //TODO: V8 - Add to database and set ID
-            throw new NotImplementedException();
         }
         /// <summary>
         /// Engine size 
@@ -47,15 +45,15 @@ namespace AutoAuction.Models.Vehicles
         /// </summary>
         public override double EngineSize
         {
-            get { return EngineSize; }
+            get { return base.EngineSize; }
             set
             {
-                if (EngineSize < 4.2 || EngineSize > 15)
+                if (EngineSize < 4.2 && EngineSize > 15)
                 {
                     throw new ArgumentOutOfRangeException();
                 }
                 //V7 - TODO value must be between 4.2 and 15.0 L or cast an out of range exection.
-                EngineSize = value;
+                base.EngineSize = value;
             }
         }
         /// <summary>
@@ -86,7 +84,7 @@ namespace AutoAuction.Models.Vehicles
                 dsb.Append($"Toilet: No, ");
             }
             //TODO: V9 - Tostring for bus
-            throw new NotImplementedException();
+            return dsb.ToString();
         }
     }
 }
