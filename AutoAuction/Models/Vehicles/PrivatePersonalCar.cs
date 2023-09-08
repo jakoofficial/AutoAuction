@@ -26,8 +26,8 @@ namespace AutoAuction.Models.Vehicles
             : base(id, name, km, registrationNumber, year, newPrice, hasTowbar, engineSize, kmPerLiter, fuelType, numberOfSeat, driversLicense, trunkDimensions)
         {
             //TODO: V19 - PrivatePersonalCar constructor. DriversLicense should be 'B'
-            //TODO: V20 - Add to database and set ID
             this.HasIsofixFittings = hasIsofixFittings;
+            //TODO: V20 - Add to database and set ID
             //throw new NotImplementedException();
         }
         /// <summary>
@@ -41,7 +41,13 @@ namespace AutoAuction.Models.Vehicles
         public override string ToString()
         {
             //TODO: V21 - ToString for PrivatePersonalCar
-            throw new NotImplementedException();
+            StringBuilder psb = new StringBuilder($"{base.ToString()}, ");
+            string isoRes = "No";
+            if (this.HasIsofixFittings){ isoRes = "Yes"; }
+
+            psb.Append($"Isofix: {isoRes}");
+            //TODO: V12 - ToString for Truck
+            return psb.ToString();
         }
     }
 }

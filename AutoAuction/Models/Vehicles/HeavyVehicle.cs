@@ -20,7 +20,8 @@ namespace AutoAuction.Models.Vehicles
          double kmPerLiter,
          FuelTypeEnum fuelType,
          DriversLicenseEnum driversLicense,
-         VehicleDimensionsStruct vehicleDimension) : base(id, name, km, registrationNumber, year, newPrice, hasTowbar, engineSize, kmPerLiter, fuelType, driversLicense)
+         VehicleDimensionsStruct vehicleDimension) 
+         : base(id, name, km, registrationNumber, year, newPrice, hasTowbar, engineSize, kmPerLiter, fuelType, driversLicense)
         {
             this.VehicleDimensions = vehicleDimension;
         }

@@ -20,32 +20,47 @@ namespace AutoAuction.Models.Vehicles
             FuelTypeEnum fuelType,
             ushort numberOfSeat,
             DriversLicenseEnum driversLicense,
-            TrunkDimensionsStruct trunkDimentions,
+            TrunkDimensionsStruct trunkDimensions,
             bool hasSafetyBar,
             double loadCapacity)
-            : base(id, name, km, registrationNumber, year, newPrice, true, engineSize, kmPerLiter, fuelType, numberOfSeat, driversLicense, trunkDimentions)
+            : base(id, name, km, registrationNumber, year, newPrice, true, engineSize, kmPerLiter, fuelType, numberOfSeat, driversLicense, trunkDimensions)
         {
-            //TODO: V16 - ProfessionalPersonalCar constructor. DriversLicense should be 'B' if load capasity is below 750 otherwise it should be 'BE'
+            this.HasSafetyBar = hasSafetyBar;
+            this.LoadCapacity = loadCapacity;
+            if (loadCapacity > 750)
+            {
+                DriversLicense = DriversLicenseEnum.BE;
+            }
             //TODO: V17 - Add to database and set ID
-            throw new NotImplementedException();
         }
+
         /// <summary>
         /// Safety Bar 
-        /// 
         /// </summary>
         public bool HasSafetyBar { get; set; }
+
         /// <summary>
         /// Load Capacity property
         /// </summary>
         public double LoadCapacity { get; set; }
+
         /// <summary>
-        /// Returns the ProfessionalPersonalCar in a string with relivant information.
+        /// Returns the ProfessionalPersonalCar in a string with relevant information.
         /// </summary>
         /// <returns>The Veihcle as a string</returns>
         public override string ToString()
         {
-            //TODO: V18 - ToString for ProfessionalPersonalCar 
-            throw new NotImplementedException();
+            StringBuilder pCarString = new StringBuilder($"{base.ToString()}, ");
+            if (HasSafetyBar == true)
+            {
+                pCarString.Append("Safety bar: Yes, ");
+            }
+            else
+            {
+                pCarString.Append("Safety bar: No, ");
+            }
+            pCarString.Append($"Load capacity: {string.Format("{0:0.00}", LoadCapacity.ToString())}.");
+            return pCarString.ToString();
         }
     }
 }
