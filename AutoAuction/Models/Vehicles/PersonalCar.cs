@@ -9,6 +9,8 @@ namespace AutoAuction.Models.Vehicles
     public abstract class PersonalCar : Vehicle
     {
         protected PersonalCar(
+            //TODO: V14 Initialisering
+            uint id,
             string name,
             double km,
             string registrationNumber,
@@ -19,11 +21,12 @@ namespace AutoAuction.Models.Vehicles
             double kmPerLiter,
             FuelTypeEnum fuelType,
             ushort numberOfSeat,
-            TrunkDimentionsStruct trunkDimentions)
-            : base(name, km, registrationNumber, year, newPrice, hasTowbar, engineSize, kmPerLiter, fuelType)
+            DriversLicenseEnum driversLicense,
+            TrunkDimensionsStruct trunkDimensions)
+            : base(id, name, km, registrationNumber, year, newPrice, hasTowbar, engineSize, kmPerLiter, fuelType, driversLicense)
         {
             this.NumberOfSeat = numberOfSeat;
-            this.TrunkDimentions = trunkDimentions;
+            this.TrunkDimensions = trunkDimensions;
         }
         /// <summary>
         /// Number of seat property
@@ -32,10 +35,10 @@ namespace AutoAuction.Models.Vehicles
         /// <summary>
         /// Trunk dimentions property and struct
         /// </summary>
-        public TrunkDimentionsStruct TrunkDimentions { get; set; }
-        public readonly struct TrunkDimentionsStruct
+        public TrunkDimensionsStruct TrunkDimensions { get; set; }
+        public readonly struct TrunkDimensionsStruct
         {
-            public TrunkDimentionsStruct(double height, double width, double depth)
+            public TrunkDimensionsStruct(double height, double width, double depth)
             {
                 Height = height;
                 Width = width;
@@ -55,9 +58,10 @@ namespace AutoAuction.Models.Vehicles
             get { return EngineSize; }
             set
             {
-                //TODO: V13 - EngineSize: must be between 0.7 and 10.0 L or cast an out of range exection.
-                throw new NotImplementedException();
-
+                if (EngineSize < 0.7 && EngineSize > 10)
+                {
+                    throw new ArgumentOutOfRangeException("Engine must be between 0.7 and 10.0 L.");
+                }
                 EngineSize = value;
             }
         }
@@ -66,8 +70,10 @@ namespace AutoAuction.Models.Vehicles
         /// </summary>
         public override string ToString()
         {
-            //TODO: V15 - ToString for PersonalCar
-            throw new NotImplementedException();
+            StringBuilder pCarString = new StringBuilder($"{base.ToString()}, ");
+            pCarString.Append($"Seats: {NumberOfSeat}, ");
+            pCarString.Append($"Trunk Dimensions: {TrunkDimensions.ToString()}, ");
+            return pCarString.ToString();
         }
     }
 }

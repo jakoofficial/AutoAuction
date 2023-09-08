@@ -49,13 +49,11 @@ namespace AutoAuction.Models.Vehicles
         /// Returns the HeavyVehicle in a string with relevant information.
         /// </summary>
         ///
-
         public override string ToString()
         {
             StringBuilder VehicleString = new StringBuilder($"{base.ToString()}, ");
             VehicleString.Append($"Vehicle Dimensions: {VehicleDimensions.ToString()}");
             return VehicleString.ToString();
-            //throw new NotImplementedException();
         }
     }
 }
