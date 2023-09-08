@@ -13,7 +13,7 @@ namespace AutoAuction.Models.Vehicles
             string name,
             double km,
             string registrationNumber,
-            int year,
+            ushort year,
             decimal newPrice,
             bool hasTowbar,
             double engineSize,
@@ -53,7 +53,7 @@ namespace AutoAuction.Models.Vehicles
         /// <summary>
         /// Year field and property
         /// </summary>
-        public int Year { get; set; }
+        public ushort Year { get; set; }
         /// <summary>
         /// New price field and property
         /// </summary>
