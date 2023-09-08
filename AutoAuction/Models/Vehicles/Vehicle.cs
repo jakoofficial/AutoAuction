@@ -185,7 +185,7 @@ namespace AutoAuction.Models.Vehicles
             }
             sb.Append($"Engine size: {EngineSize}, ");
             sb.Append($"Km/l: {KmPerLiter}, ");
-            sb.Append($"EnergyClass: {EnergyClass}");
+            sb.Append($"EnergyClass: {EnergyClass}, ");
             sb.Append($"Fuel type: {FuelType.ToString()}, ");
             sb.Append($"Drivers license required: {DriversLicense.ToString()}");
             return sb.ToString();
