@@ -19,8 +19,11 @@ namespace AutoAuction.Models
         public Auction(Vehicle vehicle, ISeller seller, decimal minimumPrice)
         {
             //TODO: A1 - Set constructor
+            //ID set from DB
+            this.Vehicle = vehicle;
+            this.Seller = seller;
+            this.MinimumPrice = minimumPrice;
             //TODO: A2 - Add to database and set ID
-            throw new NotImplementedException();
         }
         /// <summary>
         /// ID of the auction
@@ -46,6 +49,21 @@ namespace AutoAuction.Models
         /// The buyer or potential buyer of the auction
         /// </summary>
         internal IBuyer Buyer { get; set; }
+
+        public int SetForSale(Vehicle vechicle, ISeller seller, decimal minPris)
+        {
+            return 0;
+        }
+        //public int SetForSale(Vehicle vechicle, ISeller seller, decimal minPris, notifikationsmetode)
+        //{
+        //    return 0;
+        //}
+        public bool RecieveBid(IBuyer buyer, int actionNumber, decimal bid)
+        {
+            return false;
+        }
+
+
         public override string ToString()
         {
             throw new NotImplementedException();
