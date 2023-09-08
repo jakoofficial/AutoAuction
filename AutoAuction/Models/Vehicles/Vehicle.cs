@@ -32,6 +32,7 @@ namespace AutoAuction.Models.Vehicles
             this.KmPerLiter = kmPerLiter;
             this.FuelType = fuelType;
             this.DriversLicense = driversLicense;
+            this._energyClass = GetEnergyClass();
             //TODO: V2 - Add to database and set ID
         }
         /// <summary>
@@ -93,10 +94,19 @@ namespace AutoAuction.Models.Vehicles
             Diesel,
             Benzin
         }
+
+        private EnergyClassEnum _energyClass;
         /// <summary>
         /// Engery class Enum, field and property
         /// </summary>
-        public EnergyClassEnum EnergyClass { get { return EnergyClass; } set => GetEnergyClass(); }
+        public EnergyClassEnum EnergyClass
+        {
+            get { return _energyClass; }
+            set
+            {
+                _energyClass = GetEnergyClass();
+            }
+        }
         public enum EnergyClassEnum
         {
             A,
@@ -175,6 +185,7 @@ namespace AutoAuction.Models.Vehicles
             }
             sb.Append($"Engine size: {EngineSize}, ");
             sb.Append($"Km/l: {KmPerLiter}, ");
+            sb.Append($"EnergyClass: {EnergyClass}, ");
             sb.Append($"Fuel type: {FuelType.ToString()}, ");
             sb.Append($"Drivers license required: {DriversLicense.ToString()}");
             return sb.ToString();
