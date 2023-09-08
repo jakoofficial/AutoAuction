@@ -55,14 +55,14 @@ namespace AutoAuction.Models.Vehicles
         /// </summary>
         public override double EngineSize
         {
-            get { return EngineSize; }
+            get { return base.EngineSize; }
             set
             {
-                if (EngineSize < 0.7 && EngineSize > 10)
+                if (base.EngineSize < 0.7 && base.EngineSize > 10)
                 {
                     throw new ArgumentOutOfRangeException("Engine must be between 0.7 and 10.0 L.");
                 }
-                EngineSize = value;
+                base.EngineSize = value;
             }
         }
         /// <summary>
