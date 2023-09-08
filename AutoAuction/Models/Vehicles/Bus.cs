@@ -18,10 +18,10 @@ namespace AutoAuction.Models.Vehicles
             double engineSize,
             double kmPerLiter,
             FuelTypeEnum fuelType,
-            VehicleDimensionsStruct vehicleDimentions,
+            VehicleDimensionsStruct vehicleDimensions,
             ushort numberOfSeats,
             ushort numberOfSleepingSpaces,
-            bool hasToilet) : base(name, km, registrationNumber, year, newPrice, hasTowbar, engineSize, kmPerLiter, fuelType, vehicleDimentions)
+            bool hasToilet) : base(name, km, registrationNumber, year, newPrice, hasTowbar, engineSize, kmPerLiter, fuelType, vehicleDimensions)
         {
             this.NumberOfSeats = numberOfSeats;
             this.NumberOfSleepingSpaces = numberOfSleepingSpaces;
