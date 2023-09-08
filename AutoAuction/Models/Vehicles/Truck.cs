@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AutoAuction.Models.Vehicles
 {
-    class Truck : HeavyVehicle
+    public class Truck : HeavyVehicle
     {
         public Truck(
             string name,
@@ -18,12 +18,16 @@ namespace AutoAuction.Models.Vehicles
             double engineSize,
             double kmPerLiter,
             FuelTypeEnum fuelType,
-            VehicleDimensionsStruct vehicleDimentions,
-            double LoadCapacity) : base(name, km, registrationNumber, year, newPrice, hasTowbar, engineSize, kmPerLiter, fuelType, vehicleDimentions)
+            VehicleDimensionsStruct vehicleDimensions,
+            DriversLicenseEnum driversLicense,
+            double LoadCapacity) : base(0, name, km, registrationNumber, year, newPrice, hasTowbar, engineSize, kmPerLiter, fuelType, driversLicense, vehicleDimensions)
         {
+            if (hasTowbar) { this.DriversLicense = DriversLicenseEnum.CE; }
+            else { this.DriversLicense = DriversLicenseEnum.C; }
+            this.VehicleDimensions = vehicleDimensions;
+            this.LoadCapacity = LoadCapacity;
             //TODO: V10 - Constructor for Truck, DriversLisence should be CE if the truck has a towbar, otherwise it should be C
             //TODO: V11 - Add to database and set ID
-            throw new NotImplementedException();
         }
         /// <summary>
         /// Engine size 
@@ -34,13 +38,15 @@ namespace AutoAuction.Models.Vehicles
         /// <returns>The size the the engine as a double</returns>
         public override double EngineSize
         {
-            get { return EngineSize; }
+            get { return base.EngineSize; }
             set
             {
                 //TODO: V10 - EngineSize must be between 4.2 and 15.0 L or cast an out of range exection.
-                throw new NotImplementedException();
-
-                EngineSize = value;
+                if (base.EngineSize < 4.2 && base.EngineSize > 15.0)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+                base.EngineSize = value;
             }
         }
         /// <summary>
@@ -52,8 +58,10 @@ namespace AutoAuction.Models.Vehicles
         /// </summary>
         public override string ToString()
         {
-            //TODO: V12 - ToString for Truck 
-            throw new NotImplementedException();
+            StringBuilder tsb = new StringBuilder($"{base.ToString()}, ");
+            tsb.Append($"Load Capacity: {this.LoadCapacity}");
+            //TODO: V12 - ToString for Truck
+            return tsb.ToString();
         }
     }
 }
