@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.FileIO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace AutoAuction.Models
 {
@@ -21,6 +23,10 @@ namespace AutoAuction.Models
     {
         protected User(string userName, string password, uint zipCode)
         {
+            this.UserName = userName;
+            this.Password = password;
+            this.ZipCode = zipCode;
+
             //TODO: U1 - Set constructor and field
 
             HashAlgorithm sha = SHA256.Create();
@@ -33,6 +39,9 @@ namespace AutoAuction.Models
         /// ID property
         /// </summary>
         public uint ID { get; private set; }
+        public string UserName { get; private set; }
+        public string Password { get; private set; }
+        public uint ZipCode { get; private set; }
         /// <summary>
         /// PasswordHash property
         /// </summary>
@@ -61,8 +70,14 @@ namespace AutoAuction.Models
         /// <returns>...</returns>
         public override string ToString()
         {
-            //TODO: U3 - ToString for User
-            throw new NotImplementedException();
+            StringBuilder sb = new StringBuilder();
+            sb.Append($"ID: {ID}, ");
+            sb.Append($"Username: {UserName}, ");
+            sb.Append($"Password: {Password}, ");
+            sb.Append($"ZipCode: {ZipCode}, ");
+            sb.Append($"PasswordHash: {PasswordHash}, ");
+            return sb.ToString();
+            //TODO: U3 - ToString for 
         }
     }
 }
