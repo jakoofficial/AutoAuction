@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualBasic.FileIO;
+﻿using AutoAuction.Interfaces;
+using Microsoft.VisualBasic.FileIO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace AutoAuction.Models
     privat og company som klasser
      */
 
-    public abstract class User //TODO: U4 - Implement interfaces
+    public abstract class User : ISeller, IBuyer //TODO: U4 - Implement interfaces
     {
         protected User(string userName, string password, uint zipCode)
         {
@@ -28,12 +29,41 @@ namespace AutoAuction.Models
             this.ZipCode = zipCode;
 
             //TODO: U1 - Set constructor and field
+            makePasswordHash(password);
+        }
 
+        
+        /// <summary>
+        /// Construntor for a Buyer and Seller
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="password"></param>
+        /// <param name="zipCode"></param>
+        /// <param name="balance"></param>
+        protected User(string userName, string password, uint zipCode, decimal balance)
+        {
+            this.UserName = userName;
+            this.Password = password;
+            this.ZipCode = zipCode;
+            this.Balance = balance;
+            makePasswordHash(password);
+        }
+
+        /// <summary>
+        /// Construntor for a User - Buyer 
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="password"></param>
+        /// <param name="zipCode"></param>
+        /// <param name="balance"></param>
+
+        private bool makePasswordHash(string password)
+        {
             HashAlgorithm sha = SHA256.Create();
             byte[] result = sha.ComputeHash(Encoding.ASCII.GetBytes(password));
             PasswordHash = result;
 
-            throw new NotImplementedException();
+            return (PasswordHash == result);
         }
         /// <summary>
         /// ID property
@@ -46,6 +76,11 @@ namespace AutoAuction.Models
         /// PasswordHash property
         /// </summary>
         private byte[] PasswordHash { get; set; }
+        string IBuyer.UserName { get; set; } // TODO: Check if this needs to get deleted or kept because of already created prop with name UserName
+        public decimal Balance { get; set; }
+        string ISeller.UserName { get; set; }
+        public uint Zipcode { get; set; }
+
         /// <summary>
         /// A method that ...
         /// </summary>
@@ -64,6 +99,7 @@ namespace AutoAuction.Models
 
         //TODO: U4 - Implement interface proberties and methods.
 
+
         /// <summary>
         /// Returns the User in a string with relivant information.
         /// </summary>
@@ -78,6 +114,11 @@ namespace AutoAuction.Models
             sb.Append($"PasswordHash: {PasswordHash}, ");
             return sb.ToString();
             //TODO: U3 - ToString for 
+        }
+
+        public string ReceiveBidNotification(string message)
+        {
+            throw new NotImplementedException();
         }
     }
 }
