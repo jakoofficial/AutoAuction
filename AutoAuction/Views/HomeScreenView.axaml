@@ -7,8 +7,10 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="AutoAuction.Views.HomeScreenView">
 	<Grid>
-		<DataGrid ItemsSource="{Binding _d}">
-			
+		<DataGrid ItemsSource="{Binding _d}" IsReadOnly="True">
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="Name" Binding="{Binding Vehicle}"/>
+			</DataGrid.Columns>			
 		</DataGrid>
 	</Grid>
 </UserControl>

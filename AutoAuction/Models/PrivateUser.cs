@@ -15,5 +15,6 @@ namespace AutoAuction.Models
             throw new NotImplementedException();
         }
         public uint CPRNumber { get; set; }
+
     }
 }
