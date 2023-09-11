@@ -54,19 +54,31 @@ namespace AutoAuction.Models
         {
             return 0;
         }
-        //public int SetForSale(Vehicle vechicle, ISeller seller, decimal minPris, notifikationsmetode)
-        //{
-        //    return 0;
-        //}
+        
+        public int SetForSale(Vehicle vechicle, ISeller seller, decimal minPris, string notificationMessage)
+        {
+            //TODO: Add the notification function
+            return 0;
+        }
+
         public bool RecieveBid(IBuyer buyer, int actionNumber, decimal bid)
         {
             return false;
         }
 
-
-        public override string ToString()
+        public bool AcceptBid(ISeller seller, int auctionNumber)
         {
-            throw new NotImplementedException();
+            return false;
         }
+
+        public Auction FindAuctionById(uint auctionID)
+        {
+            return this;
+        }
+
+        //public override string ToString()
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }
