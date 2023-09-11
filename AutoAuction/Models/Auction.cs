@@ -75,7 +75,7 @@ namespace AutoAuction.Models
         {
             foreach (var auction in AuctionHouse.Auctions)
             {
-                if (auctionID == 1)
+                if (auctionID == auction.ID)
                 {
                     return auction;
                 }
