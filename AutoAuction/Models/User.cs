@@ -32,8 +32,6 @@ namespace AutoAuction.Models
             HashAlgorithm sha = SHA256.Create();
             byte[] result = sha.ComputeHash(Encoding.ASCII.GetBytes(password));
             PasswordHash = result;
-
-            throw new NotImplementedException();
         }
         /// <summary>
         /// ID property
