@@ -16,7 +16,7 @@ namespace AutoAuction.Models
         /// <param name="vehicle"></param>
         /// <param name="seller"></param>
         /// <param name="minimumPrice"></param>
-        public Auction(Vehicle vehicle, ISeller seller, decimal minimumPrice)
+        public Auction(Vehicle vehicle, ISeller? seller, decimal minimumPrice)
         {
             //TODO: A1 - Set constructor
             //ID set from DB
@@ -71,9 +71,17 @@ namespace AutoAuction.Models
             return false;
         }
 
-        public Auction FindAuctionById(uint auctionID)
+        public static Auction FindAuctionById(uint auctionID)
         {
-            return this;
+            foreach (var auction in AuctionHouse.Auctions)
+            {
+                if (auctionID == 1)
+                {
+                    return auction;
+                }
+            }
+
+            return null;
         }
 
         //public override string ToString()
