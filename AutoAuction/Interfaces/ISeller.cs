@@ -25,6 +25,6 @@ namespace AutoAuction.Interfaces
         /// </summary>
         /// <param name="message"></param>
         /// <returns> The message </returns>
-        string ReceiveBidNodification(string message);
+        string ReceiveBidNotification(string message);
     }
 }
