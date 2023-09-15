@@ -1,8 +1,11 @@
-﻿using System;
+﻿using AutoAuction.DatabaseFiles;
+using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tmds.DBus.Protocol;
 
 namespace AutoAuction.Models.Vehicles
 {
@@ -34,6 +37,33 @@ namespace AutoAuction.Models.Vehicles
             this.DriversLicense = driversLicense;
             this._energyClass = GetEnergyClass();
             //TODO: V2 - Add to database and set ID
+        }
+        protected Vehicle(uint id) 
+        {
+            SqlConnection con = new(Database.Instance.ConnectionString);
+            using (con)
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand($"exec GetVehicle {id}", con);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        this.ID = Convert.ToUInt32(reader.GetInt32(0));
+                        this.Name = reader.GetString(1);
+                        this.RegistrationNumber = reader.GetString(2);
+                        this.Year = (ushort)reader.GetInt32(3);
+                        this.NewPrice = reader.GetDecimal(4);
+                        this.HasTowbar= reader.GetBoolean(5);
+                        this.EngineSize = reader.GetDouble(6);
+                        this.KmPerLiter= reader.GetDouble(7);
+                        this.FuelType = (FuelTypeEnum)reader.GetInt32(8);
+                        this.DriversLicense = (DriversLicenseEnum)reader.GetInt32(9);
+
+                    }
+                }
+            }
         }
         /// <summary>
         /// ID field and property
