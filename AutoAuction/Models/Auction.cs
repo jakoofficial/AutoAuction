@@ -52,9 +52,17 @@ namespace AutoAuction.Models
 
         public int SetForSale(Vehicle vechicle, ISeller seller, decimal minPris)
         {
+
+
+            //Returns a unique auction number
             return 0;
         }
         
+        private int generateAuctionNumber()
+        {
+            return 0;
+        }
+
         public int SetForSale(Vehicle vechicle, ISeller seller, decimal minPris, string notificationMessage)
         {
             //TODO: Add the notification function
