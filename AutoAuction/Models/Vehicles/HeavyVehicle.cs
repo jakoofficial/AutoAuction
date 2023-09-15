@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ReactiveUI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,12 @@ namespace AutoAuction.Models.Vehicles
          : base(id, name, km, registrationNumber, year, newPrice, hasTowbar, engineSize, kmPerLiter, fuelType, driversLicense)
         {
             this.VehicleDimensions = vehicleDimension;
+        }
+        public HeavyVehicle(uint id) : base(5)
+        {
+            //TODO: REDO
+            this.VehicleDimensions = new VehicleDimensionsStruct();
+            
         }
         /// <summary>
         /// Vehicle dimensions
