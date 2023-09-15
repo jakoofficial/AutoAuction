@@ -6,16 +6,14 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="AutoAuction.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-		xmlns:ssss="using:AutoAuction.Views"
+		xmlns:Views="using:AutoAuction.Views"
         Icon="/Assets/avalonia-logo.ico"
-        Title="Auction House">
-
-    <!--<Design.DataContext>
-        --><!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) --><!--
-        <vm:MainWindowViewModel/>
-    </Design.DataContext>-->
-	<ssss:HomeScreenView/>
-    <!--<TextBlock Text="xaml" HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
-
+        Title="Auction House"
+		Width="1200" Height="700"
+		MinWidth="900" MinHeight="600">
+	<Grid>
+		<Views:LoginView/>
+		<!--<Views:HomeScreenView/>-->
+		<!--<Views:CreateUserView/>-->
+	</Grid>
 </Window>
