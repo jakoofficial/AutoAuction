@@ -29,7 +29,7 @@ namespace AutoAuction.Models.Vehicles
             //TODO: V10 - Constructor for Truck, DriversLisence should be CE if the truck has a towbar, otherwise it should be C
             //TODO: V11 - Add to database and set ID
         }
-        public Truck(uint id) : base(5)
+        public Truck(uint id) : base(id)
         {
             //TODO: REDO
             this.LoadCapacity = 15;
