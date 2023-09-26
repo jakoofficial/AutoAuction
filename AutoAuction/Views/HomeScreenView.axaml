@@ -5,11 +5,10 @@
 			 xmlns:vm="using:AutoAuction.ViewModels"
 			 x:DataType="vm:HomeScreenViewModel"
              mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="700"
-			 
              x:Class="AutoAuction.Views.HomeScreenView">
 	<Grid ColumnDefinitions="4*, 1*" RowDefinitions="1*, 1*">
 
-		<Label Content="Your auctions" FontSize="30" Grid.Row="0" Margin="10 10 0 0"/>
+		<Label Content="Your auctions" FontSize="25" Grid.Row="0" Margin="10 10 0 0"/>
 		<DataGrid ItemsSource="{Binding _d}"
           IsReadOnly="True"
           CanUserReorderColumns="False"
@@ -26,7 +25,7 @@
 			</DataGrid.Columns>
 		</DataGrid>
 
-		<Label Content="Current auctions" FontSize="30" Grid.Row="1" Margin="10 10 0 0"/>
+		<Label Content="Current auctions" FontSize="25" Grid.Row="1" Margin="10 10 0 0"/>
 
 		<DataGrid ItemsSource="{Binding _d}"
           IsReadOnly="True"
