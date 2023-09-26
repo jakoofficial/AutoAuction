@@ -31,7 +31,7 @@ GO
 CREATE TABLE ProfessionalPersonalCar (
     professionalPersonalCarId INT IDENTITY(1, 1) NOT NULL PRIMARY KEY,
     personalCarId INT NOT NULL,
-    hasSafetyBar INT NOT NULL,
+    hasSafetyBar BIT NOT NULL,
     loadCapacity FLOAT NOT NULL,
     FOREIGN KEY (personalCarId) REFERENCES PersonalCar (personalCarId) ON DELETE CASCADE
 );
@@ -108,9 +108,7 @@ CREATE TABLE CorporateUser (
 );
 
 USE AutoAuction
-DROP TABLE IF EXISTS dbo.Auction
 GO
-
 CREATE TABLE dbo.Auction(
 	auctionId int IDENTITY(1,1) Primary key,
 	auctionNumber int unique not null,
@@ -119,4 +117,16 @@ CREATE TABLE dbo.Auction(
 	vehicleId int not null,
 	seller varchar(max) not null,
 	buyer varchar(max),
+);
+
+USE AutoAuction
+GO
+CREATE TABLE BidHistory (
+    bidId INT IDENTITY(1, 1) NOT NULL PRIMARY KEY,
+    bidDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+    bidAmount INT NOT NULL,
+    Username VARCHAR(300) NOT NULL,
+    auctionId INT NOT NULL,
+    FOREIGN KEY (auctionId) REFERENCES Auction (auctionId) ON DELETE CASCADE,
+    FOREIGN KEY (Username) REFERENCES UserTable (Username) ON DELETE CASCADE
 );
