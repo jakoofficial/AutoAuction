@@ -45,18 +45,7 @@ namespace AutoAuction.Models.Vehicles
                 {
                     while (reader.Read())
                     {
-                        //this.ID = Convert.ToUInt32(reader.GetInt32(0));
-                        this.Name = reader.GetString(1);
-                        this.Km = reader.GetDouble(2);
-                        this.RegistrationNumber = reader.GetString(3);
-                        this.Year = (ushort)reader.GetInt32(4);
-                        this.NewPrice = reader.GetDecimal(5);
-                        this.HasTowbar = reader.GetBoolean(6);
-                        this.EngineSize = reader.GetDouble(7);
-                        this.KmPerLiter = reader.GetDouble(8);
-                        this.FuelType = (FuelTypeEnum)reader.GetInt32(9);
-                        this.DriversLicense = (DriversLicenseEnum)reader.GetInt32(10);
-                        this.LoadCapacity = (double)reader.GetDouble(18);
+                        this.LoadCapacity = (double)reader.GetDouble(0);
                     }
                 }
             }
