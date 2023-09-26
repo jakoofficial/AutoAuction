@@ -1,5 +1,7 @@
-﻿using System;
+﻿using AutoAuction.DatabaseFiles;
+using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,6 +31,26 @@ namespace AutoAuction.Models.Vehicles
             //TODO: V10 - Constructor for Truck, DriversLisence should be CE if the truck has a towbar, otherwise it should be C
             //TODO: V11 - Add to database and set ID
         }
+        public Truck(uint id) : base (id)
+        {
+            //TODO: REDO
+
+            SqlConnection con = new(Database.Instance.ConnectionString);
+            using (con)
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand($"exec GetTruck {id}", con);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        this.LoadCapacity = (double)reader.GetDouble(0);
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// Engine size 
         /// 
