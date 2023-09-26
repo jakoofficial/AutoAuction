@@ -1,5 +1,7 @@
-﻿using System;
+﻿using AutoAuction.DatabaseFiles;
+using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,6 +34,25 @@ namespace AutoAuction.Models.Vehicles
                 DriversLicense = DriversLicenseEnum.BE;
             }
             //TODO: V17 - Add to database and set ID
+        }
+
+        public ProfessionalPersonalCar(uint id) : base(id)
+        {
+            SqlConnection con = new(Database.Instance.ConnectionString);
+            using (con)
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand($"exec GetPrivatePersonalCar {id}", con);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        this.LoadCapacity = reader.GetDouble(1);
+                        this.HasSafetyBar = reader.GetBoolean(2);
+                    }
+                }
+            }
         }
 
         /// <summary>

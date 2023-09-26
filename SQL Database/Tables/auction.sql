@@ -5,7 +5,6 @@ GO
 
 CREATE TABLE dbo.Auction(
 	auctionId int IDENTITY(1,1) Primary key,
-	auctionNumber int unique not null,
 	minimumPrice decimal(18,0) not null,
 	standingBid decimal(18,0) not null,
 	vehicleId int not null,
