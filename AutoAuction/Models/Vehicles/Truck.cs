@@ -1,5 +1,7 @@
-﻿using System;
+﻿using AutoAuction.DatabaseFiles;
+using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,10 +31,35 @@ namespace AutoAuction.Models.Vehicles
             //TODO: V10 - Constructor for Truck, DriversLisence should be CE if the truck has a towbar, otherwise it should be C
             //TODO: V11 - Add to database and set ID
         }
-        public Truck(uint id) : base(id)
+        public Truck(uint id) : base (id)
         {
             //TODO: REDO
-            this.LoadCapacity = 15;
+
+            SqlConnection con = new(Database.Instance.ConnectionString);
+            using (con)
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand($"exec GetTruck {id}", con);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        //this.ID = Convert.ToUInt32(reader.GetInt32(0));
+                        this.Name = reader.GetString(1);
+                        this.Km = reader.GetDouble(2);
+                        this.RegistrationNumber = reader.GetString(3);
+                        this.Year = (ushort)reader.GetInt32(4);
+                        this.NewPrice = reader.GetDecimal(5);
+                        this.HasTowbar = reader.GetBoolean(6);
+                        this.EngineSize = reader.GetDouble(7);
+                        this.KmPerLiter = reader.GetDouble(8);
+                        this.FuelType = (FuelTypeEnum)reader.GetInt32(9);
+                        this.DriversLicense = (DriversLicenseEnum)reader.GetInt32(10);
+                        this.LoadCapacity = (double)reader.GetDouble(18);
+                    }
+                }
+            }
         }
 
         /// <summary>
