@@ -59,7 +59,7 @@ namespace AutoAuction.DatabaseFiles
                 }
             }
 
-            return new CorporateUser("as", "asd", 2000, 1234567890, 100, 0);
+            throw new ArgumentException(String.Format("{0} is not a recognized username!", username));
         }
 
         public string ExecScalar(string command)
