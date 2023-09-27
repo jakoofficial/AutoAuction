@@ -1,4 +1,4 @@
-alter PROCEDURE CreateUser @username varchar(300), @password varchar(max)
+CREATE PROCEDURE CreateUser @username varchar(300), @password varchar(max)
 AS
 EXEC ('CREATE LOGIN ' + @username + ' WITH PASSWORD = ''' + @password+''', CHECK_POLICY = OFF; ')
 
