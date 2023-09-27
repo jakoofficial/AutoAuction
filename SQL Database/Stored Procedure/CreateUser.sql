@@ -1,5 +1,7 @@
 CREATE PROCEDURE CreateUser @username varchar(300), @password varchar(max)
 AS
+set xact_abort, nocount on;
+
 EXEC ('CREATE LOGIN ' + @username + ' WITH PASSWORD = ''' + @password+''', CHECK_POLICY = OFF; ')
 
 EXEC ('CREATE USER ' + @username + ' FOR login ' + @username+';') 

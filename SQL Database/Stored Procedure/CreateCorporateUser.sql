@@ -1,5 +1,6 @@
 CREATE PROCEDURE CreateCorporateUser @username varchar(300), @password varchar(max), @CVRNumber int
 as
+set xact_abort, nocount on;
 
 EXEC ('CreateUser ''' + @username + ''', ''' + @password + ''' ')
 
