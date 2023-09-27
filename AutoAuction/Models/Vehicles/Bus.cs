@@ -54,8 +54,8 @@ namespace AutoAuction.Models.Vehicles
                     while (reader.Read())
                     {
                         this.HasToilet = reader.GetBoolean(0);
-                        this.NumberOfSeats = (ushort)reader.GetInt16(1);
-                        this.NumberOfSleepingSpaces = (ushort)reader.GetInt16(2);
+                        this.NumberOfSeats = (ushort)reader.GetInt32(1);
+                        this.NumberOfSleepingSpaces = (ushort)reader.GetInt32(2);
                     }
                 }
             }
