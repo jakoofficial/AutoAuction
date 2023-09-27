@@ -1,10 +1,12 @@
 ﻿using AutoAuction.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tmds.DBus.Protocol;
 
 namespace AutoAuction.DatabaseFiles
 {
@@ -16,17 +18,48 @@ namespace AutoAuction.DatabaseFiles
         public string ConnectionString = "Server=docker.data.techcollege.dk, 20001;" +
                                   "Database=AutoAuction;" +
                                   "User Id=Username;" +
-                                  "Password=Password4;";
+                                  "Password=Password;";
 
         static Database()
         {
             Instance = new Database();
         }
 
-        public static User GetUser()
+        public static User GetUser(string username)
         {
 
-            return new CorporateUser("as","asd", 2000, 1234567890, 100, 0);
+            SqlConnection con = new(Database.Instance.ConnectionString);
+            using (con)
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand($"exec GetUser {username}", con);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        if (reader.GetBoolean(1) == true)
+                        {
+                            return new CorporateUser(username, "", 
+                                (uint)reader.GetInt32(2),
+                                (uint)reader.GetInt32(6),
+                                reader.GetDecimal(3),
+                                reader.GetDecimal(4));
+                        }
+                        else if (reader.GetBoolean(1) == false)
+                        {
+                            return new PrivateUser(username, "", 
+                            (uint)reader.GetInt32(2),
+                            (uint)reader.GetInt32(6),
+                            reader.GetDecimal(4));
+
+                        }
+
+                    }
+                }
+            }
+
+            return new CorporateUser("as", "asd", 2000, 1234567890, 100, 0);
         }
 
         public string ExecScalar(string command)
