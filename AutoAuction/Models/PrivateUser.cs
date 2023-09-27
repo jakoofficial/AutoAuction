@@ -14,7 +14,6 @@ namespace AutoAuction.Models
             this.Balance = balance;
             //TODO: U10 - Set constructor
             //TODO: U11 - Add to database and set ID
-            throw new NotImplementedException();
         }
         public uint CPRNumber { get; set; }
         private decimal _balance;
