@@ -1,5 +1,7 @@
-﻿using System;
+﻿using AutoAuction.DatabaseFiles;
+using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,8 +29,26 @@ namespace AutoAuction.Models.Vehicles
         {
             //TODO: V19 - PrivatePersonalCar constructor. DriversLicense should be 'B'
             this.HasIsofixFittings = hasIsofixFittings;
-            //TODO: V20 - Add to database and set ID
+            //TODO: V20 - Add to database and set ID GetPrivatePersonalCar
             //throw new NotImplementedException();
+        }
+
+        public PrivatePersonalCar(uint id) : base(id)
+        {
+            SqlConnection con = new(Database.Instance.ConnectionString);
+            using (con)
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand($"exec GetPrivatePersonalCar {id}", con);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        this.HasIsofixFittings = reader.GetBoolean(1);
+                    }
+                }
+            }
         }
         /// <summary>
         /// Isofix Fittings 

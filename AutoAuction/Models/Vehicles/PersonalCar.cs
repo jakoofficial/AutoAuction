@@ -1,8 +1,11 @@
-﻿using System;
+﻿using AutoAuction.DatabaseFiles;
+using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static AutoAuction.Models.Vehicles.HeavyVehicle;
 
 namespace AutoAuction.Models.Vehicles
 {
@@ -29,6 +32,28 @@ namespace AutoAuction.Models.Vehicles
             this.TrunkDimensions = trunkDimensions;
             this.DriversLicense = DriversLicenseEnum.B;
         }
+
+        public PersonalCar(uint id) : base(id)
+        {
+            //TODO: REDO
+
+            SqlConnection con = new(Database.Instance.ConnectionString);
+            using (con)
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand($"exec GetPersonalCar {id}", con);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        this.NumberOfSeat = (ushort)reader.GetInt32(1);
+                        this.TrunkDimensions = new TrunkDimensionsStruct(reader.GetDouble(2), reader.GetDouble(3), reader.GetDouble(4));
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// Number of seat property
         /// </summary>

@@ -14,7 +14,6 @@ namespace AutoAuction.Models
             this.Balance = balance;
             //TODO: U10 - Set constructor
             //TODO: U11 - Add to database and set ID
-            throw new NotImplementedException();
         }
         public uint CPRNumber { get; set; }
         private decimal _balance;
@@ -26,13 +25,21 @@ namespace AutoAuction.Models
             {
                 if (value < 0)
                 {
-                    //TODO: if the number is too big
+                    //TODO: if the number is too small
                 }
                 else
                 {
                     _balance = value;
                 }
             }
+        }
+
+        public override string ToString()
+        {
+            StringBuilder tsb = new StringBuilder($"{base.ToString()}, ");
+            tsb.Append($"CVRNumber: {this.CPRNumber}");
+            //TODO: CHECK if balance shows corretly from User.
+            return tsb.ToString();
         }
     }
 }

@@ -32,5 +32,12 @@ namespace AutoAuction.Models
 
             return true;
         }
+        public override string ToString()
+        {
+            StringBuilder tsb = new StringBuilder($"{base.ToString()}, ");
+            tsb.Append($"CVRNumber: {this.CVRNumber}");
+            tsb.Append($"Credit: {this.Credit}");
+            return tsb.ToString();
+        }
     }
 }
