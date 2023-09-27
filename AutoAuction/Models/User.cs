@@ -112,6 +112,7 @@ namespace AutoAuction.Models
             sb.Append($"Password: {Password}, ");
             sb.Append($"ZipCode: {ZipCode}, ");
             sb.Append($"PasswordHash: {PasswordHash}, ");
+            sb.Append($"balance: {Balance}");
             return sb.ToString();
             //TODO: U3 - ToString for 
         }
