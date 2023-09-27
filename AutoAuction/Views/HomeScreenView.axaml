@@ -4,11 +4,49 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:vm="using:AutoAuction.ViewModels"
 			 x:DataType="vm:HomeScreenViewModel"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="700"
              x:Class="AutoAuction.Views.HomeScreenView">
-	<Grid>
-		<DataGrid ItemsSource="{Binding _d}">
-			
+	<Grid ColumnDefinitions="4*, 1*" RowDefinitions="1*, 1*">
+
+		<Label Content="Your auctions" FontSize="25" Grid.Row="0" Margin="10 10 0 0"/>
+		<DataGrid ItemsSource="{Binding _d}"
+          IsReadOnly="True"
+          CanUserReorderColumns="False"
+          CanUserResizeColumns="False"
+          CanUserSortColumns="False"
+          GridLinesVisibility="All"
+          BorderThickness="1" BorderBrush="Gray"
+		  MaxHeight="200" MaxWidth="800"
+		  Grid.Row="0">
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="Name"  Binding="{Binding Vehicle.Name}"/>
+				<DataGridTextColumn Header="Year" Binding="{Binding Vehicle.Year}"/>
+				<DataGridTextColumn Header="Standing Bid" Binding="{Binding StandingBid}"/>
+			</DataGrid.Columns>
 		</DataGrid>
+
+		<Label Content="Current auctions" FontSize="25" Grid.Row="1" Margin="10 10 0 0"/>
+
+		<DataGrid ItemsSource="{Binding _d}"
+          IsReadOnly="True"
+          CanUserReorderColumns="False"
+          CanUserResizeColumns="False"
+          CanUserSortColumns="False"
+          GridLinesVisibility="All"
+          BorderThickness="1" BorderBrush="Gray"
+		  MaxHeight="200" MaxWidth="800"
+		  Grid.Row="1">
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="Name"  Binding="{Binding Vehicle.Name}"/>
+				<DataGridTextColumn Header="Year" Binding="{Binding Vehicle.Year}"/>
+				<DataGridTextColumn Header="Standing Bid" Binding="{Binding StandingBid}"/>
+			</DataGrid.Columns>
+		</DataGrid>
+
+		<StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Margin="30">
+			<Button Content="+ Set for Sale" Width="130" HorizontalContentAlignment="Center" Margin="0 0 0 10"/>
+			<Button Content="User Profile" Width="130" HorizontalContentAlignment="Center" Margin="0 0 0 10"/>
+			<Button Content="Bid History" Width="130" HorizontalContentAlignment="Center" Margin="0 0 0 10"/>
+		</StackPanel>
 	</Grid>
 </UserControl>

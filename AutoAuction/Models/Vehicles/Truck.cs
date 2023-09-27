@@ -76,7 +76,7 @@ namespace AutoAuction.Models.Vehicles
         /// </summary>
         public double LoadCapacity { get; set; }
         /// <summary>
-        /// Returns the Truck in a string with relivant information.
+        /// Returns the Truck in a string with relevant information.
         /// </summary>
         public override string ToString()
         {
