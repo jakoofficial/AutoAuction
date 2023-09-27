@@ -83,6 +83,7 @@ GO
 CREATE TABLE UserTable (
     Username VARCHAR(300) NOT NULL PRIMARY KEY,
     CorporateUser BIT NOT NULL, -- 1 if user is a corporate user
+    ZipCode INT NOT NULL,
     Credit DECIMAL,
     Balance DECIMAL NOT NULL, 
 	CHECK (

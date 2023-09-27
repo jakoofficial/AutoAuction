@@ -1,12 +1,16 @@
-﻿using AutoAuction.Interfaces;
+﻿using AutoAuction.DatabaseFiles;
+using AutoAuction.Interfaces;
 using Microsoft.VisualBasic.FileIO;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using static AutoAuction.Models.Vehicles.Vehicle;
 
 namespace AutoAuction.Models
 {
