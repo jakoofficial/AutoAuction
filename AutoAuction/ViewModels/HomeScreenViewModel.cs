@@ -10,7 +10,7 @@ using ReactiveUI;
 
 namespace AutoAuction.ViewModels
 {
-    public class HomeScreenViewModel : ViewModelBase
+    public class HomeScreenViewModel
     {
         public string d { get; set; }
         public ObservableCollection<Auction> _dd { get; set; }
@@ -23,25 +23,12 @@ namespace AutoAuction.ViewModels
         }
         public HomeScreenViewModel()
         {
-            Auction n = new Auction(new Bus("Ooga", 20, "regiNR", 2010, 203212, false, 3232, 2312, Vehicle.FuelTypeEnum.Diesel,
-               new HeavyVehicle.VehicleDimensionsStruct(20, 20, 20), Vehicle.DriversLicenseEnum.B, 2, 1, true),
-               new PrivateUser("User", "woaaaaah", 1029, 3389992827), 231);
-            
-            Auction r = new Auction(new Bus("Oogeeeeeeeeeeeeeeeeeea", 20, "regiNR", 2010, 203212, false, 3232, 2312, Vehicle.FuelTypeEnum.Diesel,
-               new HeavyVehicle.VehicleDimensionsStruct(20, 20, 20), Vehicle.DriversLicenseEnum.B, 2, 1, true),
-               new PrivateUser("User", "woaaaaah", 1029, 3389992827), 231);
+            //Auction n = new Auction(new Bus("Ooga", 20, "regiNR", 2010, 203212, false, 3232, 2312, Vehicle.FuelTypeEnum.Diesel,
+            //   new HeavyVehicle.VehicleDimensionsStruct(20, 20, 20), Vehicle.DriversLicenseEnum.B, 2, 1, true),
+            //   new PrivateUser("User", "woaaaaah", 1029, 3389992827), 231);
 
-            _d = new ObservableCollection<Auction>();
-            _d.Add(n);
-            _d.Add(n);
-            _d.Add(n);
-            _d.Add(n);
-            _d.Add(n);
-            _d.Add(n);
-            _d.Add(n);
-            _d.Add(r);
-
-            d = "o";
+            //_d = new ObservableCollection<Auction>();
+            //_d.Add(n);
         }
 
     }

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using AutoAuction.DatabaseFiles;
+using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,6 +40,27 @@ namespace AutoAuction.Models.Vehicles
             //TODO: V7 - set contructor and DriversLisence to DE if the car has a towbar or D if not.
             //TODO: V8 - Add to database and set ID
         }
+
+        public Bus (uint id) : base(id)
+        {
+            SqlConnection con = new(Database.Instance.ConnectionString);
+            using (con)
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand($"exec GetBus {id}", con);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        this.HasToilet = reader.GetBoolean(0);
+                        this.NumberOfSeats = (ushort)reader.GetInt32(1);
+                        this.NumberOfSleepingSpaces = (ushort)reader.GetInt32(2);
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// Engine size 
         /// 

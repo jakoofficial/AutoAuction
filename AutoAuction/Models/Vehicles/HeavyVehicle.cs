@@ -1,5 +1,9 @@
-﻿using System;
+﻿using AutoAuction.DatabaseFiles;
+using ReactiveUI;
+using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +28,25 @@ namespace AutoAuction.Models.Vehicles
          : base(id, name, km, registrationNumber, year, newPrice, hasTowbar, engineSize, kmPerLiter, fuelType, driversLicense)
         {
             this.VehicleDimensions = vehicleDimension;
+        }
+        public HeavyVehicle(uint id) :base(id)
+        {
+            //TODO: REDO
+
+            SqlConnection con = new(Database.Instance.ConnectionString);
+            using (con)
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand($"exec GetHeavyVehicle {id}", con);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        this.VehicleDimensions = new VehicleDimensionsStruct(reader.GetDouble(1), reader.GetDouble(2), reader.GetDouble(3));
+                    }
+                }
+            }
         }
         /// <summary>
         /// Vehicle dimensions
