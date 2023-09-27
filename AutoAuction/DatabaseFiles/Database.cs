@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoAuction.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -15,11 +16,17 @@ namespace AutoAuction.DatabaseFiles
         public string ConnectionString = "Server=docker.data.techcollege.dk, 20001;" +
                                   "Database=AutoAuction;" +
                                   "User Id=Username;" +
-                                  "Password=Password;";
+                                  "Password=Password4;";
 
         static Database()
         {
             Instance = new Database();
+        }
+
+        public static User GetUser()
+        {
+
+            return new CorporateUser("as","asd", 2000, 1234567890, 100, 0);
         }
 
         public string ExecScalar(string command)
