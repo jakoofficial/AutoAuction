@@ -1,3 +1,4 @@
+using AutoAuction.Models.Vehicles;
 using AutoAuction.ViewModels;
 using Avalonia;
 using Avalonia.Controls;
@@ -16,10 +17,29 @@ public partial class SetForSaleView : UserControl
         //    Years.Add(i);
         //}
         InitializeComponent();
-
-        BusView busView = new BusView();
-        vehicleType.Children.Add(busView);
-
-    //DataContext = new SetForSaleViewModel();
+        getVehicleType();
+        DataContext = new SetForSaleViewModel();
+    }
+    private void getVehicleType()
+    {
+        switch (vehicleTextBlock.Text)
+        {
+            case "0":
+                TruckView truckView = new TruckView();
+                vehicleStackPanel.Children.Add(truckView);
+                break;
+            case "1":
+                BusView busView = new BusView();
+                vehicleStackPanel.Children.Add(busView);
+                break;
+            case "2":
+                PrivateCarView privCar = new PrivateCarView();
+                vehicleStackPanel.Children.Add(privCar);
+                break; 
+            case "3":
+                ProfessionalCarView profCar = new ProfessionalCarView();
+                vehicleStackPanel.Children.Add(profCar);
+                break;
+        }
     }
 }

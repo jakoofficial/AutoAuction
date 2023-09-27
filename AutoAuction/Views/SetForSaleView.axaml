@@ -9,7 +9,7 @@
              x:Class="AutoAuction.Views.SetForSaleView"
 			 >
 
-	<Grid ColumnDefinitions="1*, 1*" RowDefinitions="0.6*, 3*, 1*, 1*, 1*" Margin="10 0 10 0">
+	<Grid ColumnDefinitions="1*, 1*" RowDefinitions="40, 3*, 1*, 1*, 1*" Margin="10 10 10 0">
 		<TextBlock Text="Set for Sale" FontSize="25" 
 				   Grid.Column="0" Grid.Row="0"
 				   HorizontalAlignment="Left" VerticalAlignment="Center"/>
@@ -27,7 +27,7 @@
 					 Grid.Row="2" Grid.Column="1"/>
 			
 			<TextBlock Text="Year" FontSize="20" Grid.Row="3"/>
-			<ComboBox Name="comboBox" Grid.Row="3" Grid.Column="1" Width="250">
+			<ComboBox Name="comboBox" Grid.Row="3" Grid.Column="1" MinWidth="200" >
 				<!--<ComboBox.ItemTemplate>
 					<DataTemplate>
 						<TextBlock Text=""> </TextBlock>
@@ -46,21 +46,21 @@
 								Grid.Row="1" Grid.Column="1"/>
 		</Grid>
 			<Button Command="{Binding}" Content="Cancel" 
-					Width="150" FontSize="20" 
+					Width="150" FontSize="15" 
 					HorizontalContentAlignment="Center" Grid.Row="4"/>
 			<Button Command="{Binding}" Content="Create Auction" 
-					Width="150" FontSize="20" HorizontalAlignment="Right"
+					Width="150" FontSize="15" HorizontalAlignment="Right"
 					HorizontalContentAlignment="Center" Grid.Column="1" Grid.Row="4"/>
-		<Grid Grid.Column="1" Grid.Row="1">
-			<StackPanel Name="vehicleType">
-				
-			<ComboBox PlaceholderText="Pick a Vehicle Type."
-					  HorizontalAlignment="Center" FontSize="20">
-				<ComboBoxItem> Truck </ComboBoxItem>
-				<ComboBoxItem> Bus </ComboBoxItem>
-				<ComboBoxItem> Personal Vehicle </ComboBoxItem>
-				<ComboBoxItem> Professional Vehicle </ComboBoxItem>
-			</ComboBox>
+		<Grid Grid.Column="1" Grid.Row="1"  Width="400" Height="400">
+			<StackPanel Name="vehicleStackPanel">
+				<TextBlock Name="vehicleTextBlock" Text="0"/>
+			<!--<ComboBox Name="vehicleBox" PlaceholderText="Pick a Vehicle Type."
+					  FontSize="20" SelectedValue="vehicleType()">
+				<ComboBoxItem>Truck</ComboBoxItem>
+				<ComboBoxItem>Bus</ComboBoxItem>
+				<ComboBoxItem>Personal Vehicle</ComboBoxItem>
+				<ComboBoxItem>Professional Vehicle</ComboBoxItem>
+			</ComboBox>-->
 			<!--<views:CreateUserView/>-->
 			</StackPanel>
 		</Grid>
