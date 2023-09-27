@@ -25,6 +25,12 @@ namespace AutoAuction.DatabaseFiles
             Instance = new Database();
         }
 
+        /// <summary>
+        /// GetUser method will get the different users depending on the username. 
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns>Corporate or Private user</returns>
+        /// <exception cref="ArgumentException">If username is not recognized</exception>
         public static User GetUser(string username)
         {
 
