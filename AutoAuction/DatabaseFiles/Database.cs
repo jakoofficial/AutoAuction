@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoAuction.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -12,10 +13,10 @@ namespace AutoAuction.DatabaseFiles
         public static Database Instance { get; private set; }
 
         public SqlConnection con;
-        public string ConnectionString = "Server=docker.data.techcollege.dk, 20001;" +
-                                  "Database=AutoAuction;" +
-                                  "User Id=sa;" +
-                                  "Password=H2PD071123_Gruppe1;";
+        public string ConnectionString = ""; // = "Server=docker.data.techcollege.dk, 20001;" +
+                                  //"Database=AutoAuction;" +
+                                  //"User Id=sa;" +
+                                  //"Password=H2PD071123_Gruppe1;";
 
         static Database()
         {
@@ -48,6 +49,27 @@ namespace AutoAuction.DatabaseFiles
                 cmd.ExecuteNonQuery();
             }
             con.Close();
+        }
+
+        public bool LogInWithUser(string username, string password)
+        {
+
+            ConnectionString = "Server=docker.data.techcollege.dk, 20001;" +
+                               "Database=AutoAuction;" +
+                               $"User Id={username};" + //User Id = sa
+                               $"Password={password};"; //Password=H2PD071123_Gruppe1
+
+            try
+            {
+                ExecNonQuery("");
+                return true;
+            }
+            catch (Exception)
+            {
+                ConnectionString = "";
+                return false;
+                //throw;
+            }
         }
     }
 }
