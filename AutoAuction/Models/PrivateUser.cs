@@ -26,13 +26,21 @@ namespace AutoAuction.Models
             {
                 if (value < 0)
                 {
-                    //TODO: if the number is too big
+                    //TODO: if the number is too small
                 }
                 else
                 {
                     _balance = value;
                 }
             }
+        }
+
+        public override string ToString()
+        {
+            StringBuilder tsb = new StringBuilder($"{base.ToString()}, ");
+            tsb.Append($"CVRNumber: {this.CPRNumber}");
+            //TODO: CHECK if balance shows corretly from User.
+            return tsb.ToString();
         }
     }
 }
