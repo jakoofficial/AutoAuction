@@ -52,20 +52,9 @@ namespace AutoAuction.Models
 
         public int SetForSale(Vehicle vechicle, ISeller seller, decimal minPris)
         {
+            //TODO: Create auction, upload to db, give auctionID back.
+            //Use Recieve bid to check and send notification to seller if bid is over min price.
 
-
-            //Returns a unique auction number
-            return 0;
-        }
-        
-        private int generateAuctionNumber()
-        {
-            return 0;
-        }
-
-        public int SetForSale(Vehicle vechicle, ISeller seller, decimal minPris, string notificationMessage)
-        {
-            //TODO: Add the notification function
             return 0;
         }
 

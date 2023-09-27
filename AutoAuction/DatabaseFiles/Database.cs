@@ -14,8 +14,8 @@ namespace AutoAuction.DatabaseFiles
         public SqlConnection con;
         public string ConnectionString = "Server=docker.data.techcollege.dk, 20001;" +
                                   "Database=AutoAuction;" +
-                                  "User Id=sa;" +
-                                  "Password=H2PD071123_Gruppe1;";
+                                  "User Id=Username;" +
+                                  "Password=Password;";
 
         static Database()
         {
