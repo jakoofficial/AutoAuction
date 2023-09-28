@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ namespace AutoAuction.DatabaseFiles
         public static Database Instance { get; private set; }
 
         public SqlConnection con;
-        public string ConnectionString = "";
+        internal string ConnectionString = "";
 
         static Database()
         {
@@ -109,6 +110,51 @@ namespace AutoAuction.DatabaseFiles
             {
                 ConnectionString = "";
                 return false;
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Add a PrivateUser to the database 
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns> Returns a string with the error of there is one </returns>
+        public string? CreateUser(PrivateUser user)
+        {
+            LogInWithUser("sa", "H2PD071123_Gruppe1");
+
+            try
+            {
+                ExecNonQuery($"EXEC CreatePrivateUser '{user.UserName}', '{user.Password}', {user.ZipCode}, {user.CPRNumber}");
+                ConnectionString = "";
+                return null;
+            }
+            catch (SqlException e)
+            {
+                ConnectionString = "";
+                return e.Message;
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Add a CorporateUser to the database 
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns> Returns a string with the error of there is one </returns>
+        public string? CreateUser(CorporateUser user)
+        {
+            LogInWithUser("sa", "H2PD071123_Gruppe1");
+            try
+            {
+                ExecNonQuery($"CreateCorporateUser '{user.UserName}', '{user.Password}', {user.ZipCode}, {user.CVRNumber}");
+                ConnectionString = "";
+                return null;
+            }
+            catch (SqlException e)
+            {
+                ConnectionString = "";
+                return e.Message;
                 throw;
             }
         }
