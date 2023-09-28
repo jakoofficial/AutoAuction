@@ -11,39 +11,55 @@ namespace AutoAuction.ViewModels
 {
     public class SetForSaleViewModel : ViewModelBase
     {
+        BusView busvm = new();
+        BusView BusViewModel 
+        {
+            get => busvm; 
+            set => this.RaiseAndSetIfChanged(ref busvm, value);
+        }
+        TruckView TruckViewModel { get; set; } = new();
+        PrivateCarView PrivateCarViewModel { get; set; } = new();
+
+        ProfessionalCarViewModel ProfessionalCarViewModel { get; set; }
+
+        UserControl activeView;
+        UserControl ActiveView 
+        {
+            get => activeView;
+            set => this.RaiseAndSetIfChanged(ref activeView, value);
+        }
+
         int selectedCarIndex = 0;
         public int SelectedCarIndex
         {
             get => selectedCarIndex;
-            set => this.RaiseAndSetIfChanged(ref selectedCarIndex, value);
+            set {
+                this.RaiseAndSetIfChanged(ref selectedCarIndex, value);
+                getVehicleType();
+            }
         }
         public SetForSaleViewModel()
         {
-            getVehicleType();
+            ActiveView = TruckViewModel;
         }
 
         private void getVehicleType()
         {
             switch (SelectedCarIndex)
             {
+                case 0:
+                    ActiveView = TruckViewModel;
+                    break;
                 case 1:
-                    TruckView truckView = new TruckView();
-                    //vehicleStackPanel.Children.Add(truckView);
+                    ActiveView = BusViewModel;
                     break;
                 case 2:
-                    BusView busView = new BusView();
-                    //vehicleStackPanel.Children.Add(busView);
+                    ActiveView = PrivateCarViewModel;
                     break;
                 case 3:
-                    PrivateCarView privCar = new PrivateCarView();
-                    //vehicleStackPanel.Children.Add(privCar);
-                    break;
-                case 4:
-                    ProfessionalCarView profCar = new ProfessionalCarView();
-                    //vehicleStackPanel.Children.Add(profCar);
+                   // ActiveView = ProfessionalCarViewModel;
                     break;
             }
         }
-
     }
 }

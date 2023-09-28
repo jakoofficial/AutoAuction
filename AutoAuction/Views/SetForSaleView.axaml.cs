@@ -16,7 +16,7 @@ public partial class SetForSaleView : UserControl
         //{
         //    Years.Add(i);
         //}
-        InitializeComponent();
         DataContext = new SetForSaleViewModel();
+        InitializeComponent();
     }
 }
