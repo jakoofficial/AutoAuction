@@ -1,4 +1,5 @@
-﻿using AutoAuction.Interfaces;
+﻿using AutoAuction.DatabaseFiles;
+using AutoAuction.Interfaces;
 using AutoAuction.Models.Vehicles;
 using System;
 using System.Collections.Generic;
@@ -49,37 +50,6 @@ namespace AutoAuction.Models
         /// The buyer or potential buyer of the auction
         /// </summary>
         internal IBuyer Buyer { get; set; }
-
-        public int SetForSale(Vehicle vechicle, ISeller seller, decimal minPris)
-        {
-            //TODO: Create auction, upload to db, give auctionID back.
-            //Use Recieve bid to check and send notification to seller if bid is over min price.
-
-            return 0;
-        }
-
-        public bool RecieveBid(IBuyer buyer, int actionNumber, decimal bid)
-        {
-            return false;
-        }
-
-        public bool AcceptBid(ISeller seller, int auctionNumber)
-        {
-            return false;
-        }
-
-        public static Auction FindAuctionById(uint auctionID)
-        {
-            foreach (var auction in AuctionHouse.Auctions)
-            {
-                if (auctionID == auction.ID)
-                {
-                    return auction;
-                }
-            }
-
-            return null;
-        }
 
         //public override string ToString()
         //{

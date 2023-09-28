@@ -1,4 +1,5 @@
-﻿using AutoAuction.Interfaces;
+﻿using AutoAuction.DatabaseFiles;
+using AutoAuction.Interfaces;
 using AutoAuction.Models.Vehicles;
 using System;
 using System.Collections.Generic;
@@ -23,20 +24,11 @@ namespace AutoAuction.Models
         public static uint SetForSale(Vehicle vehicle, ISeller seller, decimal miniumBid)
         {
             //TODO: A3 - SetForSale
-            throw new NotImplementedException();
-        }
-        /// <summary>
-        /// An overload of SetForSale, that ...
-        /// </summary>
-        /// <param name="vehicle"></param>
-        /// <param name="seller"></param>
-        /// <param name="miniumBid"></param>
-        /// <param name="NodificationMethod"> This is a delegate that is used to nodifi the user, with more information</param>
-        /// <returns> The auction ID </returns>
-        public static uint SetForSale(Vehicle vehicle, ISeller seller, decimal miniumBid, NodificationDelegate NodificationMethod)
-        {
-            //TODO: A4 - SetForSale overload
-            throw new NotImplementedException();
+            string temp = seller.UserName;
+            //TODO: Create auction, upload to db, give auctionID back.
+            //Use Recieve bid to check and send notification to seller if bid is over min price.
+            string auctionNumber = Database.Instance.ExecScalar($"EXEC CreateAuction {miniumBid}, 0, {vehicle.ID},'{seller.UserName}', null");
+            return Convert.ToUInt32(auctionNumber);
         }
         /// <summary>
         /// Recieves a bid from a buyer.
@@ -71,7 +63,15 @@ namespace AutoAuction.Models
         public static async Task<Auction> FindAuctionByID(uint auctionID)
         {
             //TODO: A7 - FindAuctionByID
-            throw new NotImplementedException();
+            foreach (var auction in AuctionHouse.Auctions)
+            {
+                if (auctionID == auction.ID)
+                {
+                    return auction;
+                }
+            }
+
+            return null;
         }
         /// <summary>
         /// Finds vehicles by the name or part of the name.
