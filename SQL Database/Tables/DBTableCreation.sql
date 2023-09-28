@@ -116,6 +116,8 @@ CREATE TABLE dbo.Auction(
 	vehicleId int not null,
 	seller varchar(max) not null,
 	buyer varchar(max),
+    FOREIGN KEY (seller) REFERENCES UserTable (Username) ON DELETE NO ACTION,
+    FOREIGN KEY (buyer) REFERENCES UserTable (Username) ON DELETE SET NULL
 );
 
 USE AutoAuction
