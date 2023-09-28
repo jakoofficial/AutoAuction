@@ -10,13 +10,13 @@ using ReactiveUI;
 
 namespace AutoAuction.ViewModels
 {
-    public class HomeScreenViewModel
+    public class HomeScreenViewModel : ViewModelBase
     {
         public string d { get; set; }
         public ObservableCollection<Auction> _dd { get; set; }
 
         private ObservableCollection<Auction> ddd;
-        public ObservableCollection<Auction> _d
+        public ObservableCollection<Auction> test
         {
             get => ddd;
             set => this.RaiseAndSetIfChanged(ref ddd, value);
