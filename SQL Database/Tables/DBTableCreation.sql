@@ -95,7 +95,7 @@ USE AutoAuction
 GO
 CREATE TABLE PrivateUser (
     Username VARCHAR(300) NOT NULL,
-    CPRNumber INT NOT NULL UNIQUE CHECK (len(CPRNumber)=10),
+    CPRNumber bigint NOT NULL UNIQUE CHECK (len(CPRNumber)=10),
     FOREIGN KEY (Username) REFERENCES UserTable (Username) ON DELETE CASCADE
 );
 
