@@ -3,6 +3,7 @@ using AutoAuction.Interfaces;
 using AutoAuction.Models.Vehicles;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +26,40 @@ namespace AutoAuction.Models
             this.Seller = seller;
             this.MinimumPrice = minimumPrice;
             //TODO: A2 - Add to database and set ID
+        }
+
+        public Auction(uint id)
+        {
+            SqlConnection con = new(Database.Instance.ConnectionString);
+            using (con)
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand($"exec GetAuction {id}", con);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        this.MinimumPrice = reader.GetDecimal(1);
+                        this.StandingBid = reader.GetDecimal(2);
+                        SqlCommand vHeavyType = new SqlCommand($"exec GetHeavyVehicle {reader.GetInt32(3)}", con);
+                        SqlCommand vPersonalType = new SqlCommand($"exec GetPersonalCar {reader.GetInt32(3)}", con);
+
+                        if (vHeavyType != null)
+                        {
+                            using (SqlDataReader vReader = vHeavyType.ExecuteReader())
+                            {
+                                while (vReader.Read())
+                                {
+                                    //TODO: REquires functionality
+                                }
+                            }
+                        }
+
+                        //this.Vehicle = new Truck(reader.GetDecimal(3));
+                    }
+                }
+            }
         }
         /// <summary>
         /// ID of the auction
