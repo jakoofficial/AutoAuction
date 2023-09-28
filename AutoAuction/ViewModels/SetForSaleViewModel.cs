@@ -1,4 +1,5 @@
 ﻿using Avalonia.Controls;
+using AutoAuction.Views;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;

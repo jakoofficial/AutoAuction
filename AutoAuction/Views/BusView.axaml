@@ -3,7 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="400"
-             x:Class="AutoAuction.BusView">
+             x:Class="AutoAuction.Views.BusView">
 
 	<!-- Number of seats, number of sleeping spaces, has toilets,-->
 	<Grid ColumnDefinitions="1*, 1*" RowDefinitions="1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*">
