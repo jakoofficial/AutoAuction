@@ -6,7 +6,7 @@
              x:Class="AutoAuction.Views.BusView">
 
 	<!-- Number of seats, number of sleeping spaces, has toilets,-->
-	<Grid ColumnDefinitions="1*, 1*" RowDefinitions="1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*" Background="Red">
+	<Grid ColumnDefinitions="1*, 1*" RowDefinitions="1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*">
 		<TextBlock Text="Bus Dimensions" FontSize="18" Height="40"/>
 
 		<TextBlock Text="Height:" FontSize="15" VerticalAlignment="Center"

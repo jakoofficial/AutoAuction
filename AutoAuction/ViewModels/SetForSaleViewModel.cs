@@ -11,19 +11,36 @@ namespace AutoAuction.ViewModels
 {
     public class SetForSaleViewModel : ViewModelBase
     {
-        BusView busvm = new();
-        BusView BusViewModel 
+        BusViewModel busViewModel= new();
+        BusViewModel BusViewModel 
         {
-            get => busvm; 
-            set => this.RaiseAndSetIfChanged(ref busvm, value);
+            get => busViewModel; 
+            set => this.RaiseAndSetIfChanged(ref busViewModel, value);
         }
-        TruckView TruckViewModel { get; set; } = new();
-        PrivateCarView PrivateCarViewModel { get; set; } = new();
 
-        ProfessionalCarViewModel ProfessionalCarViewModel { get; set; }
+        TruckViewModel truckViewModel = new();
+        TruckViewModel TruckViewModel 
+        {
+            get => truckViewModel;
+            set => this.RaiseAndSetIfChanged(ref truckViewModel, value);
 
-        UserControl activeView;
-        UserControl ActiveView 
+        }
+        PrivateCarViewModel privateCarViewModel = new();
+        PrivateCarViewModel PrivateCarViewModel 
+        {
+            get => privateCarViewModel;
+            set => this.RaiseAndSetIfChanged(ref privateCarViewModel, value);
+        }
+
+        ProfessionalCarViewModel professionalCarViewModel = new();
+        ProfessionalCarViewModel ProfessionalCarViewModel
+        {
+            get => professionalCarViewModel;
+            set => this.RaiseAndSetIfChanged(ref professionalCarViewModel, value);
+        }
+
+        ViewModelBase activeView;
+        ViewModelBase ActiveView 
         {
             get => activeView;
             set => this.RaiseAndSetIfChanged(ref activeView, value);
@@ -40,7 +57,7 @@ namespace AutoAuction.ViewModels
         }
         public SetForSaleViewModel()
         {
-            ActiveView = TruckViewModel;
+            //ActiveView = TruckViewModel;
         }
 
         private void getVehicleType()
@@ -57,7 +74,7 @@ namespace AutoAuction.ViewModels
                     ActiveView = PrivateCarViewModel;
                     break;
                 case 3:
-                   // ActiveView = ProfessionalCarViewModel;
+                    ActiveView = ProfessionalCarViewModel;
                     break;
             }
         }
