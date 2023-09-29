@@ -52,6 +52,7 @@ namespace AutoAuction.Models
                                 while (vReader.Read())
                                 {
                                     //TODO: REquires functionality
+
                                 }
                             }
                         }
