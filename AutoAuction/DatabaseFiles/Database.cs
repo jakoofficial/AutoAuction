@@ -27,7 +27,7 @@ namespace AutoAuction.DatabaseFiles
         /// <param name="username"></param>
         /// <returns>Corporate or Private user</returns>
         /// <exception cref="ArgumentException">If username is not recognized</exception>
-        public static User GetUser(string username)
+        public User GetUser(string username)
         {
 
             SqlConnection con = new(Database.Instance.ConnectionString);

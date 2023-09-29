@@ -44,6 +44,9 @@ namespace AutoAuction.Models
                     {
                         this.MinimumPrice = reader.GetDecimal(1);
                         this.StandingBid = reader.GetDecimal(2);
+                        this.Seller = Database.Instance.GetUser(reader.GetString(4));
+                        this.Buyer = Database.Instance.GetUser(reader.GetString(5));
+                        
                         SqlCommand vHeavyType = new SqlCommand($"exec GetHeavyVehicle {reader.GetInt32(3)}", con);
                         SqlCommand vPersonalType = new SqlCommand($"exec GetPersonalCar {reader.GetInt32(3)}", con);
 
@@ -52,8 +55,31 @@ namespace AutoAuction.Models
                             Truck t = new Truck((uint)reader.GetInt32(3));
                             Bus b = new Bus((uint)reader.GetInt32(3));
 
-                            if (t != null) { this.Vehicle = t; }
-                            if (b != null) { this.Vehicle = b; }
+                            if (t.LoadCapacity != 0)
+                            {
+                                this.Vehicle = t;
+                                t = null; b = null;
+                            }
+                            else
+                            {
+                                this.Vehicle = b;
+                                b = null; t = null;
+                            }
+
+                            PrivatePersonalCar pripc = new PrivatePersonalCar((uint)reader.GetInt32(3));
+                            ProfessionalPersonalCar propc = new ProfessionalPersonalCar((uint)reader.GetInt32(3));
+
+                            //if (pripc.Load) { }
+                            if (propc.LoadCapacity != 0)
+                            {
+                                this.Vehicle = propc;
+                                propc = null; pripc = null;
+                            }
+                            else
+                            {
+                                this.Vehicle = pripc;
+                                pripc = null; propc = null;
+                            }
 
                             Debug.WriteLine(this.Vehicle);
 

@@ -20,4 +20,4 @@ VALUES (
 	@seller, @buyer
 )
 
-SELECT SCOPE
+SELECT SCOPE_IDENTITY() as aId
