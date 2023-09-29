@@ -1,0 +1,77 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="using:AutoAuction.ViewModels"
+			 x:DataType="vm:ProfileViewModel"
+             mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="700"
+             x:Class="AutoAuction.Views.ProfileView">
+	<Grid RowDefinitions="0.1*, 1*, 0.1*">
+		<!-- Title -->
+		<TextBlock Text="Your Profile" FontSize="25"
+				   HorizontalAlignment="Left" VerticalAlignment="Top"
+				   Margin="15"/>
+		
+		<!-- Information -->
+		<Grid Grid.Row="1" 
+			  RowDefinitions="1*, 0.5*, 1*">
+			<Grid>
+				<StackPanel Orientation="Horizontal" Margin="20">
+					<StackPanel Grid.Column="0"
+								Orientation="Vertical">
+						<!-- Username Txt -->
+						<TextBlock Margin="0 0 0 5"> Username </TextBlock>
+						<!-- Password Txt -->
+						<TextBlock Margin="0 0 0 5"> Password </TextBlock>
+						<!-- Balance Txt -->
+						<TextBlock> Balance</TextBlock>
+					</StackPanel>
+					<StackPanel Grid.Column="1"
+								Orientation="Vertical"
+								Margin="50 0 0 0">
+						<!-- Username Value -->
+						<TextBlock Margin="0 0 0 5">AnnaBannana</TextBlock>
+						<!-- Password Value -->
+						<Button Background="Transparent"
+								Foreground="DarkBlue" Margin="0 0 0 5" Padding="0">
+							<Button.Content>
+								<TextBlock>
+									<Underline>Change Password</Underline>
+								</TextBlock>
+							</Button.Content>
+						</Button>
+						<!-- Balance Value -->
+						<TextBlock>0,-</TextBlock>
+					</StackPanel>	
+				</StackPanel>
+				
+			</Grid>
+			<Grid Grid.Row="2">
+				<StackPanel Orientation="Horizontal" Margin="20">
+					<StackPanel Grid.Column="0"
+								Orientation="Vertical">
+						<!-- Your Auctions Txt -->
+						<TextBlock Margin="0 0 0 5"> Your Auctions </TextBlock>
+						<!-- Auctions Won Txt -->
+						<TextBlock Margin="0 0 0 5"> Auctions Won </TextBlock>
+					</StackPanel>
+					<StackPanel Grid.Column="1"
+								Orientation="Vertical"
+								Margin="50 0 0 0">
+						<!-- Your Auctions Value -->
+						<TextBlock Margin="0 0 0 5">2</TextBlock>
+						<!-- Auctions Won Value -->
+						<TextBlock Margin="0 0 0 5">1</TextBlock>
+					</StackPanel>
+				</StackPanel>
+			</Grid>
+		</Grid>
+
+		<!-- Back - Button-->
+		<Button Content="Back" FontSize="20"
+				HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+				BorderThickness="1.4" BorderBrush="Black"
+				Width="150" Height="45"
+				Grid.Row="2" Margin="15"/>
+	</Grid>
+</UserControl>
