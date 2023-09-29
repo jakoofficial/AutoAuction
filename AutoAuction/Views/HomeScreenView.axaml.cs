@@ -1,3 +1,4 @@
+using AutoAuction.ViewModels;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
@@ -9,5 +10,6 @@ public partial class HomeScreenView : UserControl
     public HomeScreenView()
     {
         InitializeComponent();
+        DataContext = new HomeScreenViewModel();
     }
 }

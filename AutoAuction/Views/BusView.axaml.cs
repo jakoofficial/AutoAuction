@@ -1,15 +1,15 @@
 using Avalonia;
+using AutoAuction.ViewModels;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
-using AutoAuction.ViewModels;
 
 namespace AutoAuction.Views;
 
-public partial class LoginView : UserControl
+public partial class BusView : UserControl
 {
-    public LoginView()
+    public BusView()
     {
         InitializeComponent();
-        DataContext = new LoginViewModel();
+        DataContext = new BusViewModel();
     }
 }
