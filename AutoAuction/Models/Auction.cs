@@ -4,6 +4,7 @@ using AutoAuction.Models.Vehicles;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,6 +32,7 @@ namespace AutoAuction.Models
         public Auction(uint id)
         {
             SqlConnection con = new(Database.Instance.ConnectionString);
+
             using (con)
             {
                 con.Open();
@@ -47,14 +49,22 @@ namespace AutoAuction.Models
 
                         if (vHeavyType != null)
                         {
-                            using (SqlDataReader vReader = vHeavyType.ExecuteReader())
-                            {
-                                while (vReader.Read())
-                                {
-                                    //TODO: REquires functionality
+                            Truck t = new Truck((uint)reader.GetInt32(3));
+                            Bus b = new Bus((uint)reader.GetInt32(3));
 
-                                }
-                            }
+                            if (t != null) { this.Vehicle = t; }
+                            if (b != null) { this.Vehicle = b; }
+
+                            Debug.WriteLine(this.Vehicle);
+
+                            //using (SqlDataReader vReader = vHeavyType.ExecuteReader())
+                            //{
+                            //    while (vReader.Read())
+                            //    {
+                            //        //TODO: REquires functionality
+
+                            //    }
+                            //}
                         }
 
                         //this.Vehicle = new Truck(reader.GetDecimal(3));
