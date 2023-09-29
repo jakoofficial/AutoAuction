@@ -2,7 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace AutoAuction;
+namespace AutoAuction.Views;
 
 public partial class PrivateCarView : UserControl
 {
