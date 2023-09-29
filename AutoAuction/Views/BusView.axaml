@@ -1,0 +1,52 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="400"
+             x:Class="AutoAuction.Views.BusView">
+
+	<!-- Number of seats, number of sleeping spaces, has toilets,-->
+	<Grid ColumnDefinitions="1*, 1*" RowDefinitions="1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*">
+		<TextBlock Text="Bus Dimensions" FontSize="18" Height="40"/>
+
+		<TextBlock Text="Height:" FontSize="15" VerticalAlignment="Center"
+				   Grid.Column="0" Grid.Row="1"/>
+		<TextBox MinWidth="200"  Height="30" Grid.Column="1" Grid.Row="1" Watermark="meters"/>
+
+		<TextBlock Text="Weight:" FontSize="15" VerticalAlignment="Center"
+				   Grid.Column="0" Grid.Row="2"/>
+		<TextBox MinWidth="200"  Height="30"  Grid.Column="1" Grid.Row="2" Watermark="kg"/>
+
+		<TextBlock Text="Length:" FontSize="15" VerticalAlignment="Center"
+				   Grid.Column="0" Grid.Row="3"/>
+		<TextBox MinWidth="200"  Height="30" Grid.Column="1" Grid.Row="3" Watermark="meters"/>
+
+		<TextBlock Text="Load Capacity:" FontSize="15" VerticalAlignment="Center"
+				   Grid.Column="0" Grid.Row="4" Margin="0 10 0 0"/>
+		<TextBox MinWidth="200"  Height="30" Grid.Column="1" Grid.Row="4" Watermark="kg" Margin="0 10 0 0"/>
+
+		<TextBlock Text="Engine Size:" FontSize="15" VerticalAlignment="Center"
+				   Grid.Column="0" Grid.Row="5" Margin="0 10 0 0"/>
+		<TextBox MinWidth="200"  Height="30" Grid.Column="1" Grid.Row="5" Watermark="liters" Margin="0 10 0 0"/>
+
+		<TextBlock Text="Seats:" FontSize="15" VerticalAlignment="Center"
+				   Grid.Column="0" Grid.Row="6" Margin="0 10 0 0"/>
+		<TextBox MinWidth="200"  Height="30" Grid.Column="1" Grid.Row="6" Watermark="#" Margin="0 10 0 0"/>
+		
+		<TextBlock Text="Sleeping spaces: " FontSize="15" VerticalAlignment="Center"
+				   Grid.Column="0" Grid.Row="7" Margin="0 10 0 0"/>
+		<TextBox MinWidth="200"  Height="30" Grid.Column="1" Grid.Row="7" Watermark="#" Margin="0 10 0 0"/>
+
+		<TextBlock Text="Has towbar:" Grid.Row="8" FontSize="15" VerticalAlignment="Center"/>
+		<StackPanel Grid.Row="8" Grid.Column="1" Orientation="Horizontal" Margin="0 10 0 0">
+			<RadioButton GroupName="A" Content="Yes"/>
+			<RadioButton GroupName="A" Content="No" Margin="50 0 0 0"/>
+		</StackPanel>
+
+		<TextBlock Text="Has toilets:" Grid.Row="9" FontSize="15" VerticalAlignment="Center"/>
+		<StackPanel Grid.Row="9" Grid.Column="1" Orientation="Horizontal" Margin="0 10 0 0">
+			<RadioButton GroupName="B" Content="Yes"/>
+			<RadioButton GroupName="B" Content="No" Margin="50 0 0 0"/>
+		</StackPanel>
+	</Grid>
+</UserControl>

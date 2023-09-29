@@ -6,12 +6,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using ReactiveUI;
 
 namespace AutoAuction.ViewModels
 {
-    public class HomeScreenViewModel
+    public class HomeScreenViewModel : ViewModelBase
     {
-        public ObservableCollection<Auction> _d { get; set; }
+        public string d { get; set; }
+        public ObservableCollection<Auction> _dd { get; set; }
+
+        private ObservableCollection<Auction> ddd;
+        public ObservableCollection<Auction> test
+        {
+            get => ddd;
+            set => this.RaiseAndSetIfChanged(ref ddd, value);
+        }
         public HomeScreenViewModel()
         {
             //Auction n = new Auction(new Bus("Ooga", 20, "regiNR", 2010, 203212, false, 3232, 2312, Vehicle.FuelTypeEnum.Diesel,
