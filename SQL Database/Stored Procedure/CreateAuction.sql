@@ -19,3 +19,5 @@ VALUES (
 	@standingBid, @vehicleId,
 	@seller, @buyer
 )
+
+SELECT SCOPE

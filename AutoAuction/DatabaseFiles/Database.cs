@@ -22,6 +22,12 @@ namespace AutoAuction.DatabaseFiles
             Instance = new Database();
         }
 
+        /// <summary>
+        /// GetUser method will get the different users depending on the username. 
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns>Corporate or Private user</returns>
+        /// <exception cref="ArgumentException">If username is not recognized</exception>
         public static User GetUser(string username)
         {
 
@@ -29,7 +35,7 @@ namespace AutoAuction.DatabaseFiles
             using (con)
             {
                 con.Open();
-                SqlCommand command = new SqlCommand($"exec GetUser {username}", con);
+                SqlCommand command = new SqlCommand($"exec GetUserOfType {username}", con);
 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
@@ -39,24 +45,23 @@ namespace AutoAuction.DatabaseFiles
                         {
                             return new CorporateUser(username, "", 
                                 (uint)reader.GetInt32(2),
-                                (uint)reader.GetInt32(6),
+                                (uint)reader.GetInt32(5),
                                 reader.GetDecimal(3),
                                 reader.GetDecimal(4));
                         }
                         else if (reader.GetBoolean(1) == false)
                         {
-                            return new PrivateUser(username, "", 
+                            return new PrivateUser(username, "",
                             (uint)reader.GetInt32(2),
-                            (uint)reader.GetInt32(6),
-                            reader.GetDecimal(4));
-
+                            (uint)reader.GetInt64(4),
+                            reader.GetDecimal(3));
                         }
 
                     }
                 }
             }
 
-            return new CorporateUser("as", "asd", 2000, 1234567890, 100, 0);
+            throw new ArgumentException(String.Format("{0} is not a recognized username!", username));
         }
 
         public string ExecScalar(string command)

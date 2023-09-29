@@ -1,7 +1,10 @@
-﻿using AutoAuction.Interfaces;
+﻿using AutoAuction.DatabaseFiles;
+using AutoAuction.Interfaces;
 using AutoAuction.Models.Vehicles;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +27,50 @@ namespace AutoAuction.Models
             this.Seller = seller;
             this.MinimumPrice = minimumPrice;
             //TODO: A2 - Add to database and set ID
+        }
+
+        public Auction(uint id)
+        {
+            SqlConnection con = new(Database.Instance.ConnectionString);
+
+            using (con)
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand($"exec GetAuction {id}", con);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        this.MinimumPrice = reader.GetDecimal(1);
+                        this.StandingBid = reader.GetDecimal(2);
+                        SqlCommand vHeavyType = new SqlCommand($"exec GetHeavyVehicle {reader.GetInt32(3)}", con);
+                        SqlCommand vPersonalType = new SqlCommand($"exec GetPersonalCar {reader.GetInt32(3)}", con);
+
+                        if (vHeavyType != null)
+                        {
+                            Truck t = new Truck((uint)reader.GetInt32(3));
+                            Bus b = new Bus((uint)reader.GetInt32(3));
+
+                            if (t != null) { this.Vehicle = t; }
+                            if (b != null) { this.Vehicle = b; }
+
+                            Debug.WriteLine(this.Vehicle);
+
+                            //using (SqlDataReader vReader = vHeavyType.ExecuteReader())
+                            //{
+                            //    while (vReader.Read())
+                            //    {
+                            //        //TODO: REquires functionality
+
+                            //    }
+                            //}
+                        }
+
+                        //this.Vehicle = new Truck(reader.GetDecimal(3));
+                    }
+                }
+            }
         }
         /// <summary>
         /// ID of the auction
@@ -49,37 +96,6 @@ namespace AutoAuction.Models
         /// The buyer or potential buyer of the auction
         /// </summary>
         internal IBuyer Buyer { get; set; }
-
-        public int SetForSale(Vehicle vechicle, ISeller seller, decimal minPris)
-        {
-            //TODO: Create auction, upload to db, give auctionID back.
-            //Use Recieve bid to check and send notification to seller if bid is over min price.
-
-            return 0;
-        }
-
-        public bool RecieveBid(IBuyer buyer, int actionNumber, decimal bid)
-        {
-            return false;
-        }
-
-        public bool AcceptBid(ISeller seller, int auctionNumber)
-        {
-            return false;
-        }
-
-        public static Auction FindAuctionById(uint auctionID)
-        {
-            foreach (var auction in AuctionHouse.Auctions)
-            {
-                if (auctionID == auction.ID)
-                {
-                    return auction;
-                }
-            }
-
-            return null;
-        }
 
         //public override string ToString()
         //{

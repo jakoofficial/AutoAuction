@@ -1,7 +1,9 @@
-﻿using AutoAuction.Interfaces;
+﻿using AutoAuction.DatabaseFiles;
+using AutoAuction.Interfaces;
 using Microsoft.VisualBasic.FileIO;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -31,7 +33,6 @@ namespace AutoAuction.Models
             //TODO: U1 - Set constructor and field
             makePasswordHash(password);
         }
-
         
         /// <summary>
         /// Construntor for a Buyer and Seller
@@ -47,6 +48,26 @@ namespace AutoAuction.Models
             this.ZipCode = zipCode;
             this.Balance = balance;
             makePasswordHash(password);
+        }
+
+        protected User(string userName)
+        {
+            SqlConnection con = new(Database.Instance.ConnectionString);
+            using (con)
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand($"exec GetUser {userName}", con);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        this.UserName = reader.GetString(1);
+                        this.Zipcode = (uint)reader.GetInt32(3);
+                        this.Balance = reader.GetDecimal(5);
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -69,16 +90,15 @@ namespace AutoAuction.Models
         /// ID property
         /// </summary>
         public uint ID { get; private set; }
-        public string UserName { get; private set; }
+        public string UserName { get; set; }
         public string Password { get; private set; }
         public uint ZipCode { get; private set; }
         /// <summary>
         /// PasswordHash property
         /// </summary>
         private byte[] PasswordHash { get; set; }
-        string IBuyer.UserName { get; set; } // TODO: Check if this needs to get deleted or kept because of already created prop with name UserName
         public decimal Balance { get; set; }
-        string ISeller.UserName { get; set; }
+       
         public uint Zipcode { get; set; }
 
         /// <summary>
