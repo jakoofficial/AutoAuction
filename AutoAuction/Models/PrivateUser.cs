@@ -37,7 +37,7 @@ namespace AutoAuction.Models
         public override string ToString()
         {
             StringBuilder tsb = new StringBuilder($"{base.ToString()}, ");
-            tsb.Append($"CVRNumber: {this.CPRNumber}");
+            tsb.Append($"CPRNumber: {this.CPRNumber}");
             //TODO: CHECK if balance shows corretly from User.
             return tsb.ToString();
         }
