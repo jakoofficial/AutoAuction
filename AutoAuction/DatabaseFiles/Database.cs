@@ -1,7 +1,6 @@
 ﻿using AutoAuction.Models;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -15,10 +14,7 @@ namespace AutoAuction.DatabaseFiles
         public static Database Instance { get; private set; }
 
         public SqlConnection con;
-        public string ConnectionString = "Server=docker.data.techcollege.dk, 20001;" +
-                                  "Database=AutoAuction;" +
-                                  "User Id=Username;" +
-                                  "Password=Password;";
+        public string ConnectionString = "";
 
         static Database()
         {
@@ -93,6 +89,33 @@ namespace AutoAuction.DatabaseFiles
                 cmd.ExecuteNonQuery();
             }
             con.Close();
+        }
+
+        /// <summary>
+        /// tries to connect to the database with the given credentials, if the login succeeds the ConnectionString will be updated accordingly
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <returns> Return true if the login succeeds </returns>
+        public bool LogInWithUser(string username, string password)
+        {
+
+            ConnectionString = "Server=docker.data.techcollege.dk, 20001;" +
+                               "Database=AutoAuction;" +
+                               $"User Id={username};" + //User Id = sa
+                               $"Password={password};"; //Password=H2PD071123_Gruppe1
+
+            try
+            {
+                ExecNonQuery($"EXEC GetUser {username}");
+                return true;
+            }
+            catch (Exception)
+            {
+                ConnectionString = "";
+                return false;
+                throw;
+            }
         }
     }
 }

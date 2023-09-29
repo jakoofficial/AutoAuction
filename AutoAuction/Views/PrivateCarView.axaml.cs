@@ -1,15 +1,13 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
-using AutoAuction.ViewModels;
 
 namespace AutoAuction.Views;
 
-public partial class LoginView : UserControl
+public partial class PrivateCarView : UserControl
 {
-    public LoginView()
+    public PrivateCarView()
     {
         InitializeComponent();
-        DataContext = new LoginViewModel();
     }
 }

@@ -1,0 +1,72 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="using:AutoAuction.ViewModels"
+			 xmlns:views="using:AutoAuction.Views"
+			 x:DataType="vm:SetForSaleViewModel"
+             mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="600"
+             x:Class="AutoAuction.Views.SetForSaleView"
+			 >
+
+	<Grid ColumnDefinitions="1*, 1*" RowDefinitions="40, 3*, 1*, 1*, 1*" Margin="10 10 10 0">
+		<TextBlock Text="Set for Sale" FontSize="25"
+				   Grid.Column="0" Grid.Row="0"
+				   HorizontalAlignment="Left"/>
+		<Grid Grid.Column="0" Grid.Row="1" RowDefinitions="1*, 1*, 1*, 1*" ColumnDefinitions="1*, 1*">
+			<TextBlock Text="Name" FontSize="20" Grid.Row="0"/>
+			<TextBox Height="40" FontSize="20" VerticalAlignment="Top"
+					 Grid.Row="0" Grid.Column="1"/>
+
+			<TextBlock Text="Milage" FontSize="20" Grid.Row="1"/>
+			<TextBox Height="40" FontSize="20" VerticalAlignment="Top"
+					 Grid.Row="1" Grid.Column="1"/>
+
+			<TextBlock Text="Reg. num" FontSize="20" Grid.Row="2"/>
+			<TextBox Height="40" FontSize="20" VerticalAlignment="Top"
+					 Grid.Row="2" Grid.Column="1"/>
+
+			<TextBlock Text="Year" FontSize="20" Grid.Row="3"/>
+			<ComboBox Name="CBYear" Grid.Row="3" Grid.Column="1" MinWidth="200">
+			</ComboBox>
+		</Grid>
+		<Grid Grid.Column="0" Grid.Row="3"
+			  RowDefinitions="1*, 1*" ColumnDefinitions="1*, 1*">
+			<TextBlock Text="Starting bid" FontSize="20"/>
+			<TextBox Height="40" FontSize="20" VerticalAlignment="Top"
+					 Grid.Row="0" Grid.Column="1"/>
+
+			<TextBlock Text="Close Auction" FontSize="20" Grid.Row="1"/>
+			<CalendarDatePicker SelectedDateFormat="Short" VerticalAlignment="Top"
+								Grid.Row="1" Grid.Column="1"/>
+		</Grid>
+
+		<Button Command="{Binding}" Content="Cancel"
+				Width="150" FontSize="15"
+				HorizontalContentAlignment="Center" Grid.Row="4"/>
+		<Button Command="{Binding}" Content="Create Auction"
+				Width="150" FontSize="15" HorizontalAlignment="Right"
+				HorizontalContentAlignment="Center" Grid.Column="1" Grid.Row="4"/>
+
+		<Grid Grid.Column="1" Grid.Row="0" Margin="50 0 0 0">
+			<!--<StackPanel Name="vehicleStackPanel" >-->
+			<ComboBox x:Name="CBSelectedCar" FontSize="20" SelectedIndex="{Binding SelectedCarIndex}">
+				<ComboBoxItem>Truck</ComboBoxItem>
+				<ComboBoxItem>Bus</ComboBoxItem>
+				<ComboBoxItem>Personal Vehicle</ComboBoxItem>
+				<ComboBoxItem>Professional Vehicle</ComboBoxItem>
+			</ComboBox>
+			
+		</Grid>
+		
+		<Grid Grid.Row="1" Grid.RowSpan="3" Grid.Column="1" Margin="50 10 0 0" VerticalAlignment="Top">
+			
+		<ContentControl Content="{Binding ActiveView}" Height="400" />
+			
+			<!--<views:TruckView IsVisible="{Binding}" Height="300"/>-->
+			<!--<views:BusView IsVisible="{Binding}" Height="400"/>-->
+			<!--<views:TruckView IsVisible="{Binding}"/>-->
+			<!--<views:TruckView IsVisible="{Binding}"/>-->
+		</Grid>
+	</Grid>
+</UserControl>
