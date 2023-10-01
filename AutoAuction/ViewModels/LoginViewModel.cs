@@ -1,4 +1,6 @@
-﻿using ReactiveUI;
+﻿using AutoAuction.DatabaseFiles;
+using AutoAuction.Models;
+using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,7 +12,7 @@ namespace AutoAuction.ViewModels
 {
     public class LoginViewModel : ViewModelBase
     {
-        private string _username = "1";
+        private string _username = "";
 
         public string Username
         {
@@ -18,7 +20,7 @@ namespace AutoAuction.ViewModels
             set => this.RaiseAndSetIfChanged(ref _username, value);
         }
 
-        private string _password = "2";
+        private string _password = "";
 
         public string Password
         {
@@ -26,9 +28,28 @@ namespace AutoAuction.ViewModels
             set => this.RaiseAndSetIfChanged(ref _password, value);
         }
 
+        private bool _errorMsg = false;
+
+        public bool ErrorMsg
+        {
+            get => _errorMsg;
+            set => this.RaiseAndSetIfChanged(ref _errorMsg, value);
+        }
+
+
         public void Login()
         {
-            Debug.WriteLine("test");
+            bool loginSuccessful = Database.Instance.LogInWithUser(Username, Password);
+            Debug.WriteLine(loginSuccessful);
+            if (loginSuccessful)
+            {
+                User test = Database.Instance.GetUser(Username);
+            }
+            else
+            {
+                ErrorMsg = true;
+            }
+
         }
 
 

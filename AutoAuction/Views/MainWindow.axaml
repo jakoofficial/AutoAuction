@@ -12,8 +12,8 @@
 		Width="1000" Height="600"
 		MinWidth="900" MinHeight="500">
 	<Grid>
-		<Views:SetForSaleView/>
-		<!--<Views:LoginView/>-->
+		<!--<Views:SetForSaleView/>-->
+		<Views:LoginView/>
 		<!--<Views:HomeScreenView/>-->
 		<!--<Views:CreateUserView/>-->
 	</Grid>
