@@ -17,6 +17,7 @@
 		<!--<Views:HomeScreenView/>-->
 		<!--<Views:CreateUserView/>-->
 		<!--<Views:BidHistoryView/>-->
-		<Views:ProfileView/>
+		<!--<Views:ProfileView/>-->
+		<Views:SellerOfAuctionView/>
 	</Grid>
 </Window>

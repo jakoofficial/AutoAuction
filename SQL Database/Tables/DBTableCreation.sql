@@ -116,7 +116,7 @@ CREATE TABLE dbo.Auction(
 	standingBid decimal(18,0) not null,
 	vehicleId int not null,
 	seller varchar(max) not null,
-	buyer varchar(max),
+	buyer varchar(max) not null,
 );
 
 USE AutoAuction
