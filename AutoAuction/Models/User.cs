@@ -24,6 +24,8 @@ namespace AutoAuction.Models
 
     public abstract class User : ISeller, IBuyer //TODO: U4 - Implement interfaces
     {
+        public static User Instance { get; private set; }
+
         protected User(string userName, string password, uint zipCode)
         {
             this.UserName = userName;
@@ -78,6 +80,15 @@ namespace AutoAuction.Models
         /// <param name="zipCode"></param>
         /// <param name="balance"></param>
 
+        public virtual bool AbleToBuy(decimal amount)
+        {
+            decimal minimumBalance = Balance;
+
+            if (amount > minimumBalance) { return false; }
+
+            return true;
+        }
+
         private bool makePasswordHash(string password)
         {
             HashAlgorithm sha = SHA256.Create();
@@ -97,7 +108,7 @@ namespace AutoAuction.Models
         /// PasswordHash property
         /// </summary>
         private byte[] PasswordHash { get; set; }
-        public decimal Balance { get; set; }
+        public virtual decimal Balance { get; set; }
        
         public uint Zipcode { get; set; }
 

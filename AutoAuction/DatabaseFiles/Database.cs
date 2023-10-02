@@ -34,33 +34,39 @@ namespace AutoAuction.DatabaseFiles
             using (con)
             {
                 con.Open();
-                SqlCommand command = new SqlCommand($"exec GetUserOfType {username}", con);
-
-                using (SqlDataReader reader = command.ExecuteReader())
+                try
                 {
-                    while (reader.Read())
+                    SqlCommand command = new SqlCommand($"exec GetUserOfType {username}", con);
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        if (reader.GetBoolean(1) == true)
+                        while (reader.Read())
                         {
-                            return new CorporateUser(username, "", 
+                            if (reader.GetBoolean(1) == true)
+                            {
+                                return new CorporateUser(username, "",
+                                    (uint)reader.GetInt32(2),
+                                    (uint)reader.GetInt32(5),
+                                    reader.GetDecimal(3),
+                                    reader.GetDecimal(4));
+                            }
+                            else if (reader.GetBoolean(1) == false)
+                            {
+                                return new PrivateUser(username, "",
                                 (uint)reader.GetInt32(2),
-                                (uint)reader.GetInt32(5),
-                                reader.GetDecimal(3),
-                                reader.GetDecimal(4));
-                        }
-                        else if (reader.GetBoolean(1) == false)
-                        {
-                            return new PrivateUser(username, "",
-                            (uint)reader.GetInt32(2),
-                            (uint)reader.GetInt64(4),
-                            reader.GetDecimal(3));
-                        }
+                                (uint)reader.GetInt64(4),
+                                reader.GetDecimal(3));
+                            }
 
+                        }
                     }
                 }
+                catch (Exception ex)
+                {
+                    //throw new ArgumentException(String.Format("{0} is not a recognized username!", username));
+                    return null;
+                }
             }
-
-            throw new ArgumentException(String.Format("{0} is not a recognized username!", username));
+            return null;
         }
 
         public string ExecScalar(string command)

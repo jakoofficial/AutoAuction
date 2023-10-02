@@ -42,11 +42,20 @@ namespace AutoAuction.Models
                 {
                     while (reader.Read())
                     {
+                        this.ID = (uint)reader.GetInt32(0);
                         this.MinimumPrice = reader.GetDecimal(1);
                         this.StandingBid = reader.GetDecimal(2);
                         this.Seller = Database.Instance.GetUser(reader.GetString(4));
-                        this.Buyer = Database.Instance.GetUser(reader.GetString(5));
-                        
+
+                        if (Database.Instance.GetUser(reader.GetString(5)) != null)
+                        {
+                            this.Buyer = Database.Instance.GetUser(reader.GetString(5));
+                        }
+                        else
+                        {
+                            this.Buyer = null;
+                        }
+
                         SqlCommand vHeavyType = new SqlCommand($"exec GetHeavyVehicle {reader.GetInt32(3)}", con);
                         SqlCommand vPersonalType = new SqlCommand($"exec GetPersonalCar {reader.GetInt32(3)}", con);
 
@@ -80,20 +89,8 @@ namespace AutoAuction.Models
                                 this.Vehicle = pripc;
                                 pripc = null; propc = null;
                             }
-
-                            Debug.WriteLine(this.Vehicle);
-
-                            //using (SqlDataReader vReader = vHeavyType.ExecuteReader())
-                            //{
-                            //    while (vReader.Read())
-                            //    {
-                            //        //TODO: REquires functionality
-
-                            //    }
-                            //}
                         }
 
-                        //this.Vehicle = new Truck(reader.GetDecimal(3));
                     }
                 }
             }
@@ -121,7 +118,7 @@ namespace AutoAuction.Models
         /// <summary>
         /// The buyer or potential buyer of the auction
         /// </summary>
-        internal IBuyer Buyer { get; set; }
+        internal IBuyer? Buyer { get; set; }
 
         //public override string ToString()
         //{

@@ -3,6 +3,8 @@ using AutoAuction.Interfaces;
 using AutoAuction.Models.Vehicles;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,9 +29,18 @@ namespace AutoAuction.Models
             string temp = seller.UserName;
             //TODO: Create auction, upload to db, give auctionID back.
             //Use Recieve bid to check and send notification to seller if bid is over min price.
-            string auctionNumber = Database.Instance.ExecScalar($"EXEC CreateAuction {miniumBid}, 0, {vehicle.ID},'{seller.UserName}', null");
+            string auctionNumber = Database.Instance.ExecScalar($"EXEC CreateAuction {miniumBid}, 0, {vehicle.ID},'{seller.UserName}', ''");
             return Convert.ToUInt32(auctionNumber);
         }
+
+        //UpdateAuction
+        public static void UpdateAuction(string buyerName, uint auctionID, decimal bid)
+        {
+            //$"exec UpdateAuction {id}", con;
+            Database.Instance.ExecNonQuery($"exec UpdateAuction {auctionID}, '{buyerName}', {bid.ToString(new CultureInfo("en-US"))}");
+
+        }
+
         /// <summary>
         /// Recieves a bid from a buyer.
         /// Checks if the bid is eligable, by ...
@@ -41,7 +52,23 @@ namespace AutoAuction.Models
         public static bool RecieveBid(IBuyer buyer, uint auctionID, decimal bid)
         {
             //TODO: A5 - RecieveBid
-            throw new NotImplementedException();
+            //Get Auction, Check if buyer has enough money, check if bid is higher than current bid / Min price.
+            //If bid is accepted, send notification to seller.
+            Auction TempA = null;
+            foreach (Auction a in Auctions)
+            {
+                if (a.ID == auctionID)
+                { TempA = a; break; }
+            }
+            if (TempA == null) return false;
+            
+            if (buyer.Balance > TempA.StandingBid && bid > TempA.StandingBid)
+            {
+                UpdateAuction(buyer.UserName, auctionID, bid);
+                return true;
+            }
+
+            return false;
         }
         /// <summary>
         /// Accepts a bid and ...
