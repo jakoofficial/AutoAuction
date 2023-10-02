@@ -49,7 +49,6 @@
 				HorizontalContentAlignment="Center" Grid.Column="1" Grid.Row="4"/>
 
 		<Grid Grid.Column="1" Grid.Row="0" Margin="50 0 0 0">
-			<!--<StackPanel Name="vehicleStackPanel" >-->
 			<ComboBox x:Name="CBSelectedCar" FontSize="20" SelectedIndex="{Binding SelectedCarIndex}">
 				<ComboBoxItem>Truck</ComboBoxItem>
 				<ComboBoxItem>Bus</ComboBoxItem>
@@ -60,9 +59,8 @@
 		</Grid>
 		
 		<Grid Grid.Row="1" Grid.RowSpan="3" Grid.Column="1" Margin="50 10 0 0" VerticalAlignment="Top">
-			
-		<ContentControl Content="{Binding ActiveView}" Height="400" />
-			
+		<ContentControl Content="{Binding ActiveView}" Height="400" VerticalAlignment="Top"/>
+			<!--<views:ProfessionalCarView IsVisible="{Binding}" Height="350"/>-->
 			<!--<views:TruckView IsVisible="{Binding}" Height="300"/>-->
 			<!--<views:BusView IsVisible="{Binding}" Height="400"/>-->
 			<!--<views:TruckView IsVisible="{Binding}"/>-->
