@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -152,7 +153,7 @@ namespace AutoAuction.DatabaseFiles
             LogInWithUser("sa", "H2PD071123_Gruppe1");
             try
             {
-                ExecNonQuery($"CreateCorporateUser '{user.UserName}', '{user.Password}', {user.ZipCode}, {user.CVRNumber}");
+                ExecNonQuery($"CreateCorporateUser '{user.UserName}', '{user.Password}', {user.ZipCode}, {user.CVRNumber}, {user.Credit.ToString(new CultureInfo("en-US"))}");
                 ConnectionString = "";
                 return null;
             }

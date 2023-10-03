@@ -1,4 +1,4 @@
-CREATE PROCEDURE CreateCorporateUser @username varchar(300), @password varchar(max), @zipcode int, @CVRNumber int
+CREATE PROCEDURE CreateCorporateUser @username varchar(300), @password varchar(max), @zipcode int, @CVRNumber int, @Credit decimal(18, 2)
 as
 set xact_abort, nocount on;
 
@@ -15,7 +15,7 @@ END
 EXEC ('CreateLogin ''' + @username + ''', ''' + @password + ''' ')
 
 INSERT INTO UserTable (Username, CorporateUser, ZipCode, Balance, Credit)
-VALUES (@username, 1, @zipcode, 0, 0)
+VALUES (@username, 1, @zipcode, 0, @Credit)
 
 INSERT INTO CorporateUser (Username, CVRNumber)
 VALUES (@username, @CVRNumber)
