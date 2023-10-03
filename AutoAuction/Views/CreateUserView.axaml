@@ -11,8 +11,8 @@
 	<StackPanel>
 		<TextBlock Text="Create User" FontSize="25" Margin="0 0 0 25"/>
 		<TextBox Watermark="Username" Margin="0 0 0 20"/>
-		<TextBox Watermark="Password" Margin="0 0 0 20"/>
-		<TextBox Watermark="Password again" Margin="0 0 0 10"/>
+		<TextBox Watermark="Password" Margin="0 0 0 20" PasswordChar="*"/>
+		<TextBox Watermark="Password again" Margin="0 0 0 10" PasswordChar="*"/>
 		<StackPanel Orientation="Horizontal">
 			<RadioButton IsChecked="True" Content="Corporate" Margin="0 0 15 0"/>
 			<RadioButton IsChecked="True" Content="Private"/>
