@@ -87,7 +87,7 @@ namespace AutoAuction.Models
         /// </summary>
         /// <param name="auctionID"></param>
         /// <returns> The Auction with the specific id or null if not found </returns>
-        public static async Task<Auction> FindAuctionByID(uint auctionID)
+        public static Auction FindAuctionByID(uint auctionID)
         {
             //TODO: A7 - FindAuctionByID
             foreach (var auction in AuctionHouse.Auctions)
@@ -98,7 +98,7 @@ namespace AutoAuction.Models
                 }
             }
 
-            return null;
+            throw new ArgumentException($"Auction with the id of {auctionID}, was not found.");
         }
         /// <summary>
         /// Finds vehicles by the name or part of the name.

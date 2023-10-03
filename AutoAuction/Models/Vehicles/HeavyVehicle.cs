@@ -31,8 +31,6 @@ namespace AutoAuction.Models.Vehicles
         }
         public HeavyVehicle(uint id) :base(id)
         {
-            //TODO: REDO
-
             SqlConnection con = new(Database.Instance.ConnectionString);
             using (con)
             {
