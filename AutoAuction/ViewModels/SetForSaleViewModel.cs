@@ -6,58 +6,92 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace AutoAuction.ViewModels
 {
     public class SetForSaleViewModel : ViewModelBase
     {
-        BusViewModel busViewModel= new();
-        BusViewModel BusViewModel 
+        #region Properties
+        BusViewModel busViewModel = new();
+        public BusViewModel BusViewModel
         {
-            get => busViewModel; 
+            get => busViewModel;
             set => this.RaiseAndSetIfChanged(ref busViewModel, value);
         }
 
         TruckViewModel truckViewModel = new();
-        TruckViewModel TruckViewModel 
+        public TruckViewModel TruckViewModel
         {
             get => truckViewModel;
             set => this.RaiseAndSetIfChanged(ref truckViewModel, value);
 
         }
+
         PrivateCarViewModel privateCarViewModel = new();
-        PrivateCarViewModel PrivateCarViewModel 
+        public PrivateCarViewModel PrivateCarViewModel
         {
             get => privateCarViewModel;
             set => this.RaiseAndSetIfChanged(ref privateCarViewModel, value);
         }
 
         ProfessionalCarViewModel professionalCarViewModel = new();
-        ProfessionalCarViewModel ProfessionalCarViewModel
+        public ProfessionalCarViewModel ProfessionalCarViewModel
         {
             get => professionalCarViewModel;
             set => this.RaiseAndSetIfChanged(ref professionalCarViewModel, value);
         }
 
-        ViewModelBase activeView;
-        ViewModelBase ActiveView 
+        bool showProfessional;
+        public bool ShowProfessional
         {
-            get => activeView;
-            set => this.RaiseAndSetIfChanged(ref activeView, value);
+            get => showProfessional;
+            set => this.RaiseAndSetIfChanged(ref showProfessional, value);
+        }
+
+        bool showPrivate;
+        public bool ShowPrivate
+        {
+            get => showPrivate;
+            set => this.RaiseAndSetIfChanged(ref showPrivate, value);
+        }
+
+        bool showTruck;
+        public bool ShowTruck
+        {
+            get => showTruck;
+            set => this.RaiseAndSetIfChanged(ref showTruck, value);
+        }
+
+        bool showBus;
+        public bool ShowBus
+        {
+            get => showBus;
+            set => this.RaiseAndSetIfChanged(ref showBus, value);
         }
 
         int selectedCarIndex = 0;
         public int SelectedCarIndex
         {
             get => selectedCarIndex;
-            set {
+            set
+            {
                 this.RaiseAndSetIfChanged(ref selectedCarIndex, value);
                 getVehicleType();
             }
         }
+
+        ViewModelBase activeView;
+        public ViewModelBase ActiveView
+        {
+            get => activeView;
+            set => this.RaiseAndSetIfChanged(ref activeView, value);
+        }
+
+        #endregion
+
         public SetForSaleViewModel()
         {
-            //ActiveView = TruckViewModel;
         }
 
         private void getVehicleType()
