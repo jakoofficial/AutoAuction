@@ -4,9 +4,35 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="400"
              x:Class="AutoAuction.Views.BusView">
+	<Grid>
+		<StackPanel Orientation="Horizontal">
+			<!-- Left side Text-->
+			<StackPanel Orientation="Vertical">
+				<TextBlock Text="Truck Dimensions" FontSize="18" Height="40"/>
+				<TextBlock Text="Height:" FontSize="15" MinHeight="30" Margin="0 5 0 0"/>
+				<TextBlock Text="Weight:" FontSize="15" MinHeight="30"/>
+				<TextBlock Text="Length:" FontSize="15" MinHeight="30"/>
+				<TextBlock Text="Number of Seats:" FontSize="15" Margin="0 10 0 0" MinHeight="30"/>
+				<TextBlock Text="Sleeping Spots:" FontSize="15" Margin="0 10 0 0" MinHeight="30"/>
+				<TextBlock Text="Has toilet:" FontSize="15" Margin="0 10 0 0" MinHeight="30"/>
+			</StackPanel>
+			<!-- Right side Answers/Input-->
+			<StackPanel Orientation="Vertical" Margin="50 40 0 0">
+				<TextBox MinWidth="200" Height="30" Watermark="meters" MinHeight="30"/>
+				<TextBox MinWidth="200" Height="30" Watermark="kg" MinHeight="30"/>
+				<TextBox MinWidth="200" Height="30" Watermark="meters" MinHeight="30"/>
+				<TextBox MinWidth="200" Height="30" Watermark="#" Margin="0 10 0 0" MinHeight="30"/>
+				<TextBox MinWidth="200" Height="30" Watermark="#" Margin="0 10 0 0" MinHeight="30"/>
+				<StackPanel Orientation="Horizontal" Margin="0 10 0 0" MinHeight="30">
+					<RadioButton GroupName="A" Content="Yes"/>
+					<RadioButton GroupName="A" Content="No" Margin="50 0 0 0"/>
+				</StackPanel>
+			</StackPanel>
+		</StackPanel>
+	</Grid>
 
-	<!-- Number of seats, number of sleeping spaces, has toilets,-->
-	<Grid ColumnDefinitions="1*, 1*" RowDefinitions="1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*">
+
+	<!--<Grid ColumnDefinitions="1*, 1*" RowDefinitions="1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*">
 		<TextBlock Text="Bus Dimensions" FontSize="18" Height="40"/>
 
 		<TextBlock Text="Height:" FontSize="15" VerticalAlignment="Center"
@@ -48,5 +74,5 @@
 			<RadioButton GroupName="B" Content="Yes"/>
 			<RadioButton GroupName="B" Content="No" Margin="50 0 0 0"/>
 		</StackPanel>
-	</Grid>
+	</Grid>-->
 </UserControl>

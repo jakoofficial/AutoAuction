@@ -8,24 +8,18 @@
 		<StackPanel Orientation="Horizontal">
 			<!-- Left side Text-->
 			<StackPanel Orientation="Vertical">
+				<TextBlock Text="Truck Dimensions" FontSize="18" Height="40"/>
 				<TextBlock Text="Height:" FontSize="15" MinHeight="30" Margin="0 5 0 0"/>
 				<TextBlock Text="Weight:" FontSize="15" MinHeight="30"/>
 				<TextBlock Text="Length:" FontSize="15" MinHeight="30"/>
 				<TextBlock Text="Load Capacity:" FontSize="15" Margin="0 10 0 0" MinHeight="30"/>
-				<TextBlock Text="Engine Size:" FontSize="15" Margin="0 10 0 0" MinHeight="30"/>
-				<TextBlock Text="Has towbar:" FontSize="15" Margin="0 10 0 0" MinHeight="30"/>
 			</StackPanel>
 			<!-- Right side Answers/Input-->
-			<StackPanel Orientation="Vertical" Margin="50 0 0 0">
+			<StackPanel Orientation="Vertical" Margin="50 40 0 0">
 				<TextBox MinWidth="200" Height="30" Watermark="meters" MinHeight="30"/>
 				<TextBox MinWidth="200" Height="30" Watermark="kg" MinHeight="30"/>
 				<TextBox MinWidth="200" Height="30" Watermark="meters" MinHeight="30"/>
 				<TextBox MinWidth="200" Height="30" Watermark="kg" Margin="0 10 0 0" MinHeight="30"/>
-				<TextBox MinWidth="200" Height="30" Watermark="liters" Margin="0 10 0 0" MinHeight="30"/>
-				<StackPanel Orientation="Horizontal" Margin="0 10 0 0" MinHeight="30">
-					<RadioButton GroupName="A" Content="Yes"/>
-					<RadioButton GroupName="A" Content="No" Margin="50 0 0 0"/>
-				</StackPanel>
 			</StackPanel>
 		</StackPanel>
 	</Grid>
