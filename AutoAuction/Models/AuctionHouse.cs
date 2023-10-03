@@ -15,6 +15,7 @@ namespace AutoAuction.Models
     public static class AuctionHouse
     {
         public static List<Auction> Auctions = new List<Auction>();
+        public static List<Vehicle> SoldVehicles = new List<Vehicle>();
 
         /// <summary>
         /// A method that ...
@@ -29,15 +30,15 @@ namespace AutoAuction.Models
             string temp = seller.UserName;
             //TODO: Create auction, upload to db, give auctionID back.
             //Use Recieve bid to check and send notification to seller if bid is over min price.
-            string auctionNumber = Database.Instance.ExecScalar($"EXEC CreateAuction {miniumBid}, 0, {vehicle.ID},'{seller.UserName}', ''");
+            string auctionNumber = Database.Instance.ExecScalar($"EXEC CreateAuction {miniumBid}, 0, {vehicle.ID},'{seller.UserName}', '', {true}");
             return Convert.ToUInt32(auctionNumber);
         }
 
         //UpdateAuction
-        public static void UpdateAuction(string buyerName, uint auctionID, decimal bid)
+        public static void UpdateAuction(string buyerName, uint auctionID, decimal bid, bool activeStage)
         {
             //$"exec UpdateAuction {id}", con;
-            Database.Instance.ExecNonQuery($"exec UpdateAuction {auctionID}, '{buyerName}', {bid.ToString(new CultureInfo("en-US"))}");
+            Database.Instance.ExecNonQuery($"exec UpdateAuction {auctionID}, '{buyerName}', {bid.ToString(new CultureInfo("en-US"))}, {activeStage}");
 
         }
 
@@ -64,7 +65,7 @@ namespace AutoAuction.Models
             
             if (buyer.Balance > TempA.StandingBid && bid > TempA.StandingBid)
             {
-                UpdateAuction(buyer.UserName, auctionID, bid);
+                UpdateAuction(buyer.UserName, auctionID, bid, false);
                 return true;
             }
 
@@ -79,7 +80,33 @@ namespace AutoAuction.Models
         public static bool AcceptBid(ISeller seller, uint auctionID)
         {
             //TODO: A6 - AcceptBid
-            throw new NotImplementedException();
+            // Check seller if is seller, Removed money from buyer,
+            // Removed from list of Auctions and add to list of sold Vehicles
+            // List of sold vehicles should be accesable from everywhere.
+            // Return if sell went through
+            Auction a = null;
+            //Finds the auction
+            foreach (var auction in Auctions)
+            {
+                if (auction.ID == auctionID)
+                { a = auction; break; }
+            }
+
+            if (seller.UserName != a.Seller.UserName)
+            { throw new Exception($"{seller.UserName} is not the seller of this product"); return false; }
+
+            if (a.Buyer != null && a.Buyer.Balance >= a.StandingBid && a.Active) 
+            { 
+                a.Buyer.Balance -= a.StandingBid;
+                Auctions.Remove(a);
+                SoldVehicles.Add(a.Vehicle);
+
+                UpdateAuction(a.Buyer.UserName, a.ID, a.StandingBid, false);
+                User.Instance.UpdateBalance(a.Buyer.UserName, a.Buyer.Balance);
+                return true;
+            }
+
+            return false;
         }
         #region Search Methods
         /// <summary>

@@ -6,18 +6,20 @@ GO
 
 CREATE PROCEDURE CreateAuction 
 @minimumPrice decimal(18,2),
-@standingBid decimal(18,2), @vehicleId int, @seller varchar(max), @buyer varchar(max)
+@standingBid decimal(18,2), @vehicleId int, @seller varchar(max), @buyer varchar(max), @active bit
 AS INSERT INTO dbo.Auction
 (	minimumPrice, 
 	standingBid,
 	vehicleId,
 	seller,
-	buyer
+	buyer,
+	active
 )
 VALUES (
 	@minimumPrice,
 	@standingBid, @vehicleId,
-	@seller, @buyer
+	@seller, @buyer,
+	@active
 )
 
 SELECT SCOPE_IDENTITY() as aId

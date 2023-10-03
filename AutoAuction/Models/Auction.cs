@@ -46,6 +46,7 @@ namespace AutoAuction.Models
                         this.MinimumPrice = reader.GetDecimal(1);
                         this.StandingBid = reader.GetDecimal(2);
                         this.Seller = Database.Instance.GetUser(reader.GetString(4));
+                        this.Active = reader.GetBoolean(6);
 
                         if (Database.Instance.GetUser(reader.GetString(5)) != null)
                         {
@@ -107,6 +108,10 @@ namespace AutoAuction.Models
         /// The standing bid of the auction
         /// </summary>
         public decimal StandingBid { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool Active { get; set; }
         /// <summary>
         /// The vehicle of the auction
         /// </summary>
