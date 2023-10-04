@@ -64,7 +64,6 @@ namespace AutoAuction.ViewModels
 		}
 
 		private string _CVRNumber = "";
-
 		public string CVRNumber
 		{
 			get => _CVRNumber;
@@ -79,7 +78,6 @@ namespace AutoAuction.ViewModels
 		}
 
 		private bool _usernameErrorMsg;
-
 		public bool UsernameErrorMsg
 		{
 			get => _usernameErrorMsg;
@@ -143,28 +141,32 @@ namespace AutoAuction.ViewModels
 		{
 			uint uintZipCode;
 
-			if (Username.Length < 4)
+            //Checks if the username meets the requirements 
+            if (Username.Length < 4)
 			{
 				UsernameErrorMsg = true;
 				return;
 			}
 			else UsernameErrorMsg = false;
 
-			if (Password != Password2nd || Password.Length < 10)
+            //Checks if the Password meets the requirements and both password are the same
+            if (Password != Password2nd || Password.Length < 10)
 			{
 				PasswordErrorMsg = true;
 				return;
 			}
 			else PasswordErrorMsg = false;
 
-			if (!uint.TryParse(ZipCode, out uintZipCode) || ZipCode.Length != 4)
+            //Checks if the zip code meets the requirements
+            if (!uint.TryParse(ZipCode, out uintZipCode) || ZipCode.Length != 4)
 			{
                 ZipCodeErrorMsg = true;
 				return;
             }
 			else ZipCodeErrorMsg = false;
 
-			if (!IsPrivate && !IsCorporate)
+            //Checks if the user has chosen which type of user they are
+            if (!IsPrivate && !IsCorporate)
 			{
 				RbErrorMsg = true;
 				return;
@@ -176,14 +178,16 @@ namespace AutoAuction.ViewModels
 			{
 				uint uintCVRNumber;
 				decimal decimalCredit;
-				if (!uint.TryParse(CVRNumber, out uintCVRNumber) || CVRNumber.Length != 8)
+                //Checks if the CVR number meets the requirements
+                if (!uint.TryParse(CVRNumber, out uintCVRNumber) || CVRNumber.Length != 8)
 				{
 					CorporateErrorMsg = true;
 					return;
 				}
 				else CorporateErrorMsg= false;
 
-				if (!decimal.TryParse(Credit, out decimalCredit))
+                ////Checks if the credit meets the requirements
+                if (!decimal.TryParse(Credit, out decimalCredit))
 				{
 					CorporateErrorMsg = true;
 				}
@@ -207,7 +211,8 @@ namespace AutoAuction.ViewModels
 			{
 				uint uintCPRNumber;
 
-				if (!uint.TryParse(CPRNumber, out uintCPRNumber) || CPRNumber.Length != 10)
+                //Checks if the CPR number meets the requirements
+                if (!uint.TryParse(CPRNumber, out uintCPRNumber) || CPRNumber.Length != 10)
 				{
 					PrivateErrorMsg = true;
 					return;
