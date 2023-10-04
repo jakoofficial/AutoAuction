@@ -1,0 +1,35 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" 
+		xmlns:vm="using:AutoAuction.ViewModels"
+		d:DesignWidth="300" d:DesignHeight="200"
+		Width="350" Height="200"
+		MinWidth="350" MinHeight="200"
+        x:Class="AutoAuction.MakeABidView"
+        Title="MakeABidView"
+		x:DataType="vm:MakeABidViewModel">
+	<Grid RowDefinitions="1*, 0.5*">
+		<!-- Your Bid Section -->
+		<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+			<TextBlock Text="Your Bid" Margin="0 0 20 0" VerticalAlignment="Center"/>
+			<TextBox Watermark="8000" MinWidth="160" MaxWidth="160" TextWrapping="NoWrap" VerticalAlignment="Center"/>
+		</StackPanel>
+		
+		<!-- Button Section -->
+		<StackPanel Grid.Row="1" Orientation="Horizontal">
+			<Button Content="Cancel" FontSize="20"
+						HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+						HorizontalAlignment="Right" VerticalAlignment="Top"
+						BorderThickness="1.4" BorderBrush="Black"
+						Width="150" Height="45" Margin="10 0 20 0" Command="{Binding CancelBid}"/>
+			
+			<Button Content="bid" FontSize="20" Background="Green" Foreground="White"
+						HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+						HorizontalAlignment="Right" VerticalAlignment="Top"
+						BorderThickness="1.4" BorderBrush="Black"
+						Width="150" Height="45" Margin="0 0 10 0"/>
+		</StackPanel>
+	</Grid>
+</Window>

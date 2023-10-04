@@ -3,6 +3,8 @@ using AutoAuction.Interfaces;
 using AutoAuction.Models.Vehicles;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +15,7 @@ namespace AutoAuction.Models
     public static class AuctionHouse
     {
         public static List<Auction> Auctions = new List<Auction>();
+        public static List<Vehicle> SoldVehicles = new List<Vehicle>();
 
         /// <summary>
         /// A method that ...
@@ -27,9 +30,18 @@ namespace AutoAuction.Models
             string temp = seller.UserName;
             //TODO: Create auction, upload to db, give auctionID back.
             //Use Recieve bid to check and send notification to seller if bid is over min price.
-            string auctionNumber = Database.Instance.ExecScalar($"EXEC CreateAuction {miniumBid}, 0, {vehicle.ID},'{seller.UserName}', null");
+            string auctionNumber = Database.Instance.ExecScalar($"EXEC CreateAuction {miniumBid}, 0, {vehicle.ID},'{seller.UserName}', '', {true}");
             return Convert.ToUInt32(auctionNumber);
         }
+
+        //UpdateAuction
+        public static void UpdateAuction(string buyerName, uint auctionID, decimal bid, bool activeStage)
+        {
+            //$"exec UpdateAuction {id}", con;
+            Database.Instance.ExecNonQuery($"exec UpdateAuction {auctionID}, '{buyerName}', {bid.ToString(new CultureInfo("en-US"))}, {activeStage}");
+
+        }
+
         /// <summary>
         /// Recieves a bid from a buyer.
         /// Checks if the bid is eligable, by ...
@@ -41,7 +53,23 @@ namespace AutoAuction.Models
         public static bool RecieveBid(IBuyer buyer, uint auctionID, decimal bid)
         {
             //TODO: A5 - RecieveBid
-            throw new NotImplementedException();
+            //Get Auction, Check if buyer has enough money, check if bid is higher than current bid / Min price.
+            //If bid is accepted, send notification to seller.
+            Auction TempA = null;
+            foreach (Auction a in Auctions)
+            {
+                if (a.ID == auctionID)
+                { TempA = a; break; }
+            }
+            if (TempA == null) return false;
+            
+            if (buyer.Balance > TempA.StandingBid && bid > TempA.StandingBid)
+            {
+                UpdateAuction(buyer.UserName, auctionID, bid, false);
+                return true;
+            }
+
+            return false;
         }
         /// <summary>
         /// Accepts a bid and ...
@@ -52,7 +80,33 @@ namespace AutoAuction.Models
         public static bool AcceptBid(ISeller seller, uint auctionID)
         {
             //TODO: A6 - AcceptBid
-            throw new NotImplementedException();
+            // Check seller if is seller, Removed money from buyer,
+            // Removed from list of Auctions and add to list of sold Vehicles
+            // List of sold vehicles should be accesable from everywhere.
+            // Return if sell went through
+            Auction a = null;
+            //Finds the auction
+            foreach (var auction in Auctions)
+            {
+                if (auction.ID == auctionID)
+                { a = auction; break; }
+            }
+
+            if (seller.UserName != a.Seller.UserName)
+            { throw new Exception($"{seller.UserName} is not the seller of this product"); return false; }
+
+            if (a.Buyer != null && a.Buyer.Balance >= a.StandingBid && a.Active) 
+            { 
+                a.Buyer.Balance -= a.StandingBid;
+                Auctions.Remove(a);
+                SoldVehicles.Add(a.Vehicle);
+
+                UpdateAuction(a.Buyer.UserName, a.ID, a.StandingBid, false);
+                User.Instance.UpdateBalance(a.Buyer.UserName, a.Buyer.Balance);
+                return true;
+            }
+
+            return false;
         }
         #region Search Methods
         /// <summary>
@@ -60,7 +114,7 @@ namespace AutoAuction.Models
         /// </summary>
         /// <param name="auctionID"></param>
         /// <returns> The Auction with the specific id or null if not found </returns>
-        public static async Task<Auction> FindAuctionByID(uint auctionID)
+        public static Auction FindAuctionByID(uint auctionID)
         {
             //TODO: A7 - FindAuctionByID
             foreach (var auction in AuctionHouse.Auctions)
@@ -71,7 +125,7 @@ namespace AutoAuction.Models
                 }
             }
 
-            return null;
+            throw new ArgumentException($"Auction with the id of {auctionID}, was not found.");
         }
         /// <summary>
         /// Finds vehicles by the name or part of the name.

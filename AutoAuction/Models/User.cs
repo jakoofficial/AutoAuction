@@ -4,11 +4,15 @@ using Microsoft.VisualBasic.FileIO;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using static AutoAuction.Models.Vehicles.Vehicle;
 
 namespace AutoAuction.Models
 {
@@ -24,6 +28,13 @@ namespace AutoAuction.Models
 
     public abstract class User : ISeller, IBuyer //TODO: U4 - Implement interfaces
     {
+        public static User Instance { get; private set; }
+
+        public static void SetUser(User u)
+        {
+            Instance = u;
+        }
+
         protected User(string userName, string password, uint zipCode)
         {
             this.UserName = userName;
@@ -33,7 +44,7 @@ namespace AutoAuction.Models
             //TODO: U1 - Set constructor and field
             makePasswordHash(password);
         }
-        
+
         /// <summary>
         /// Construntor for a Buyer and Seller
         /// </summary>
@@ -70,6 +81,18 @@ namespace AutoAuction.Models
             }
         }
 
+        public void UpdateBalance(string username, decimal newBalance)
+        {
+            try
+            {
+                Database.Instance.ExecNonQuery($"exec UpdateBalance {username}, {newBalance.ToString(new CultureInfo("en-US"))}");
+            }
+            catch
+            {
+                throw new Exception("That is not possible");
+            }
+        }
+
         /// <summary>
         /// Construntor for a User - Buyer 
         /// </summary>
@@ -77,6 +100,14 @@ namespace AutoAuction.Models
         /// <param name="password"></param>
         /// <param name="zipCode"></param>
         /// <param name="balance"></param>
+        public virtual bool AbleToBuy(decimal amount)
+        {
+            decimal minimumBalance = Balance;
+
+            if (amount > minimumBalance) { return false; }
+
+            return true;
+        }
 
         private bool makePasswordHash(string password)
         {
@@ -97,24 +128,24 @@ namespace AutoAuction.Models
         /// PasswordHash property
         /// </summary>
         private byte[] PasswordHash { get; set; }
-        public decimal Balance { get; set; }
-       
+        public virtual decimal Balance { get; set; }
+
         public uint Zipcode { get; set; }
 
         /// <summary>
         /// A method that ...
         /// </summary>
         /// <returns>Whether login is valid</returns>
-        private bool ValidateLogin(string loginUserName, string loginPassword)
+        public bool ValidateLogin(string loginUserName, string loginPassword)
         {
             //TODO: U5 - Implement the rest of validation for password and user name
-
+            //min 10 characters, max 25 chars, uppercase, special character
             HashAlgorithm sha = SHA256.Create(); //Make a HashAlgorithm object for makeing hash computations.
             byte[] result = sha.ComputeHash(Encoding.ASCII.GetBytes(loginPassword)); //Encodes the password into a hash in a Byte array.
 
             return PasswordHash == result;
 
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         //TODO: U4 - Implement interface proberties and methods.

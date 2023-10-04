@@ -42,8 +42,21 @@ namespace AutoAuction.Models
                 {
                     while (reader.Read())
                     {
+                        this.ID = (uint)reader.GetInt32(0);
                         this.MinimumPrice = reader.GetDecimal(1);
                         this.StandingBid = reader.GetDecimal(2);
+                        this.Seller = Database.Instance.GetUser(reader.GetString(4));
+                        this.Active = reader.GetBoolean(6);
+
+                        if (Database.Instance.GetUser(reader.GetString(5)) != null)
+                        {
+                            this.Buyer = Database.Instance.GetUser(reader.GetString(5));
+                        }
+                        else
+                        {
+                            this.Buyer = null;
+                        }
+
                         SqlCommand vHeavyType = new SqlCommand($"exec GetHeavyVehicle {reader.GetInt32(3)}", con);
                         SqlCommand vPersonalType = new SqlCommand($"exec GetPersonalCar {reader.GetInt32(3)}", con);
 
@@ -52,22 +65,33 @@ namespace AutoAuction.Models
                             Truck t = new Truck((uint)reader.GetInt32(3));
                             Bus b = new Bus((uint)reader.GetInt32(3));
 
-                            if (t != null) { this.Vehicle = t; }
-                            if (b != null) { this.Vehicle = b; }
+                            if (t.LoadCapacity != 0)
+                            {
+                                this.Vehicle = t;
+                                t = null; b = null;
+                            }
+                            else
+                            {
+                                this.Vehicle = b;
+                                b = null; t = null;
+                            }
 
-                            Debug.WriteLine(this.Vehicle);
+                            PrivatePersonalCar pripc = new PrivatePersonalCar((uint)reader.GetInt32(3));
+                            ProfessionalPersonalCar propc = new ProfessionalPersonalCar((uint)reader.GetInt32(3));
 
-                            //using (SqlDataReader vReader = vHeavyType.ExecuteReader())
-                            //{
-                            //    while (vReader.Read())
-                            //    {
-                            //        //TODO: REquires functionality
-
-                            //    }
-                            //}
+                            //if (pripc.Load) { }
+                            if (propc.LoadCapacity != 0)
+                            {
+                                this.Vehicle = propc;
+                                propc = null; pripc = null;
+                            }
+                            else
+                            {
+                                this.Vehicle = pripc;
+                                pripc = null; propc = null;
+                            }
                         }
 
-                        //this.Vehicle = new Truck(reader.GetDecimal(3));
                     }
                 }
             }
@@ -85,6 +109,10 @@ namespace AutoAuction.Models
         /// </summary>
         public decimal StandingBid { get; set; }
         /// <summary>
+        /// 
+        /// </summary>
+        public bool Active { get; set; }
+        /// <summary>
         /// The vehicle of the auction
         /// </summary>
         internal Vehicle Vehicle { get; set; }
@@ -95,7 +123,7 @@ namespace AutoAuction.Models
         /// <summary>
         /// The buyer or potential buyer of the auction
         /// </summary>
-        internal IBuyer Buyer { get; set; }
+        internal IBuyer? Buyer { get; set; }
 
         //public override string ToString()
         //{
