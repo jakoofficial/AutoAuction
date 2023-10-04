@@ -1,4 +1,4 @@
-CREATE PROCEDURE CreateUser @username varchar(300), @password varchar(max)
+CREATE PROCEDURE CreateLogin @username varchar(300), @password varchar(max)
 AS
 set xact_abort, nocount on;
 
