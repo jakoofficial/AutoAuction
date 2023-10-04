@@ -24,7 +24,7 @@ namespace AutoAuction.Models
         /// </summary>
         /// <param name="amount"></param>
         /// <returns></returns>
-        public bool AbleToBuyCU(decimal amount)
+        public override bool AbleToBuy(decimal amount)
         {
             decimal minimumBalance = Balance + Credit;
 
