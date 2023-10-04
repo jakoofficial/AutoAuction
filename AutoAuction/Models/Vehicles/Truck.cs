@@ -85,5 +85,16 @@ namespace AutoAuction.Models.Vehicles
             //TODO: V12 - ToString for Truck
             return tsb.ToString();
         }
+
+        public override void UploadToDB()
+        {
+            string idFromDB = Database.Instance.ExecScalar($"EXEC AddTruck '{Name}', {Km.ToString(sqlCulture)}, '{RegistrationNumber}', {Year}, {NewPrice.ToString(sqlCulture)}, " +
+                $"{HasTowbar}, {EngineSize.ToString(sqlCulture)}, {KmPerLiter.ToString(sqlCulture)}, {(int)FuelType}, {(int)DriversLicense}, 0, " +
+                $"{VehicleDimensions.Height.ToString(sqlCulture)}, {VehicleDimensions.Weight.ToString(sqlCulture)}, {VehicleDimensions.Length.ToString(sqlCulture)}, 0, " +
+                $"{LoadCapacity.ToString(sqlCulture)}, 0");
+
+            uint.TryParse(idFromDB, out uint id);
+            ID = id;
+        }
     }
 }
