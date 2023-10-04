@@ -12,6 +12,7 @@ using AutoAuction.Models;
 using AutoAuction.DatabaseFiles;
 using System.Diagnostics;
 using System.Collections.ObjectModel;
+using static AutoAuction.Models.Vehicles.Vehicle;
 
 namespace AutoAuction.ViewModels
 {
@@ -128,7 +129,11 @@ namespace AutoAuction.ViewModels
         public bool Towbar
         {
             get => towbar;
-            set => this.RaiseAndSetIfChanged(ref towbar, value);
+            set
+            {
+                this.RaiseAndSetIfChanged(ref towbar, value);
+                driversLicense();
+            }
         }
 
         decimal txtNewPrice;
@@ -159,6 +164,13 @@ namespace AutoAuction.ViewModels
             set => this.RaiseAndSetIfChanged(ref noType, value);
         }
         #endregion
+
+        #region Variables
+
+        DriversLicenseEnum dr;
+
+        #endregion
+
 
         public SetForSaleViewModel()
         {
@@ -213,12 +225,27 @@ namespace AutoAuction.ViewModels
         }
         #endregion
 
+        /// <summary>
+        /// When Towbar property gets changed, from True / False, sets DriversLicense to CE or C. 
+        /// </summary>
+        void driversLicense()
+        {
+            if (Towbar)
+            {
+                dr = DriversLicenseEnum.CE;
+            }
+            else
+            {
+                dr = DriversLicenseEnum.C;
+            }
+        }
+
         #region Methods to create the different Vehicle Types.
         Truck createTruck()
         {
 
-            Truck truck = new Truck(TxtName, TxtKm, TxtRegNumber, CurrentYear, TxtNewPrice, Towbar,
-                TxtEngineSize, TxtKilometrage, (Vehicle.FuelTypeEnum)selectedFuelType, (new HeavyVehicle.VehicleDimensionsStruct(TruckViewModel.TxtHeight, TruckViewModel.TxtWeight, TruckViewModel.TxtLength)))
+            //Truck truck = new Truck(TxtName, TxtKm, TxtRegNumber, CurrentYear, TxtNewPrice, Towbar,
+            //    TxtEngineSize, TxtKilometrage, (Vehicle.FuelTypeEnum)selectedFuelType, (new HeavyVehicle.VehicleDimensionsStruct(TruckViewModel.TxtHeight, TruckViewModel.TxtWeight, TruckViewModel.TxtLength)), )
 
             //Truck t = new Truck("", 0, "", 0, 0, false, 0, 0, Vehicle.FuelTypeEnum.Diesel,
             //    new HeavyVehicle.VehicleDimensionsStruct((TxtHeight, TxtWeight, TxtLength));
