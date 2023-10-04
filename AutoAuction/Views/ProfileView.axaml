@@ -15,60 +15,87 @@
 		<!-- Information -->
 		<Grid Grid.Row="1" 
 			  RowDefinitions="1*, 0.5*, 1*">
+<!-- User Info -->
 			<Grid>
 				<StackPanel Orientation="Horizontal" Margin="20">
-					<StackPanel Grid.Column="0"
-								Orientation="Vertical">
+					<StackPanel Orientation="Vertical">
 						<!-- Username Txt -->
-						<TextBlock Margin="0 0 0 5"> Username </TextBlock>
+						<TextBlock Margin="0 0 0 5" Text="Username"/>
 						<!-- Password Txt -->
-						<TextBlock Margin="0 0 0 5"> Password </TextBlock>
+						<TextBlock Margin="0 0 0 5" Text="Password"/>
+						<!-- NewPassword - Confirm -->
+						<Button Command="{Binding ConfirmChangePassword}"
+								IsVisible="{Binding ChangePasswordBtn}" Content="Confirm" FontSize="10" Background="Green" Foreground="White"
+								HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+								BorderThickness="1.4" BorderBrush="Black"
+								Width="150" Height="30" />
+						<TextBlock IsVisible="{Binding ChangePasswordBtn}" Height="30"/>
+						<TextBlock IsVisible="{Binding ChangePasswordBtn}" Height="20"/>
 						<!-- Balance Txt -->
-						<TextBlock> Balance</TextBlock>
+						<TextBlock Text="Balance"/>
 					</StackPanel>
-					<StackPanel Grid.Column="1"
-								Orientation="Vertical"
+					<StackPanel Orientation="Vertical"
 								Margin="50 0 0 0">
 						<!-- Username Value -->
-						<TextBlock Margin="0 0 0 5">AnnaBannana</TextBlock>
+						<TextBlock Margin="0 0 0 5" Text="{Binding UsernameTxt}"/>
 						<!-- Password Value -->
 						<Button Background="Transparent"
-								Foreground="DarkBlue" Margin="0 0 0 5" Padding="0">
+								Foreground="DarkBlue" Margin="0 0 0 5" Padding="0"
+								Command="{Binding changePassword}">
 							<Button.Content>
 								<TextBlock>
 									<Underline>Change Password</Underline>
 								</TextBlock>
 							</Button.Content>
 						</Button>
+						<!-- NewPassword - Textbox -->
+						<TextBox Text="{Binding NewPasswordTxt}" Watermark="{Binding NewPasswordWatermark}"
+								 IsVisible="{Binding ChangePasswordBtn}" Height="30"/>
+						<TextBox Text="{Binding OldPasswordTxt}" Watermark="{Binding OldPasswordWatermark}"
+								 IsVisible="{Binding ChangePasswordBtn}" Height="30"/>
+						<TextBlock Text="{Binding InfoPasswordChangeTxt}" 
+								   IsVisible="{Binding ChangePasswordBtn}" Height="20" TextWrapping="Wrap" Foreground="{Binding InfoPasswordChangeColor}"/>
 						<!-- Balance Value -->
-						<TextBlock>0,-</TextBlock>
+						<TextBlock Text="{Binding BalanceTxt}"/>
 					</StackPanel>	
 				</StackPanel>
-				
 			</Grid>
+<!-- Credit -->
+			<Grid Grid.Row="1" IsVisible="{Binding IsCorpUser}">
+				<StackPanel Orientation="Horizontal" Margin="20">
+					<StackPanel Orientation="Vertical">
+						<TextBlock Margin="0 0 0 5" Text="Credit:"/>
+					</StackPanel>
+					<StackPanel Orientation="Vertical" 
+								Margin="50 0 0 0">
+						<TextBlock Margin="0 0 0 5" Text="{Binding CreditTxt}"/>
+					</StackPanel>
+				</StackPanel>
+			</Grid>
+			
+<!-- Auction Info -->
 			<Grid Grid.Row="2">
 				<StackPanel Orientation="Horizontal" Margin="20">
-					<StackPanel Grid.Column="0"
-								Orientation="Vertical">
+					<StackPanel Orientation="Vertical">
 						<!-- Your Auctions Txt -->
 						<TextBlock Margin="0 0 0 5"> Your Auctions </TextBlock>
 						<!-- Auctions Won Txt -->
 						<TextBlock Margin="0 0 0 5"> Auctions Won </TextBlock>
 					</StackPanel>
-					<StackPanel Grid.Column="1"
-								Orientation="Vertical"
+					<StackPanel Orientation="Vertical"
 								Margin="50 0 0 0">
 						<!-- Your Auctions Value -->
-						<TextBlock Margin="0 0 0 5">2</TextBlock>
+						<TextBlock Margin="0 0 0 5" Text="{Binding YourAuctions}"/>
 						<!-- Auctions Won Value -->
-						<TextBlock Margin="0 0 0 5">1</TextBlock>
+						<TextBlock Margin="0 0 0 5" Text="{Binding AuctionsWon}"/>
 					</StackPanel>
 				</StackPanel>
 			</Grid>
 		</Grid>
 
+		
 		<!-- Back - Button-->
-		<Button Content="Back" FontSize="20"
+		<Button Command="{Binding GoBackBtn}" Content="Back" FontSize="20"
 				HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
 				BorderThickness="1.4" BorderBrush="Black"
 				Width="150" Height="45"
