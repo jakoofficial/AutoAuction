@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -68,7 +69,7 @@ namespace AutoAuction.Models.Vehicles
         /// <summary>
         /// ID field and property
         /// </summary>
-        public uint? ID { get; private set; }
+        public uint? ID { get; protected set; }
         /// <summary>
         /// Name field and property
         /// </summary>
@@ -144,6 +145,8 @@ namespace AutoAuction.Models.Vehicles
             C,
             D
         }
+
+        protected CultureInfo sqlCulture = new CultureInfo("en-US");
         /// <summary>
         /// Engery class is calculated bassed on year of the car and the efficiancy in km/L.
         /// </summary>
@@ -196,7 +199,7 @@ namespace AutoAuction.Models.Vehicles
         /// Returns the vehicle in a string with relivant information.
         /// </summary>
         /// <returns>The Veihcle as a string</returns>
-        public new virtual string ToString()
+        public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
             sb.Append($"ID: {ID}, ");
@@ -219,6 +222,15 @@ namespace AutoAuction.Models.Vehicles
             sb.Append($"Fuel type: {FuelType.ToString()}, ");
             sb.Append($"Drivers license required: {DriversLicense.ToString()}");
             return sb.ToString();
+        }
+
+        public virtual void UploadToDB()
+        {
+            string idFromDB = Database.Instance.ExecScalar($"EXEC AddVehicle '{Name}', {Km.ToString(sqlCulture)}, '{RegistrationNumber}', {Year}, {NewPrice.ToString(sqlCulture)}, " +
+                $"{HasTowbar}, {EngineSize.ToString(sqlCulture)}, {KmPerLiter.ToString(sqlCulture)}, {(int)FuelType}, {(int)DriversLicense}, 0");
+
+            uint.TryParse(idFromDB, out uint id);
+            ID = id;
         }
     }
 }

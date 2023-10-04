@@ -1,4 +1,4 @@
-CREATE PROCEDURE CreatePrivateUser @username varchar(300), @password varchar(max), @zipcode int, @CPRNumber bigint
+ALTER PROCEDURE CreatePrivateUser @username varchar(300), @password varchar(max), @zipcode int, @CPRNumber char(10)
 as
 set xact_abort, nocount on;
 
