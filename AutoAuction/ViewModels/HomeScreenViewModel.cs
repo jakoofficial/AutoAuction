@@ -21,6 +21,14 @@ namespace AutoAuction.ViewModels
             get => ddd;
             set => this.RaiseAndSetIfChanged(ref ddd, value);
         }
+
+        //cmdSetForSale
+        public void cmdSetForSale()
+        {
+            //MainWindowViewModel.SetContent(new SetForSaleViewModel());
+            SetContentArea.Navigate(new SetForSaleViewModel());
+        }
+
         public HomeScreenViewModel()
         {
             //Auction n = new Auction(new Bus("Ooga", 20, "regiNR", 2010, 203212, false, 3232, 2312, Vehicle.FuelTypeEnum.Diesel,
