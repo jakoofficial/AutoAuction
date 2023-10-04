@@ -31,7 +31,7 @@ namespace AutoAuction.Models
                     while (reader.Read())
                     {
                         Auction a = new Auction(Auction.GetAuctionVehicle((uint)reader.GetInt32(3)), Database.Instance.GetUser(reader.GetString(4)),
-                            Database.Instance.GetUser(reader.GetString(5)),reader.GetDecimal(1), reader.GetDecimal(2), reader.GetBoolean(6), reader.GetDateTime(7));
+                            Database.Instance.GetUser(reader.GetString(5)),reader.GetDecimal(1), reader.GetDecimal(2), reader.GetBoolean(6));
                         Auctions.Add(a);
                         a = null;
                     }
@@ -48,16 +48,13 @@ namespace AutoAuction.Models
         /// <param name="seller"></param>
         /// <param name="miniumBid"></param>
         /// <returns> Auction ID </returns>
-        public static uint SetForSale(Vehicle vehicle, ISeller seller, decimal miniumBid, DateTime endDate)
+        public static uint SetForSale(Vehicle vehicle, ISeller seller, decimal miniumBid)
         {
             //TODO: A3 - SetForSale
             string temp = seller.UserName;
-            //DateTime dt = DateTime.Parse(endDate, new CultureInfo("en-US", false));
             //TODO: Create auction, upload to db, give auctionID back.
             //Use Recieve bid to check and send notification to seller if bid is over min price.
-
-            //TODO: Needs better formatting for date
-            string auctionNumber = Database.Instance.ExecScalar($"EXEC CreateAuction {miniumBid}, 0, {vehicle.ID},'{seller.UserName}', '', {true}, {endDate.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture)}");
+            string auctionNumber = Database.Instance.ExecScalar($"EXEC CreateAuction {miniumBid}, 0, {vehicle.ID},'{seller.UserName}', '', {true}");
             return Convert.ToUInt32(auctionNumber);
         }
 

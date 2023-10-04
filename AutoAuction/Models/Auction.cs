@@ -30,7 +30,7 @@ namespace AutoAuction.Models
             //TODO: A2 - Add to database and set ID
         }
 
-        public Auction(Vehicle vehicle, ISeller? seller, IBuyer buyer, decimal minimumPrice, decimal standingBid, bool active, DateTime endDate)
+        public Auction(Vehicle vehicle, ISeller? seller, IBuyer buyer, decimal minimumPrice, decimal standingBid, bool active)
         {
             //TODO: A1 - Set constructor
             //ID set from DB
@@ -40,7 +40,6 @@ namespace AutoAuction.Models
             this.MinimumPrice = minimumPrice;
             this.StandingBid = standingBid;
             this.Active = active;
-            this.EndDate = endDate;
             //TODO: A2 - Add to database and set ID
         }
 
@@ -62,7 +61,6 @@ namespace AutoAuction.Models
                         this.StandingBid = reader.GetDecimal(2);
                         this.Seller = Database.Instance.GetUser(reader.GetString(4));
                         this.Active = reader.GetBoolean(6);
-                        this.EndDate = reader.GetDateTime(7);
 
                         if (Database.Instance.GetUser(reader.GetString(5)) != null)
                         {
@@ -130,8 +128,6 @@ namespace AutoAuction.Models
         /// 
         /// </summary>
         public bool Active { get; set; }
-
-        public DateTime EndDate { get; set; }
         /// <summary>
         /// The vehicle of the auction
         /// </summary>
