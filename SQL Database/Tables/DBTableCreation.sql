@@ -83,8 +83,9 @@ GO
 CREATE TABLE UserTable (
     Username VARCHAR(300) NOT NULL PRIMARY KEY,
     CorporateUser BIT NOT NULL, -- 1 if user is a corporate user
-    Credit DECIMAL(18,2),
-    Balance DECIMAL(18,2) NOT NULL, 
+    ZipCode INT NOT NULL,
+    Credit DECIMAL,
+    Balance DECIMAL NOT NULL, 
 	CHECK (
         CorporateUser=0 AND Balance >= 0 OR
         CorporateUser=1 AND 0 <= Credit+Balance
@@ -124,7 +125,7 @@ GO
 CREATE TABLE BidHistory (
     bidId INT IDENTITY(1, 1) NOT NULL PRIMARY KEY,
     bidDate DATETIME DEFAULT CURRENT_TIMESTAMP,
-    bidAmount INT NOT NULL,
+    bidAmount DECIMAL(18, 2) NOT NULL,
     Username VARCHAR(300) NOT NULL,
     auctionId INT NOT NULL,
     FOREIGN KEY (auctionId) REFERENCES Auction (auctionId) ON DELETE CASCADE,

@@ -7,10 +7,12 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using static AutoAuction.Models.Vehicles.Vehicle;
 
 namespace AutoAuction.Models
 {
