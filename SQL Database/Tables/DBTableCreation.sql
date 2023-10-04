@@ -104,7 +104,7 @@ USE AutoAuction
 GO
 CREATE TABLE CorporateUser (
     Username VARCHAR(300) NOT NULL,
-    CVRNumber INT NOT NULL UNIQUE CHECK (len(CVRNumber)=8),
+    CVRNumber char(8) NOT NULL UNIQUE CHECK (len(CVRNumber)=8),
     FOREIGN KEY (Username) REFERENCES UserTable (Username) ON DELETE CASCADE
 );
 
