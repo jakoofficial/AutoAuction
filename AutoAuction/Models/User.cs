@@ -4,6 +4,8 @@ using Microsoft.VisualBasic.FileIO;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Security.Cryptography;
@@ -26,6 +28,13 @@ namespace AutoAuction.Models
 
     public abstract class User : ISeller, IBuyer //TODO: U4 - Implement interfaces
     {
+        public static User Instance { get; private set; }
+
+        public static void SetUser(User u)
+        {
+            Instance = u;
+        }
+
         protected User(string userName, string password, uint zipCode)
         {
             this.UserName = userName;
@@ -36,7 +45,6 @@ namespace AutoAuction.Models
             makePasswordHash(password);
         }
 
-        
         /// <summary>
         /// Construntor for a Buyer and Seller
         /// </summary>
@@ -53,6 +61,38 @@ namespace AutoAuction.Models
             makePasswordHash(password);
         }
 
+        protected User(string userName)
+        {
+            SqlConnection con = new(Database.Instance.ConnectionString);
+            using (con)
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand($"exec GetUser {userName}", con);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        this.UserName = reader.GetString(1);
+                        this.Zipcode = (uint)reader.GetInt32(3);
+                        this.Balance = reader.GetDecimal(5);
+                    }
+                }
+            }
+        }
+
+        public void UpdateBalance(string username, decimal newBalance)
+        {
+            try
+            {
+                Database.Instance.ExecNonQuery($"exec UpdateBalance {username}, {newBalance.ToString(new CultureInfo("en-US"))}");
+            }
+            catch
+            {
+                throw new Exception("That is not possible");
+            }
+        }
+
         /// <summary>
         /// Construntor for a User - Buyer 
         /// </summary>
@@ -60,6 +100,14 @@ namespace AutoAuction.Models
         /// <param name="password"></param>
         /// <param name="zipCode"></param>
         /// <param name="balance"></param>
+        public virtual bool AbleToBuy(decimal amount)
+        {
+            decimal minimumBalance = Balance;
+
+            if (amount > minimumBalance) { return false; }
+
+            return true;
+        }
 
         private bool makePasswordHash(string password)
         {
@@ -73,32 +121,31 @@ namespace AutoAuction.Models
         /// ID property
         /// </summary>
         public uint ID { get; private set; }
-        public string UserName { get; private set; }
+        public string UserName { get; set; }
         public string Password { get; private set; }
         public uint ZipCode { get; private set; }
         /// <summary>
         /// PasswordHash property
         /// </summary>
         private byte[] PasswordHash { get; set; }
-        string IBuyer.UserName { get; set; } // TODO: Check if this needs to get deleted or kept because of already created prop with name UserName
-        public decimal Balance { get; set; }
-        string ISeller.UserName { get; set; }
+        public virtual decimal Balance { get; set; }
+
         public uint Zipcode { get; set; }
 
         /// <summary>
         /// A method that ...
         /// </summary>
         /// <returns>Whether login is valid</returns>
-        private bool ValidateLogin(string loginUserName, string loginPassword)
+        public bool ValidateLogin(string loginUserName, string loginPassword)
         {
             //TODO: U5 - Implement the rest of validation for password and user name
-
+            //min 10 characters, max 25 chars, uppercase, special character
             HashAlgorithm sha = SHA256.Create(); //Make a HashAlgorithm object for makeing hash computations.
             byte[] result = sha.ComputeHash(Encoding.ASCII.GetBytes(loginPassword)); //Encodes the password into a hash in a Byte array.
 
             return PasswordHash == result;
 
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         //TODO: U4 - Implement interface proberties and methods.

@@ -18,7 +18,7 @@ namespace AutoAuction.Models
         public uint CPRNumber { get; set; }
         private decimal _balance;
 
-        public new decimal Balance
+        public override decimal Balance
         {
             get { return _balance; }
             set
