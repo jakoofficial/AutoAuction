@@ -7,12 +7,15 @@
         x:Class="AutoAuction.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
 		xmlns:Views="using:AutoAuction.Views"
+		xmlns:v="using:AutoAuction"
         Icon="/Assets/avalonia-logo.ico"
         Title="Auction House"
 		Width="1000" Height="600"
-		MinWidth="900" MinHeight="500" IsEnabled="{Binding MainWindowEnabled}">
+		MinWidth="900" MinHeight="500" IsEnabled="{Binding MainWindowEnabled}"
+		>
 	<Grid>
-		<Views:SetForSaleView/>
+		<v:SetContentArea></v:SetContentArea>
+		<!--<Views:SetForSaleView/>-->
 		<!--<Views:LoginView/>-->
 		<!--<Views:HomeScreenView/>-->
 		<!--<Views:CreateUserView/>-->
