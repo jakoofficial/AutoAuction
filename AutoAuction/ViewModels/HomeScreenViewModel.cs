@@ -34,6 +34,8 @@ namespace AutoAuction.ViewModels
         {
             //ObservableCollection<Auction> tempList = AuctionHouse.GetAllAuctions();
 
+            AuctionHouse.SetForSale(new Truck(7),User.Instance, 600, DateTime.Now);
+
             AuctionHouse.GetAllAuctions();
 
             foreach (Auction auction in AuctionHouse.Auctions)
