@@ -12,7 +12,8 @@ namespace AutoAuction.ViewModels
 {
     public class LoginViewModel : ViewModelBase
     {
-        private string _username = "";
+        //TODO: Change username and password before turnning in!
+        private string _username = "CorpUser1";
 
         public string Username
         {
@@ -20,7 +21,7 @@ namespace AutoAuction.ViewModels
             set => this.RaiseAndSetIfChanged(ref _username, value);
         }
 
-        private string _password = "";
+        private string _password = "pass";
 
         public string Password
         {
@@ -45,7 +46,7 @@ namespace AutoAuction.ViewModels
             {
                 User UserDB = Database.Instance.GetUser(Username);
                 User.SetUser(UserDB);
-                //TODO: Go to HomeScreenView.axaml
+                SetContentArea.Navigate(new HomeScreenViewModel());
             }
             else
             {
@@ -53,10 +54,10 @@ namespace AutoAuction.ViewModels
             }
 
         }
-        public void CreateUser() 
+        public void CreateUser()
         {
             Debug.WriteLine("test");
-            //TODO: Go to CreateUserView.axaml
+            SetContentArea.Navigate(new CreateUserViewModel());
         }
     }
 }

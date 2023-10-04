@@ -10,6 +10,6 @@ public partial class HomeScreenView : UserControl
     public HomeScreenView()
     {
         InitializeComponent();
-        DataContext = new HomeScreenViewModel();
+        //DataContext = new HomeScreenViewModel();
     }
 }
