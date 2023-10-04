@@ -44,7 +44,7 @@
 		</DataGrid>
 
 		<StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Margin="30">
-			<Button Content="+ Set for Sale" Width="130" HorizontalContentAlignment="Center" Margin="0 0 0 10"/>
+			<Button Content="+ Set for Sale" Width="130" Command="{Binding cmdSetForSale}" HorizontalContentAlignment="Center" Margin="0 0 0 10"/>
 			<Button Content="User Profile" Width="130" HorizontalContentAlignment="Center" Margin="0 0 0 10"/>
 			<Button Content="Bid History" Width="130" HorizontalContentAlignment="Center" Margin="0 0 0 10"/>
 		</StackPanel>
