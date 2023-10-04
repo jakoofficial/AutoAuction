@@ -43,7 +43,9 @@ namespace AutoAuction.ViewModels
             Debug.WriteLine(loginSuccessful);
             if (loginSuccessful)
             {
-                User test = Database.Instance.GetUser(Username);
+                User UserDB = Database.Instance.GetUser(Username);
+                User.SetUser(UserDB);
+                //TODO: Go to HomeScreenView.axaml
             }
             else
             {
@@ -51,7 +53,10 @@ namespace AutoAuction.ViewModels
             }
 
         }
-
-
+        public void CreateUser() 
+        {
+            Debug.WriteLine("test");
+            //TODO: Go to CreateUserView.axaml
+        }
     }
 }
