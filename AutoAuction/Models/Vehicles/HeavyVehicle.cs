@@ -77,5 +77,15 @@ namespace AutoAuction.Models.Vehicles
             VehicleString.Append($"Vehicle Dimensions: {VehicleDimensions.ToString()}");
             return VehicleString.ToString();
         }
+
+        public override void UploadToDB()
+        {
+            string idFromDB = Database.Instance.ExecScalar($"EXEC AddHeavyVehicle '{Name}', {Km.ToString(sqlCulture)}, '{RegistrationNumber}', {Year}, {NewPrice.ToString(sqlCulture)}, " +
+                $"{HasTowbar}, {EngineSize.ToString(sqlCulture)}, {KmPerLiter.ToString(sqlCulture)}, {(int)FuelType}, {(int)DriversLicense}, 0, " +
+                $"{VehicleDimensions.Height.ToString(sqlCulture)}, {VehicleDimensions.Weight.ToString(sqlCulture)}, {VehicleDimensions.Length.ToString(sqlCulture)}, 0");
+
+            uint.TryParse(idFromDB, out uint id);
+            ID = id;
+        }
     }
 }

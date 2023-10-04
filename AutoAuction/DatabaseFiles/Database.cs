@@ -55,7 +55,7 @@ namespace AutoAuction.DatabaseFiles
                             {
                                 return new PrivateUser(username, "",
                                 (uint)reader.GetInt32(2),
-                                (uint)reader.GetInt64(4),
+                                reader.GetString(4),
                                 reader.GetDecimal(3));
                             }
 
@@ -137,7 +137,7 @@ namespace AutoAuction.DatabaseFiles
 
             try
             {
-                ExecNonQuery($"EXEC CreatePrivateUser '{user.UserName}', '{user.Password}', {user.ZipCode}, {user.CPRNumber}");
+                ExecNonQuery($"EXEC CreatePrivateUser '{user.UserName}', '{user.Password}', {user.ZipCode}, '{user.CPRNumber}'");
                 ConnectionString = "";
                 return null;
             }
