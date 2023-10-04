@@ -1,3 +1,5 @@
+using AutoAuction.DatabaseFiles;
+using AutoAuction.Models;
 using Avalonia.Controls;
 
 namespace AutoAuction.Views
@@ -6,7 +8,10 @@ namespace AutoAuction.Views
     {
         public MainWindow()
         {
+            Database.Instance.LogInWithUser("Username", "Password");
+            User.SetUser(Database.Instance.GetUser("CorpUser1"));
             InitializeComponent();
+            //DataContext = new MainWindowViewModel();
         }
     }
 }
