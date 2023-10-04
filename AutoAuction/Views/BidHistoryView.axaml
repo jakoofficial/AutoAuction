@@ -1,0 +1,41 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:AutoAuction.ViewModels"
+			 x:DataType="vm:BidHistoryViewModel"
+             mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="700"
+	         x:Class="AutoAuction.Views.BidHistoryView">
+	<Grid RowDefinitions="0.1*, 1*, 0.1*">
+		<!-- Title -->
+		<TextBlock Text="Your Bid History" FontSize="25"
+				   HorizontalAlignment="Left" VerticalAlignment="Top"
+				   Margin="15"/>
+
+		<Grid Grid.Row="1">
+			<DataGrid	ItemsSource="{Binding test}"
+						IsReadOnly="True"
+						CanUserReorderColumns="False"
+						CanUserResizeColumns="False"
+						CanUserSortColumns="False"
+						GridLinesVisibility="All"
+						BorderThickness="1" BorderBrush="Gray"
+						Margin="10"
+						Grid.Row="1">
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="Name"  Binding="{Binding Vehicle.Name}"/>
+				<DataGridTextColumn Header="Year" Binding="{Binding Vehicle.Year}"/>
+				<DataGridTextColumn Header="Bid" Binding="{Binding StandingBid}"/>
+				<DataGridTextColumn Header="Final" Binding="{Binding StandingBid}"/>
+			</DataGrid.Columns>
+		</DataGrid>
+		</Grid>
+		
+		<!-- Back - Button-->
+		<Button Content="Back" FontSize="20" 
+				HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+				BorderThickness="1.4" BorderBrush="Black"
+				Width="150" Height="45"
+				Grid.Row="2" Margin="15"/>
+	</Grid>
+</UserControl>

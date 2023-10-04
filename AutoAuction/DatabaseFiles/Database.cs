@@ -21,41 +21,52 @@ namespace AutoAuction.DatabaseFiles
             Instance = new Database();
         }
 
-        public static User GetUser(string username)
+        /// <summary>
+        /// GetUser method will get the different users depending on the username. 
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns>Corporate or Private user</returns>
+        /// <exception cref="ArgumentException">If username is not recognized</exception>
+        public User GetUser(string username)
         {
 
             SqlConnection con = new(Database.Instance.ConnectionString);
             using (con)
             {
                 con.Open();
-                SqlCommand command = new SqlCommand($"exec GetUser {username}", con);
-
-                using (SqlDataReader reader = command.ExecuteReader())
+                try
                 {
-                    while (reader.Read())
+                    SqlCommand command = new SqlCommand($"exec GetUserOfType {username}", con);
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        if (reader.GetBoolean(1) == true)
+                        while (reader.Read())
                         {
-                            return new CorporateUser(username, "", 
+                            if (reader.GetBoolean(1) == true)
+                            {
+                                return new CorporateUser(username, "",
+                                    (uint)reader.GetInt32(2),
+                                    (uint)reader.GetInt32(5),
+                                    reader.GetDecimal(3),
+                                    reader.GetDecimal(4));
+                            }
+                            else if (reader.GetBoolean(1) == false)
+                            {
+                                return new PrivateUser(username, "",
                                 (uint)reader.GetInt32(2),
-                                (uint)reader.GetInt32(6),
-                                reader.GetDecimal(3),
-                                reader.GetDecimal(4));
-                        }
-                        else if (reader.GetBoolean(1) == false)
-                        {
-                            return new PrivateUser(username, "", 
-                            (uint)reader.GetInt32(2),
-                            (uint)reader.GetInt32(6),
-                            reader.GetDecimal(4));
+                                (uint)reader.GetInt64(4),
+                                reader.GetDecimal(3));
+                            }
 
                         }
-
                     }
                 }
+                catch (Exception ex)
+                {
+                    //throw new ArgumentException(String.Format("{0} is not a recognized username!", username));
+                    return null;
+                }
             }
-
-            return new CorporateUser("as", "asd", 2000, 1234567890, 100, 0);
+            return null;
         }
 
         public string ExecScalar(string command)

@@ -42,7 +42,7 @@ namespace AutoAuction.Models.Vehicles
             using (con)
             {
                 con.Open();
-                SqlCommand command = new SqlCommand($"exec GetPrivatePersonalCar {id}", con);
+                SqlCommand command = new SqlCommand($"exec GetProfessionalPersonalCar {id}", con);
 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
