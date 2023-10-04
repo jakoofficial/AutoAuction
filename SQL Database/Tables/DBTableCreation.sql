@@ -83,6 +83,7 @@ GO
 CREATE TABLE UserTable (
     Username VARCHAR(300) NOT NULL PRIMARY KEY,
     CorporateUser BIT NOT NULL, -- 1 if user is a corporate user
+    ZipCode INT NOT NULL,
     Credit DECIMAL,
     Balance DECIMAL NOT NULL, 
 	CHECK (
@@ -115,7 +116,7 @@ CREATE TABLE dbo.Auction(
 	standingBid decimal(18,0) not null,
 	vehicleId int not null,
 	seller varchar(max) not null,
-	buyer varchar(max),
+	buyer varchar(max) not null,
 );
 
 USE AutoAuction
@@ -123,7 +124,7 @@ GO
 CREATE TABLE BidHistory (
     bidId INT IDENTITY(1, 1) NOT NULL PRIMARY KEY,
     bidDate DATETIME DEFAULT CURRENT_TIMESTAMP,
-    bidAmount INT NOT NULL,
+    bidAmount DECIMAL(18, 2) NOT NULL,
     Username VARCHAR(300) NOT NULL,
     auctionId INT NOT NULL,
     FOREIGN KEY (auctionId) REFERENCES Auction (auctionId) ON DELETE CASCADE,
