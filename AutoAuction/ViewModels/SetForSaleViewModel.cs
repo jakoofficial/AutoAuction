@@ -116,11 +116,12 @@ namespace AutoAuction.ViewModels
             set => this.RaiseAndSetIfChanged(ref txtEngineSize, value);
         }
 
-        string cbFuelType;
-        public string DbFuelType
+        int selectedFuelType = 0;
+        public int SelectedFuelType
         {
-            get => cbFuelType;
-            set => this.RaiseAndSetIfChanged(ref cbFuelType, value);
+            get => selectedFuelType;
+            set =>
+                this.RaiseAndSetIfChanged(ref selectedFuelType, value);
         }
 
         bool towbar;
@@ -150,6 +151,7 @@ namespace AutoAuction.ViewModels
             get => calCloseAuction;
             set => this.RaiseAndSetIfChanged(ref calCloseAuction, value);
         }
+
         bool noType = false;
         public bool NoType
         {
@@ -163,7 +165,6 @@ namespace AutoAuction.ViewModels
             //TODO: Check if Towbar works.
             //Towbar = true;
             CbYears();
-
         }
 
         void displayVehicleType()
@@ -188,7 +189,6 @@ namespace AutoAuction.ViewModels
             }
         }
 
-
         #region Display Years.
         /// <summary>
         /// Uses current date to get the current Year.
@@ -201,7 +201,7 @@ namespace AutoAuction.ViewModels
             return CurrentYear;
         }
         /// <summary>
-        /// Adds years between Current year, and the creation of Vehicles, aka. 1886 to YearList (ObservableCollection)
+        /// Adds years between Current year, and the creation of Cars, aka. 1886 to YearList (ObservableCollection)
         /// </summary>
         void CbYears()
         {
@@ -217,8 +217,8 @@ namespace AutoAuction.ViewModels
         Truck createTruck()
         {
 
-            //Truck truck = new Truck(TxtName, TxtKm, TxtRegNumber, CalDateYear, TxtNewPrice, Towbar,
-            //    TxtEngineSize, TxtKilometrage, )
+            Truck truck = new Truck(TxtName, TxtKm, TxtRegNumber, CurrentYear, TxtNewPrice, Towbar,
+                TxtEngineSize, TxtKilometrage, (Vehicle.FuelTypeEnum)selectedFuelType, (new HeavyVehicle.VehicleDimensionsStruct(TruckViewModel.TxtHeight, TruckViewModel.TxtWeight, TruckViewModel.TxtLength)))
 
             //Truck t = new Truck("", 0, "", 0, 0, false, 0, 0, Vehicle.FuelTypeEnum.Diesel,
             //    new HeavyVehicle.VehicleDimensionsStruct((TxtHeight, TxtWeight, TxtLength));
@@ -237,8 +237,6 @@ namespace AutoAuction.ViewModels
                     return;
                 case 1:
                     NoType = false;
-                    //Truck chosenCar = new Truck(TxtName, TxtKm, TxtRegNumber, CalDateYear, TxtNewPrice, Towbar,
-                    //    TxtEngineSize, TxtKilometrage,?,?,?, )
                     break;
             }
         }

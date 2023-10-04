@@ -29,7 +29,10 @@
 				<ComboBox  ItemsSource="{Binding YearList}" SelectedValue="{Binding CurrentYear}" Grid.Column="1" MinWidth="200" Margin="0 10 0 0"/>
 				<TextBox MinWidth="200" MinHeight="30" Height="30" Watermark="Km" Margin="0 10 0 0"/>
 				<TextBox MinWidth="200" MinHeight="30" Height="30" Watermark="Liters" Margin="0 10 0 0"/>
-				<ComboBox Name="CBFuelType" Grid.Column="1" MinWidth="200" Margin="0 10 0 0"/>
+				<ComboBox SelectedIndex="{Binding SelectedFuelType}" Grid.Column="1" MinWidth="200" Margin="0 10 0 0">
+					<ComboBoxItem> Diesel </ComboBoxItem>
+					<ComboBoxItem> Benzin </ComboBoxItem>
+				</ComboBox>
 				<StackPanel Orientation="Horizontal" Margin="0 10 0 0" MinHeight="30">
 					<RadioButton GroupName="grpTowbar" IsChecked="{Binding Towbar}" Content="Yes"/>
 					<RadioButton GroupName="grpTowbar" IsChecked="{Binding !Towbar}" Content="No" Margin="50 0 0 0"/>
