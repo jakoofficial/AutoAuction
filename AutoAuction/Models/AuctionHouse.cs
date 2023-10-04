@@ -3,6 +3,7 @@ using AutoAuction.Interfaces;
 using AutoAuction.Models.Vehicles;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.Linq;
@@ -14,8 +15,31 @@ namespace AutoAuction.Models
     public delegate string NodificationDelegate(string message);
     public static class AuctionHouse
     {
-        public static List<Auction> Auctions = new List<Auction>();
-        public static List<Vehicle> SoldVehicles = new List<Vehicle>();
+        public static ObservableCollection<Auction> Auctions = new ObservableCollection<Auction>();
+        public static ObservableCollection<Vehicle> SoldVehicles = new ObservableCollection<Vehicle>();
+
+        public static ObservableCollection<Auction> GetAllAuctions()
+        {
+            SqlConnection con = new(Database.Instance.ConnectionString);
+            using (con)
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand($"EXEC GetAllAuctions", con);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Auction a = new Auction(Auction.GetAuctionVehicle((uint)reader.GetInt32(3)), Database.Instance.GetUser(reader.GetString(4)),
+                            Database.Instance.GetUser(reader.GetString(5)),reader.GetDecimal(1), reader.GetDecimal(2), reader.GetBoolean(6));
+                        Auctions.Add(a);
+                        a = null;
+                    }
+                }
+            }
+
+            return Auctions;
+        }
 
         /// <summary>
         /// A method that ...

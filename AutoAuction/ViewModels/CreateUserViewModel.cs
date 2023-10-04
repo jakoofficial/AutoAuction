@@ -129,14 +129,6 @@ namespace AutoAuction.ViewModels
 			set => this.RaiseAndSetIfChanged(ref _createUserSQLErrorMsg, value);
 		}
 
-
-
-
-
-
-
-
-
 		public void CreateUser()
 		{
 			uint uintZipCode;
@@ -202,13 +194,12 @@ namespace AutoAuction.ViewModels
 					CreateUserSQLErrorMsg = SQLError;
 					return;
 				}
-				//TODO: Go to loginView
-				
-				//The end of coporate user logic
-			}
+				SetContentArea.Navigate(new LoginViewModel());
+                //The end of coporate user logic
+            }
 
-			//Private User Logic
-			if(IsPrivate == true)
+            //Private User Logic
+            if (IsPrivate == true)
 			{
 				uint uintCPRNumber;
 
@@ -229,10 +220,10 @@ namespace AutoAuction.ViewModels
                     CreateUserSQLErrorMsg = SQLError;
                     return;
                 }
-				//TODO: Go to Loginview
+                SetContentArea.Navigate(new LoginViewModel());
 
                 //The end of private user logic
             }
-		}
+        }
 	}
 }
