@@ -15,8 +15,8 @@
 				   IsVisible="{Binding UsernameErrorMsg}"
 				   Foreground="Red" Margin="0 -20 0 0"/>
 		
-		<TextBox Text="{Binding Password}" Watermark="Password" Margin="0 0 0 20"/>
-		<TextBox Text="{Binding Password2nd}" Watermark="Password again" Margin="0 0 0 20"/>
+		<TextBox Text="{Binding Password}" Watermark="Password" Margin="0 0 0 20" PasswordChar="*"/>
+		<TextBox Text="{Binding Password2nd}" Watermark="Password again" Margin="0 0 0 20" PasswordChar="*"/>
 		<TextBlock Text="The Passwords has to be at least 10 characters or it does not match "
 				   IsVisible="{Binding PasswordErrorMsg}"
 				   Foreground="Red" Margin="0 -20 0 0"
