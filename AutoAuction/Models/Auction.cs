@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tmds.DBus.Protocol;
 
 namespace AutoAuction.Models
 {
@@ -26,6 +27,19 @@ namespace AutoAuction.Models
             this.Vehicle = vehicle;
             this.Seller = seller;
             this.MinimumPrice = minimumPrice;
+            //TODO: A2 - Add to database and set ID
+        }
+
+        public Auction(Vehicle vehicle, ISeller? seller, IBuyer buyer, decimal minimumPrice, decimal standingBid, bool active)
+        {
+            //TODO: A1 - Set constructor
+            //ID set from DB
+            this.Vehicle = vehicle;
+            this.Seller = seller;
+            this.Buyer = buyer;
+            this.MinimumPrice = minimumPrice;
+            this.StandingBid = standingBid;
+            this.Active = active;
             //TODO: A2 - Add to database and set ID
         }
 
@@ -57,45 +71,47 @@ namespace AutoAuction.Models
                             this.Buyer = null;
                         }
 
-                        SqlCommand vHeavyType = new SqlCommand($"exec GetHeavyVehicle {reader.GetInt32(3)}", con);
-                        SqlCommand vPersonalType = new SqlCommand($"exec GetPersonalCar {reader.GetInt32(3)}", con);
-
-                        if (vHeavyType != null)
-                        {
-                            Truck t = new Truck((uint)reader.GetInt32(3));
-                            Bus b = new Bus((uint)reader.GetInt32(3));
-
-                            if (t.LoadCapacity != 0)
-                            {
-                                this.Vehicle = t;
-                                t = null; b = null;
-                            }
-                            else
-                            {
-                                this.Vehicle = b;
-                                b = null; t = null;
-                            }
-
-                            PrivatePersonalCar pripc = new PrivatePersonalCar((uint)reader.GetInt32(3));
-                            ProfessionalPersonalCar propc = new ProfessionalPersonalCar((uint)reader.GetInt32(3));
-
-                            //if (pripc.Load) { }
-                            if (propc.LoadCapacity != 0)
-                            {
-                                this.Vehicle = propc;
-                                propc = null; pripc = null;
-                            }
-                            else
-                            {
-                                this.Vehicle = pripc;
-                                pripc = null; propc = null;
-                            }
-                        }
+                        this.Vehicle = GetAuctionVehicle((uint)reader.GetInt32(3));
 
                     }
                 }
             }
         }
+
+        public static Vehicle GetAuctionVehicle(uint vId)
+        {
+            Truck t = new Truck(vId);
+            Bus b = new Bus(vId);
+
+            if (t.LoadCapacity != 0)
+            {
+                b = null;
+                return t;
+            }
+            else if (t.LoadCapacity == 0)
+            {
+                t = null;
+                return b;
+            }
+
+            PrivatePersonalCar pripc = new PrivatePersonalCar(vId);
+            ProfessionalPersonalCar propc = new ProfessionalPersonalCar(vId);
+
+            //if (pripc.Load) { }
+            if (propc.LoadCapacity != 0)
+            {
+                pripc = null;
+                return propc;
+            }
+            else if (propc.LoadCapacity == 0)
+            {
+                propc = null;
+                return pripc;
+            }
+
+            return null;
+        }
+
         /// <summary>
         /// ID of the auction
         /// </summary>
