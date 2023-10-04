@@ -22,8 +22,8 @@ namespace AutoAuction.ViewModels
         public MainWindowViewModel()
         {
             //Do not remove(while testing)
-            Database.Instance.LogInWithUser("Username", "Password");
-            SetContentArea.Navigate(new HomeScreenViewModel());
+            //Database.Instance.LogInWithUser("Username", "Password");
+            SetContentArea.Navigate(new LoginViewModel());
         }
     }
 }

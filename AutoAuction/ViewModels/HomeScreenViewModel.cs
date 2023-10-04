@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using ReactiveUI;
+using AutoAuction.DatabaseFiles;
 
 namespace AutoAuction.ViewModels
 {
@@ -15,29 +16,61 @@ namespace AutoAuction.ViewModels
         public string d { get; set; }
         public ObservableCollection<Auction> _dd { get; set; }
 
-        private ObservableCollection<Auction> ddd;
-        public ObservableCollection<Auction> test
+        private ObservableCollection<Auction> myAuctions = new();
+        public ObservableCollection<Auction> MyAuctions
         {
-            get => ddd;
-            set => this.RaiseAndSetIfChanged(ref ddd, value);
+            get => myAuctions;
+            set => this.RaiseAndSetIfChanged(ref myAuctions, value);
         }
 
-        //cmdSetForSale
-        public void cmdSetForSale()
+        private ObservableCollection<Auction> currentAuctions = new();
+        public ObservableCollection<Auction> CurrentAuctions
         {
-            //MainWindowViewModel.SetContent(new SetForSaleViewModel());
-            SetContentArea.Navigate(new SetForSaleViewModel());
+            get => currentAuctions;
+            set => this.RaiseAndSetIfChanged(ref currentAuctions, value);
         }
 
         public HomeScreenViewModel()
         {
-            //Auction n = new Auction(new Bus("Ooga", 20, "regiNR", 2010, 203212, false, 3232, 2312, Vehicle.FuelTypeEnum.Diesel,
-            //   new HeavyVehicle.VehicleDimensionsStruct(20, 20, 20), Vehicle.DriversLicenseEnum.B, 2, 1, true),
-            //   new PrivateUser("User", "woaaaaah", 1029, 3389992827), 231);
+            //ObservableCollection<Auction> tempList = AuctionHouse.GetAllAuctions();
 
-            //_d = new ObservableCollection<Auction>();
-            //_d.Add(n);
+            AuctionHouse.GetAllAuctions();
+
+            foreach (Auction auction in AuctionHouse.Auctions)
+            {
+                if (auction.Active)
+                {
+                    CurrentAuctions.Add(auction);
+                }
+            }
+
+            getMyAuctions();
         }
 
+        private void getMyAuctions()
+        {
+            if (MyAuctions.Count != 0) { MyAuctions.Clear(); }
+
+            foreach (var auction in AuctionHouse.Auctions)
+            {
+                if (auction.Seller.UserName == User.Instance.UserName)
+                {
+                    MyAuctions.Add(auction);
+                }
+            }
+        }
+
+        public void cmdSetForSale()
+        {
+            SetContentArea.Navigate(new SetForSaleViewModel());
+        }
+        public void cmdGoToProfile()
+        {
+            SetContentArea.Navigate(new ProfileViewModel());
+        }
+        public void cmdGoBidHistory()
+        {
+            SetContentArea.Navigate(new BidHistoryViewModel());
+        }
     }
 }
