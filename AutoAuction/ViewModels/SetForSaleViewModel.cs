@@ -13,6 +13,8 @@ using AutoAuction.DatabaseFiles;
 using System.Diagnostics;
 using System.Collections.ObjectModel;
 using static AutoAuction.Models.Vehicles.Vehicle;
+using System.ComponentModel;
+using Avalonia.Controls.Primitives;
 
 namespace AutoAuction.ViewModels
 {
@@ -167,7 +169,7 @@ namespace AutoAuction.ViewModels
 
         #region Variables
 
-        DriversLicenseEnum dr;
+        DriversLicenseEnum drLicense;
 
         #endregion
 
@@ -232,29 +234,30 @@ namespace AutoAuction.ViewModels
         {
             if (Towbar)
             {
-                dr = DriversLicenseEnum.CE;
+                drLicense = DriversLicenseEnum.CE;
             }
             else
             {
-                dr = DriversLicenseEnum.C;
+                drLicense = DriversLicenseEnum.C;
             }
         }
 
         #region Methods to create the different Vehicle Types.
         Truck createTruck()
         {
-
-            //Truck truck = new Truck(TxtName, TxtKm, TxtRegNumber, CurrentYear, TxtNewPrice, Towbar,
-            //    TxtEngineSize, TxtKilometrage, (Vehicle.FuelTypeEnum)selectedFuelType, (new HeavyVehicle.VehicleDimensionsStruct(TruckViewModel.TxtHeight, TruckViewModel.TxtWeight, TruckViewModel.TxtLength)), )
-
-            //Truck t = new Truck("", 0, "", 0, 0, false, 0, 0, Vehicle.FuelTypeEnum.Diesel,
-            //    new HeavyVehicle.VehicleDimensionsStruct((TxtHeight, TxtWeight, TxtLength));
-
-
-            Truck truck = new Truck(7);
+            Truck truck = new Truck(TxtName, TxtKm, TxtRegNumber, CurrentYear, TxtNewPrice, Towbar,
+                TxtEngineSize, TxtKilometrage, (Vehicle.FuelTypeEnum)selectedFuelType, (new HeavyVehicle.VehicleDimensionsStruct(TruckViewModel.TxtHeight, TruckViewModel.TxtWeight, TruckViewModel.TxtLength)), 
+                drLicense, TruckViewModel.TxtLoadCapacity);
             return truck;
         }
+        Bus createBus()
+        {
+            Bus bus = new Bus (TxtName, TxtKm, TxtRegNumber, CurrentYear, TxtNewPrice, Towbar, TxtEngineSize, TxtKilometrage, (Vehicle.FuelTypeEnum)(selectedFuelType), (new HeavyVehicle.VehicleDimensionsStruct()), drLicense); 
+        }
+
+
         #endregion
+        
         void createVehicle()
         {
             switch (SelectedCarIndex)
@@ -264,13 +267,13 @@ namespace AutoAuction.ViewModels
                     return;
                 case 1:
                     NoType = false;
+                    AuctionHouse.SetForSale(createTruck(), Database.Instance.GetUser(User.Instance.UserName), 5M);
+                    break;
+                case 2:
+                    NoType = false;
+                    //AuctionHouse.SetForSale()
                     break;
             }
-        }
-        void createAuction()
-        {
-            //Truck t = new Truck(7);
-            //AuctionHouse.SetForSale(t, Database.Instance.GetUser(User.Instance.UserName), 5M);
         }
     }
 }

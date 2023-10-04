@@ -29,13 +29,12 @@ namespace AutoAuction.ViewModels
             get => txtLength;
             set => this.RaiseAndSetIfChanged(ref txtLength, value);
         }
-        //public static Truck CreateTruck(Vehicle v)
-        //{
-        //    double.TryParse()
-        //    Truck t = new Truck("", 0, "", 0, 0, false, 0, 0, Vehicle.FuelTypeEnum.Diesel, 
-        //        new HeavyVehicle.VehicleDimensionsStruct((TxtHeight, TxtWeight, TxtLength));
 
-        //    return null;
-        //}
+        double txtLoadCapacity;
+        public double TxtLoadCapacity
+        {
+            get => txtLoadCapacity;
+            set => this.RaiseAndSetIfChanged(ref txtLoadCapacity, value);
+        }
     }
 }
