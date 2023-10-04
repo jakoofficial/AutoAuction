@@ -77,8 +77,8 @@ namespace AutoAuction.ViewModels
             set => this.RaiseAndSetIfChanged(ref txtName, value);
         }
 
-        double txtKilometrage;
-        public double TxtKilometrage
+        string txtKilometrage;
+        public string TxtKilometrage
         {
             get => txtKilometrage;
             set => this.RaiseAndSetIfChanged(ref txtKilometrage, value);
@@ -105,15 +105,15 @@ namespace AutoAuction.ViewModels
             set => this.RaiseAndSetIfChanged(ref yearList, value);
         }
 
-        double txtKm;
-        public double TxtKm
+        string txtKm;
+        public string TxtKm
         {
             get => txtKm;
             set => this.RaiseAndSetIfChanged(ref txtKm, value);
         }
 
-        double txtEngineSize;
-        public double TxtEngineSize
+        string txtEngineSize;
+        public string TxtEngineSize
         {
             get => txtEngineSize;
             set => this.RaiseAndSetIfChanged(ref txtEngineSize, value);
@@ -131,22 +131,18 @@ namespace AutoAuction.ViewModels
         public bool Towbar
         {
             get => towbar;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref towbar, value);
-                driversLicense();
-            }
+            set => this.RaiseAndSetIfChanged(ref towbar, value);
         }
 
-        decimal txtNewPrice;
-        public decimal TxtNewPrice
+        string txtNewPrice;
+        public string TxtNewPrice
         {
             get => txtNewPrice;
             set => this.RaiseAndSetIfChanged(ref txtNewPrice, value);
         }
 
-        decimal txtStartingBid;
-        public decimal TxtStartingBid
+        string txtStartingBid;
+        public string TxtStartingBid
         {
             get => txtStartingBid;
             set => this.RaiseAndSetIfChanged(ref txtStartingBid, value);
@@ -165,11 +161,13 @@ namespace AutoAuction.ViewModels
             get => noType;
             set => this.RaiseAndSetIfChanged(ref noType, value);
         }
-        #endregion
 
-        #region Variables
-
-        DriversLicenseEnum drLicense;
+        bool creationError = false;
+        public bool CreationError
+        {
+            get => creationError;
+            set => this.RaiseAndSetIfChanged(ref creationError, value);
+        }
 
         #endregion
 
@@ -227,38 +225,26 @@ namespace AutoAuction.ViewModels
         }
         #endregion
 
-        /// <summary>
-        /// When Towbar property gets changed, from True / False, sets DriversLicense to CE or C. 
-        /// </summary>
-        void driversLicense()
-        {
-            if (Towbar)
-            {
-                drLicense = DriversLicenseEnum.CE;
-            }
-            else
-            {
-                drLicense = DriversLicenseEnum.C;
-            }
-        }
-
         #region Methods to create the different Vehicle Types.
         Truck createTruck()
         {
-            Truck truck = new Truck(TxtName, TxtKm, TxtRegNumber, CurrentYear, TxtNewPrice, Towbar,
-                TxtEngineSize, TxtKilometrage, (Vehicle.FuelTypeEnum)selectedFuelType, (new HeavyVehicle.VehicleDimensionsStruct(TruckViewModel.TxtHeight, TruckViewModel.TxtWeight, TruckViewModel.TxtLength)), 
-                drLicense, TruckViewModel.TxtLoadCapacity);
+            Truck truck = new Truck(TxtName, Convert.ToDouble(TxtKm), TxtRegNumber, CurrentYear, Convert.ToDecimal(TxtNewPrice), Towbar, Convert.ToDouble(TxtEngineSize), Convert.ToDouble(TxtKilometrage), (Vehicle.FuelTypeEnum)selectedFuelType,
+                            (new HeavyVehicle.VehicleDimensionsStruct(Convert.ToDouble(TruckViewModel.TxtHeight), Convert.ToDouble(TruckViewModel.TxtWeight), Convert.ToDouble(TruckViewModel.TxtLength))),
+                            Convert.ToDouble(TruckViewModel.TxtLoadCapacity));
             return truck;
+
         }
         Bus createBus()
         {
-            Bus bus = new Bus (TxtName, TxtKm, TxtRegNumber, CurrentYear, TxtNewPrice, Towbar, TxtEngineSize, TxtKilometrage, (Vehicle.FuelTypeEnum)(selectedFuelType), (new HeavyVehicle.VehicleDimensionsStruct()), drLicense); 
+            Bus bus = new Bus(TxtName, Convert.ToDouble(TxtKm), TxtRegNumber, CurrentYear, Convert.ToDecimal(TxtNewPrice), Towbar, Convert.ToDouble(TxtEngineSize), Convert.ToDouble(TxtKilometrage),
+                (Vehicle.FuelTypeEnum)(selectedFuelType), (new HeavyVehicle.VehicleDimensionsStruct(Convert.ToDouble(BusViewModel.Height), Convert.ToDouble(BusViewModel.Weight), Convert.ToDouble(BusViewModel.Length))),
+                (ushort)Convert.ToInt32(BusViewModel.NumberOfSeats), (ushort)Convert.ToInt32(BusViewModel.NumberOfSeats), busViewModel.HasToilet);
+            return bus;
         }
 
-
         #endregion
-        
-        void createVehicle()
+
+        public void CreateVehicle()
         {
             switch (SelectedCarIndex)
             {
@@ -267,11 +253,33 @@ namespace AutoAuction.ViewModels
                     return;
                 case 1:
                     NoType = false;
-                    AuctionHouse.SetForSale(createTruck(), Database.Instance.GetUser(User.Instance.UserName), 5M);
+                    try
+                    {
+                        Truck t = createTruck();
+                        t.UploadToDB();
+                        AuctionHouse.SetForSale(t, Database.Instance.GetUser(User.Instance.UserName), Convert.ToDecimal(TxtStartingBid));
+                        CreationError = false;
+                    }
+                    catch (Exception)
+                    {
+                        CreationError = true;
+                        return;
+                    }
                     break;
                 case 2:
                     NoType = false;
-                    //AuctionHouse.SetForSale()
+                    try
+                    {
+                        Bus b = createBus();
+                        b.UploadToDB();
+                        AuctionHouse.SetForSale(b, Database.Instance.GetUser(User.Instance.UserName), Convert.ToDecimal(TxtStartingBid));
+                        CreationError = false;
+                    }
+                    catch (Exception)
+                    {
+                        CreationError = true;
+                        return;
+                    }
                     break;
             }
         }

@@ -11,27 +11,27 @@ namespace AutoAuction.ViewModels
 {
     public class TruckViewModel : ViewModelBase
     {
-        double txtHeight;
-        public double TxtHeight
+        string txtHeight;
+        public string TxtHeight
         {
             get => txtHeight;
             set => this.RaiseAndSetIfChanged(ref txtHeight, value);
         }
-        double txtWeight;
-        public double TxtWeight
+        string txtWeight;
+        public string TxtWeight
         {
             get => txtWeight;
             set => this.RaiseAndSetIfChanged(ref txtWeight, value);
         }
-        double txtLength;
-        public double TxtLength
+        string txtLength;
+        public string TxtLength
         {
             get => txtLength;
             set => this.RaiseAndSetIfChanged(ref txtLength, value);
         }
 
-        double txtLoadCapacity;
-        public double TxtLoadCapacity
+        string txtLoadCapacity;
+        public string TxtLoadCapacity
         {
             get => txtLoadCapacity;
             set => this.RaiseAndSetIfChanged(ref txtLoadCapacity, value);
