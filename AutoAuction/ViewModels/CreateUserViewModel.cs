@@ -34,7 +34,7 @@ namespace AutoAuction.ViewModels
 			set => this.RaiseAndSetIfChanged(ref _password2nd, value);
 		}
 
-		private string _zipCode;
+		private string _zipCode = "";
 		public string ZipCode
 		{
 			get => _zipCode;
@@ -185,7 +185,7 @@ namespace AutoAuction.ViewModels
 				}
 				else CorporateErrorMsg = false;
 
-				CorporateUser cpUser = new CorporateUser(Username, Password, uintZipCode, uintCVRNumber, decimalCredit, 0M);
+				CorporateUser cpUser = new CorporateUser(Username, Password, uintZipCode, CVRNumber, decimalCredit, 0M);
 
 				string? SQLError = Database.Instance.CreateUser(cpUser);
 
@@ -211,7 +211,7 @@ namespace AutoAuction.ViewModels
 				}
 				else PrivateErrorMsg = false;
 
-				PrivateUser pUser = new PrivateUser(Username, Password, uintZipCode, uintCPRNumber, 0M);
+				PrivateUser pUser = new PrivateUser(Username, Password, uintZipCode, CPRNumber, 0M);
 
                 string? SQLError = Database.Instance.CreateUser(pUser);
 

@@ -1,4 +1,4 @@
-CREATE PROCEDURE CreateCorporateUser @username varchar(300), @password varchar(max), @zipcode int, @CVRNumber int, @Credit decimal(18, 2)
+ALTER PROCEDURE CreateCorporateUser @username varchar(300), @password varchar(max), @zipcode int, @CVRNumber char(10), @Credit decimal(18, 2)
 as
 set xact_abort, nocount on;
 
