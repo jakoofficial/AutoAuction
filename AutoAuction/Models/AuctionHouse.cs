@@ -56,8 +56,14 @@ namespace AutoAuction.Models
             //TODO: Create auction, upload to db, give auctionID back.
             //Use Recieve bid to check and send notification to seller if bid is over min price.
 
+            string euDate = endDate.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime usEndDate = DateTime.ParseExact(euDate, "dd/MM/yyyy", CultureInfo.GetCultureInfo("en-GB"));
+
+            string formattedEndDate = usEndDate.ToString("yyyy-MM-dd");
+
             //TODO: Needs better formatting for date
-            string auctionNumber = Database.Instance.ExecScalar($"EXEC CreateAuction {miniumBid}, 0, {vehicle.ID},'{seller.UserName}', '', {true}, {endDate.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture)}");
+            string auctionNumber = Database.Instance.ExecScalar($"EXEC CreateAuction {miniumBid}, 0, " +
+                $"{vehicle.ID},'{seller.UserName}', '', {true}, '{formattedEndDate}'");
             return Convert.ToUInt32(auctionNumber);
         }
 
