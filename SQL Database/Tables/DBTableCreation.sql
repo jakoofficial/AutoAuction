@@ -84,8 +84,8 @@ CREATE TABLE UserTable (
     Username VARCHAR(300) NOT NULL PRIMARY KEY,
     CorporateUser BIT NOT NULL, -- 1 if user is a corporate user
     ZipCode INT NOT NULL,
-    Credit DECIMAL,
-    Balance DECIMAL NOT NULL, 
+    Credit DECIMAL(18,2),
+    Balance DECIMAL(18,2) NOT NULL, 
 	CHECK (
         CorporateUser=0 AND Balance >= 0 OR
         CorporateUser=1 AND 0 <= Credit+Balance
@@ -116,7 +116,7 @@ CREATE TABLE dbo.Auction(
 	standingBid decimal(18,2) not null,
 	vehicleId int not null,
 	seller varchar(max) not null,
-	buyer varchar(max),
+	buyer varchar(max) not null,
     active bit NOT NULL
 );
 
