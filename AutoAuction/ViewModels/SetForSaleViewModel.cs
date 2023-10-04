@@ -70,7 +70,7 @@ namespace AutoAuction.ViewModels
         string txtName;
         public string TxtName
         {
-            get => TxtName;
+            get => txtName;
             set => this.RaiseAndSetIfChanged(ref txtName, value);
         }
 
@@ -88,16 +88,19 @@ namespace AutoAuction.ViewModels
             set => this.RaiseAndSetIfChanged(ref txtRegNumber, value);
         }
 
-        //TODO: ushort or DateTime? Convert from DateTime to ushort?
+        ushort currentYear;
+        public ushort CurrentYear
+        {
+            get => currentYear;
+            set => this.RaiseAndSetIfChanged(ref currentYear, value);
+        }
 
-        //ObservableCollection<ushort> 
-
-        //ushort calDateYear;
-        //public ushort CalDateYear
-        //{
-        //    get => calDateYear;
-        //    set => this.RaiseAndSetIfChanged(ref calDateYear, value);
-        //}
+        ObservableCollection<ushort> yearList = new ObservableCollection<ushort>();
+        public ObservableCollection<ushort> YearList
+        {
+            get => yearList;
+            set => this.RaiseAndSetIfChanged(ref yearList, value);
+        }
 
         double txtKm;
         public double TxtKm
@@ -159,7 +162,7 @@ namespace AutoAuction.ViewModels
         {
             //TODO: Check if Towbar works.
             //Towbar = true;
-
+            CbYears();
 
         }
 
@@ -184,6 +187,33 @@ namespace AutoAuction.ViewModels
                     break;
             }
         }
+
+
+        #region Display Years.
+        /// <summary>
+        /// Uses current date to get the current Year.
+        /// </summary>
+        /// <returns>Current year.</returns>
+        ushort getCurrentYear()
+        {
+            DateTime currentDate = DateTime.Now;
+            CurrentYear = (ushort)currentDate.Year;
+            return CurrentYear;
+        }
+        /// <summary>
+        /// Adds years between Current year, and the creation of Vehicles, aka. 1886 to YearList (ObservableCollection)
+        /// </summary>
+        void CbYears()
+        {
+            CurrentYear = getCurrentYear();
+            for (ushort creation = 1886; creation <= CurrentYear; creation++)
+            {
+                YearList.Add(creation);
+            }
+        }
+        #endregion
+
+        #region Methods to create the different Vehicle Types.
         Truck createTruck()
         {
 
@@ -197,6 +227,7 @@ namespace AutoAuction.ViewModels
             Truck truck = new Truck(7);
             return truck;
         }
+        #endregion
         void createVehicle()
         {
             switch (SelectedCarIndex)
