@@ -12,10 +12,19 @@
 		<TextBlock Text="Log in" FontSize="25" Margin="0 0 0 25"/>
 		<TextBox Watermark="Username"  Text="{Binding Username}" Margin="0 0 0 20"/>
 		<TextBlock Name="WrongCredentials" Text="Incorrect username or password" FontSize="15" Foreground="Red" IsVisible="{Binding ErrorMsg}"/>
-		<TextBox Watermark="Password" Text="{Binding Password}" Margin="0 0 0 10"/>
+		<TextBox Watermark="Password" Text="{Binding Password}" Margin="0 0 0 10" PasswordChar="*"/>
 		<StackPanel Orientation="Horizontal">
-			<TextBlock Text="Not registered?" Margin="0 0 10 0"/>
-			<TextBlock Text="Create User" TextDecorations="Underline"/>
+			<TextBlock Text="Not registered?"/>
+			<Button Background="Transparent"
+                    Foreground="DarkBlue" Margin="0 0 0 5" Padding="0"
+					Command="{Binding CreateUser}">
+				<Button.Content>
+					<TextBlock>
+						<Underline>Create User</Underline>
+					</TextBlock>
+				</Button.Content>
+			</Button>
+			
 		</StackPanel>
 		<Button Content="Login" Width="100" Margin="0 30 0 0"
 				HorizontalContentAlignment="Center" 

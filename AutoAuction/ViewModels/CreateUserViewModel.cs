@@ -202,6 +202,7 @@ namespace AutoAuction.ViewModels
 					CreateUserSQLErrorMsg = SQLError;
 					return;
 				}
+				//TODO: Go to loginView
 				
 				//The end of coporate user logic
 			}
@@ -228,6 +229,7 @@ namespace AutoAuction.ViewModels
                     CreateUserSQLErrorMsg = SQLError;
                     return;
                 }
+				//TODO: Go to Loginview
 
                 //The end of private user logic
             }
