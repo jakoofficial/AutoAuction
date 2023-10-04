@@ -12,13 +12,13 @@
 		Width="1000" Height="600"
 		MinWidth="900" MinHeight="500" IsEnabled="{Binding MainWindowEnabled}">
 	<Grid>
-		<!--<Views:SetForSaleView/>-->
+		<Views:SetForSaleView/>
 		<!--<Views:LoginView/>-->
 		<!--<Views:HomeScreenView/>-->
 		<!--<Views:CreateUserView/>-->
 		<!--<Views:BidHistoryView/>-->
 		<!--<Views:ProfileView/>-->
 		<!--<Views:SellerOfAuctionView/>-->
-		<Views:BuyerOfAuctionView/>
+		<!--<Views:BuyerOfAuctionView/>-->
 	</Grid>
 </Window>

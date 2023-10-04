@@ -7,12 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using AutoAuction.Models.Vehicles;
+using AutoAuction.Models;
+using AutoAuction.DatabaseFiles;
+using System.Diagnostics;
+using System.Collections.ObjectModel;
 
 namespace AutoAuction.ViewModels
 {
     public class SetForSaleViewModel : ViewModelBase
     {
-        #region Properties
+        #region View related regions.
         BusViewModel busViewModel = new();
         public BusViewModel BusViewModel
         {
@@ -56,17 +61,109 @@ namespace AutoAuction.ViewModels
             set
             {
                 this.RaiseAndSetIfChanged(ref selectedCarIndex, value);
-                getVehicleType();
+                displayVehicleType();
             }
+        }
+
+        #endregion
+        #region Textboxes
+        string txtName;
+        public string TxtName
+        {
+            get => TxtName;
+            set => this.RaiseAndSetIfChanged(ref txtName, value);
+        }
+
+        double txtKilometrage;
+        public double TxtKilometrage
+        {
+            get => txtKilometrage;
+            set => this.RaiseAndSetIfChanged(ref txtKilometrage, value);
+        }
+
+        string txtRegNumber;
+        public string TxtRegNumber
+        {
+            get => txtRegNumber;
+            set => this.RaiseAndSetIfChanged(ref txtRegNumber, value);
+        }
+
+        //TODO: ushort or DateTime? Convert from DateTime to ushort?
+
+        //ObservableCollection<ushort> 
+
+        //ushort calDateYear;
+        //public ushort CalDateYear
+        //{
+        //    get => calDateYear;
+        //    set => this.RaiseAndSetIfChanged(ref calDateYear, value);
+        //}
+
+        double txtKm;
+        public double TxtKm
+        {
+            get => txtKm;
+            set => this.RaiseAndSetIfChanged(ref txtKm, value);
+        }
+
+        double txtEngineSize;
+        public double TxtEngineSize
+        {
+            get => txtEngineSize;
+            set => this.RaiseAndSetIfChanged(ref txtEngineSize, value);
+        }
+
+        string cbFuelType;
+        public string DbFuelType
+        {
+            get => cbFuelType;
+            set => this.RaiseAndSetIfChanged(ref cbFuelType, value);
+        }
+
+        bool towbar;
+        public bool Towbar
+        {
+            get => towbar;
+            set => this.RaiseAndSetIfChanged(ref towbar, value);
+        }
+
+        decimal txtNewPrice;
+        public decimal TxtNewPrice
+        {
+            get => txtNewPrice;
+            set => this.RaiseAndSetIfChanged(ref txtNewPrice, value);
+        }
+
+        decimal txtStartingBid;
+        public decimal TxtStartingBid
+        {
+            get => txtStartingBid;
+            set => this.RaiseAndSetIfChanged(ref txtStartingBid, value);
+        }
+
+        DateTime calCloseAuction;
+        public DateTime CalCloseAuction
+        {
+            get => calCloseAuction;
+            set => this.RaiseAndSetIfChanged(ref calCloseAuction, value);
+        }
+        bool noType = false;
+        public bool NoType
+        {
+            get => noType;
+            set => this.RaiseAndSetIfChanged(ref noType, value);
         }
         #endregion
 
         public SetForSaleViewModel()
         {
+            //TODO: Check if Towbar works.
+            //Towbar = true;
+
 
         }
 
-        private void getVehicleType()
+        void displayVehicleType()
         {
             switch (SelectedCarIndex)
             {
@@ -86,6 +183,38 @@ namespace AutoAuction.ViewModels
                     ActiveView = ProfessionalCarViewModel;
                     break;
             }
+        }
+        Truck createTruck()
+        {
+
+            //Truck truck = new Truck(TxtName, TxtKm, TxtRegNumber, CalDateYear, TxtNewPrice, Towbar,
+            //    TxtEngineSize, TxtKilometrage, )
+
+            //Truck t = new Truck("", 0, "", 0, 0, false, 0, 0, Vehicle.FuelTypeEnum.Diesel,
+            //    new HeavyVehicle.VehicleDimensionsStruct((TxtHeight, TxtWeight, TxtLength));
+
+
+            Truck truck = new Truck(7);
+            return truck;
+        }
+        void createVehicle()
+        {
+            switch (SelectedCarIndex)
+            {
+                case 0:
+                    NoType = true;
+                    return;
+                case 1:
+                    NoType = false;
+                    //Truck chosenCar = new Truck(TxtName, TxtKm, TxtRegNumber, CalDateYear, TxtNewPrice, Towbar,
+                    //    TxtEngineSize, TxtKilometrage,?,?,?, )
+                    break;
+            }
+        }
+        void createAuction()
+        {
+            //Truck t = new Truck(7);
+            //AuctionHouse.SetForSale(t, Database.Instance.GetUser(User.Instance.UserName), 5M);
         }
     }
 }
