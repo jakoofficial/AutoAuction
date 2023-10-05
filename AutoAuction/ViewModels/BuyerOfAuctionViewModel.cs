@@ -100,6 +100,7 @@ namespace AutoAuction.ViewModels
             CurrentBid = $"DKK {StandingBid}";
         }
 
+        //Method to open the MakeABid Window, checks if the window is open or not before opening.
         public async Task MakeABidBtn()
         {
             if (!windowManager.IsWindowOpen<MakeABidView>())
