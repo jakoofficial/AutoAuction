@@ -9,21 +9,23 @@
 	<Grid ColumnDefinitions="4*, 1*" RowDefinitions="1*, 1*">
 
 		<Label Content="Your auctions" FontSize="25" Grid.Row="0" Margin="10 10 0 0"/>
-		<DataGrid ItemsSource="{Binding MyAuctions}"
+    <DataGrid ItemsSource="{Binding MyAuctions}"
           IsReadOnly="True"
           CanUserReorderColumns="False"
           CanUserResizeColumns="False"
           CanUserSortColumns="False"
           GridLinesVisibility="All"
           BorderThickness="1" BorderBrush="Gray"
+          SelectionMode="Single"
 		  MaxHeight="200" MaxWidth="800"
-		  Grid.Row="0">
-			<DataGrid.Columns>
-				<DataGridTextColumn Header="Name"  Binding="{Binding Vehicle.Name}"/>
-				<DataGridTextColumn Header="Year" Binding="{Binding Vehicle.Year}"/>
-				<DataGridTextColumn Header="Standing Bid" Binding="{Binding StandingBid}"/>
-			</DataGrid.Columns>
-		</DataGrid>
+		  Grid.Row="0"
+      SelectedItem="{Binding MySelectedAuction}">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="Name"  Binding="{Binding Vehicle.Name}"/>
+        <DataGridTextColumn Header="Year" Binding="{Binding Vehicle.Year}"/>
+        <DataGridTextColumn Header="Standing Bid" Binding="{Binding StandingBid}"/>
+      </DataGrid.Columns>
+    </DataGrid>
 
 		<Label Content="Current auctions" FontSize="25" Grid.Row="1" Margin="10 10 0 0"/>
 
@@ -35,7 +37,7 @@
           GridLinesVisibility="All"
           BorderThickness="1" BorderBrush="Gray"
 		  MaxHeight="200" MaxWidth="800"
-		  Grid.Row="1">
+		  Grid.Row="1" SelectedItem="{Binding MyCurrentSelectedAuction}">
 			<DataGrid.Columns>
 				<DataGridTextColumn Header="Name"  Binding="{Binding Vehicle.Name}"/>
 				<DataGridTextColumn Header="Year" Binding="{Binding Vehicle.Year}"/>

@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using ReactiveUI;
 using AutoAuction.DatabaseFiles;
+using System.ComponentModel;
+using Avalonia.Controls;
 
 namespace AutoAuction.ViewModels
 {
@@ -22,6 +24,27 @@ namespace AutoAuction.ViewModels
             get => myAuctions;
             set => this.RaiseAndSetIfChanged(ref myAuctions, value);
         }
+        private Auction mySelectedAuction;
+        public Auction MySelectedAuction
+        {
+            get => mySelectedAuction;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref mySelectedAuction, value);
+                GoToMySelectedAuction(MySelectedAuction);
+            }
+        }
+
+        private Auction myCurrentSelectedAuction;
+        public Auction MyCurrentSelectedAuction
+        {
+            get => myCurrentSelectedAuction;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref myCurrentSelectedAuction, value);
+                GoToCurrentSelectedAuction(MyCurrentSelectedAuction);
+            }
+        }
 
         private ObservableCollection<Auction> currentAuctions = new();
         public ObservableCollection<Auction> CurrentAuctions
@@ -34,6 +57,9 @@ namespace AutoAuction.ViewModels
         {
             //ObservableCollection<Auction> tempList = AuctionHouse.GetAllAuctions();
 
+            //AuctionHouse.SetForSale(new Truck(7),User.Instance, 30, new DateTime(2023, 05, 24));
+
+            AuctionHouse.Auctions.Clear();
             AuctionHouse.GetAllAuctions();
 
             foreach (Auction auction in AuctionHouse.Auctions)
@@ -45,6 +71,15 @@ namespace AutoAuction.ViewModels
             }
 
             getMyAuctions();
+        }
+
+        public void GoToCurrentSelectedAuction(Auction a)
+        {
+            SetContentArea.Navigate(new BuyerOfAuctionViewModel(a));
+        }
+        public void GoToMySelectedAuction(Auction a)
+        {
+            SetContentArea.Navigate(new SellerOfAuctionViewModel(a));
         }
 
         private void getMyAuctions()
