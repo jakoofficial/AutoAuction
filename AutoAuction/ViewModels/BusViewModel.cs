@@ -10,35 +10,35 @@ namespace AutoAuction.ViewModels
 {
     public class BusViewModel : ViewModelBase
     {
-		private string _height = "";
+		private string _height = "1";
 		public string Height
         {
 			get => _height;
 			set => this.RaiseAndSetIfChanged(ref _height, value);
 		}
 
-        private string _weight = "";
+        private string _weight = "1";
         public string Weight
         {
             get => _weight;
             set => this.RaiseAndSetIfChanged(ref _weight, value);
         }
 
-        private string _length = "";
+        private string _length = "1";
         public string Length
         {
             get => _length;
             set => this.RaiseAndSetIfChanged(ref _length, value);
         }
 
-        private string _numberOfSeats = "";
+        private string _numberOfSeats = "1";
         public string NumberOfSeats
         {
             get => _numberOfSeats;
             set => this.RaiseAndSetIfChanged(ref _numberOfSeats, value);
         }
 
-        private string _sleepingSpots = "";
+        private string _sleepingSpots = "1"; 
         public string SleepingSpots
         {
             get => _sleepingSpots;
