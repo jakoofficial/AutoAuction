@@ -2,6 +2,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="using:AutoAuction.ViewModels"
+			 x:DataType="vm:ProfessionalCarViewModel"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="400"
              x:Class="AutoAuction.Views.ProfessionalCarView">
 	<Grid>
@@ -18,14 +20,14 @@
 			</StackPanel>
 			<!-- Right side Answers/Input-->
 			<StackPanel Orientation="Vertical" Margin="50 40 0 0">
-				<TextBox MinWidth="200" Height="30" Watermark="meters" MinHeight="30"/>
-				<TextBox MinWidth="200" Height="30" Watermark="meters" MinHeight="30"/>
-				<TextBox MinWidth="200" Height="30" Watermark="meters" MinHeight="30"/>
-				<TextBox MinWidth="200" Height="30" Watermark="#" Margin="0 10 0 0" MinHeight="30"/>
-				<TextBox MinWidth="200" Height="30" Watermark="kg" Margin="0 10 0 0" MinHeight="30"/>
+				<TextBox Text="{Binding Height}" MinWidth="200" Height="30" Watermark="meters" MinHeight="30"/>
+				<TextBox Text="{Binding Width}" MinWidth="200" Height="30" Watermark="meters" MinHeight="30"/>
+				<TextBox Text="{Binding Depth}" MinWidth="200" Height="30" Watermark="meters" MinHeight="30"/>
+				<TextBox Text="{Binding NumberOfSeats}" MinWidth="200" Height="30" Watermark="#" Margin="0 10 0 0" MinHeight="30"/>
+				<TextBox Text="{Binding LoadCapacity}" MinWidth="200" Height="30" Watermark="kg" Margin="0 10 0 0" MinHeight="30"/>
 				<StackPanel Orientation="Horizontal" Margin="0 10 0 0" MinHeight="30">
-					<RadioButton GroupName="A" Content="Yes"/>
-					<RadioButton GroupName="A" Content="No" Margin="50 0 0 0"/>
+					<RadioButton IsChecked="{Binding HasSafetybar}" GroupName="A" Content="Yes"/>
+					<RadioButton IsChecked="{Binding !HasSafetybar}" GroupName="A" Content="No" Margin="50 0 0 0"/>
 				</StackPanel>
 			</StackPanel>
 		</StackPanel>
