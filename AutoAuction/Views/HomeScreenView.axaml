@@ -37,7 +37,7 @@
           GridLinesVisibility="All"
           BorderThickness="1" BorderBrush="Gray"
 		  MaxHeight="200" MaxWidth="800"
-		  Grid.Row="1">
+		  Grid.Row="1" SelectedItem="{Binding MyCurrentSelectedAuction}">
 			<DataGrid.Columns>
 				<DataGridTextColumn Header="Name"  Binding="{Binding Vehicle.Name}"/>
 				<DataGridTextColumn Header="Year" Binding="{Binding Vehicle.Year}"/>

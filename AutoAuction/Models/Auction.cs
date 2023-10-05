@@ -30,10 +30,11 @@ namespace AutoAuction.Models
             //TODO: A2 - Add to database and set ID
         }
 
-        public Auction(Vehicle vehicle, ISeller? seller, IBuyer buyer, decimal minimumPrice, decimal standingBid, bool active, DateTime endDate)
+        public Auction(uint id,Vehicle vehicle, ISeller? seller, IBuyer buyer, decimal minimumPrice, decimal standingBid, bool active, DateTime endDate)
         {
             //TODO: A1 - Set constructor
             //ID set from DB
+            this.ID = id;
             this.Vehicle = vehicle;
             this.Seller = seller;
             this.Buyer = buyer;
