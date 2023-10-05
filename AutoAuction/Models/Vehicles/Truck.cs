@@ -21,8 +21,7 @@ namespace AutoAuction.Models.Vehicles
             double kmPerLiter,
             FuelTypeEnum fuelType,
             VehicleDimensionsStruct vehicleDimensions,
-            DriversLicenseEnum driversLicense,
-            double LoadCapacity) : base(0, name, km, registrationNumber, year, newPrice, hasTowbar, engineSize, kmPerLiter, fuelType, driversLicense, vehicleDimensions)
+            double LoadCapacity) : base(0, name, km, registrationNumber, year, newPrice, hasTowbar, engineSize, kmPerLiter, fuelType, vehicleDimensions)
         {
             if (hasTowbar) { this.DriversLicense = DriversLicenseEnum.CE; }
             else { this.DriversLicense = DriversLicenseEnum.C; }

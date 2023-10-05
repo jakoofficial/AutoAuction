@@ -21,11 +21,10 @@ namespace AutoAuction.Models.Vehicles
             double kmPerLiter,
             FuelTypeEnum fuelType,
             ushort numberOfSeat,
-            DriversLicenseEnum driversLicense,
             TrunkDimensionsStruct trunkDimensions,
             bool hasSafetyBar,
             double loadCapacity)
-            : base(id, name, km, registrationNumber, year, newPrice, true, engineSize, kmPerLiter, fuelType, numberOfSeat, driversLicense, trunkDimensions)
+            : base(id, name, km, registrationNumber, year, newPrice, true, engineSize, kmPerLiter, fuelType, numberOfSeat, trunkDimensions)
         {
             this.HasSafetyBar = hasSafetyBar;
             this.LoadCapacity = loadCapacity;

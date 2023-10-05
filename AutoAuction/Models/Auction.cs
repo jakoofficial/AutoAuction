@@ -30,7 +30,20 @@ namespace AutoAuction.Models
             //TODO: A2 - Add to database and set ID
         }
 
-        public Auction(uint id,Vehicle vehicle, ISeller? seller, IBuyer buyer, decimal minimumPrice, decimal standingBid, bool active, DateTime endDate)
+        public Auction(Vehicle vehicle, ISeller? seller, IBuyer buyer, decimal minimumPrice, decimal standingBid, bool active)
+        {
+            //TODO: A1 - Set constructor
+            //ID set from DB
+            this.Vehicle = vehicle;
+            this.Seller = seller;
+            this.Buyer = buyer;
+            this.MinimumPrice = minimumPrice;
+            this.StandingBid = standingBid;
+            this.Active = active;
+            //TODO: A2 - Add to database and set ID
+        }
+
+        public Auction(uint id, Vehicle vehicle, ISeller? seller, IBuyer buyer, decimal minimumPrice, decimal standingBid, bool active, DateTime endDate)
         {
             //TODO: A1 - Set constructor
             //ID set from DB
@@ -44,7 +57,6 @@ namespace AutoAuction.Models
             this.EndDate = endDate;
             //TODO: A2 - Add to database and set ID
         }
-
         public Auction(uint id)
         {
             SqlConnection con = new(Database.Instance.ConnectionString);

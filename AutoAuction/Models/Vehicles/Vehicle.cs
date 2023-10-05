@@ -22,8 +22,7 @@ namespace AutoAuction.Models.Vehicles
             bool hasTowbar,
             double engineSize,
             double kmPerLiter,
-            FuelTypeEnum fuelType,
-            DriversLicenseEnum driversLicense)
+            FuelTypeEnum fuelType)
         {
             this.ID = id;
             this.Name = name;
@@ -35,7 +34,6 @@ namespace AutoAuction.Models.Vehicles
             this.EngineSize = engineSize;
             this.KmPerLiter = kmPerLiter;
             this.FuelType = fuelType;
-            this.DriversLicense = driversLicense;
             this._energyClass = GetEnergyClass();
             //TODO: V2 - Add to database and set ID
         }
@@ -61,7 +59,7 @@ namespace AutoAuction.Models.Vehicles
                         this.KmPerLiter= reader.GetDouble(7);
                         this.FuelType = (FuelTypeEnum)reader.GetInt32(8);
                         this.DriversLicense = (DriversLicenseEnum)reader.GetInt32(9);
-
+                        this._energyClass = GetEnergyClass();
                     }
                 }
             }

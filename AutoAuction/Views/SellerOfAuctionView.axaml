@@ -6,68 +6,93 @@
 			 x:DataType="vm:SellerOfAuctionViewModel"
              mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="700"
 	         x:Class="AutoAuction.Views.SellerOfAuctionView">
-  <Grid ColumnDefinitions="1*,1*" RowDefinitions="0.2*,0.1*,1*,0.4*">
-    <!-- Title -->
-    <TextBlock Text="Seller of Auction" FontSize="25"
-				   HorizontalAlignment="Left" VerticalAlignment="Top"
-				   Margin="15"/>
-    <!-- Subtitle -->
-    <TextBlock Text="Auction Info"
-				   Grid.Row="1" FontSize="15"
-				   Margin="15" VerticalAlignment="Bottom"/>
+	<Grid ColumnDefinitions="1*,1*" RowDefinitions="0.2*,0.1*,1*,0.4*">
+		<!-- Title -->
+		<TextBlock Text="Seller of Auction" FontSize="25"
+					   HorizontalAlignment="Left" VerticalAlignment="Top"
+					   Margin="15"/>
+		<!-- Subtitle -->
+		<TextBlock Text="Auction Info"
+					   Grid.Row="1" FontSize="15"
+					   Margin="15" VerticalAlignment="Bottom"/>
 
-    <!-- Auction Info -->
-    <Border Grid.Row="2" BorderBrush="Black" BorderThickness="1" Margin="10">
-      <StackPanel>
-        <TextBlock Text="{Binding vName}" FontSize="15"/>
-        <TextBlock Text="{Binding vYear}" FontSize="15"/>
-        <TextBlock Text="{Binding vMinPrice}" FontSize="15"/>
-        <TextBlock Text="{Binding vNewPrice}" FontSize="15"/>
-        <TextBlock Text="{Binding vHasTowbar}" FontSize="15"/>
-        <TextBlock Text="{Binding vEngineSize}" FontSize="15"/>
-        <TextBlock Text="{Binding vKmPerLiter}" FontSize="15"/>
-        <TextBlock Text="{Binding vFuelType}" FontSize="15"/>
-        <TextBlock Text="{Binding vDriversLicense}" FontSize="15"/>
-        <!--<TextBlock Text="{Binding vEnergyClass}" FontSize="15"/>-->
-        <TextBlock Text="{Binding vKm}" FontSize="15"/>
-      </StackPanel>
-    </Border>
+		<!-- Auction Info -->
+		<Border Grid.Row="2" BorderBrush="Black" BorderThickness="1" Margin="10">
+			<StackPanel>
+				<TextBlock Text="{Binding vName}" FontSize="15"/>
+				<TextBlock Text="{Binding VehicleType}" FontSize="15"/>
+				<TextBlock Text="{Binding vYear}" FontSize="15"/>
+				<TextBlock Text="{Binding vMinPrice}" FontSize="15"/>
+				<TextBlock Text="{Binding vNewPrice}" FontSize="15"/>
+				<TextBlock Text="{Binding vHasTowbar}" FontSize="15"/>
+				<TextBlock Text="{Binding vEngineSize}" FontSize="15"/>
+				<TextBlock Text="{Binding vKmPerLiter}" FontSize="15"/>
+				<TextBlock Text="{Binding vFuelType}" FontSize="15"/>
+				<TextBlock Text="{Binding vDriversLicense}" FontSize="15"/>
+				<TextBlock Text="{Binding vEnergyClass}" FontSize="15"/>
+				<TextBlock Text="{Binding vKm}" FontSize="15"/>
 
-    <!-- Back Btn -->
-    <Button Content="Back" FontSize="20"
-				HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-				BorderThickness="1.4" BorderBrush="Black"
-				Width="150" Height="45"
-				Grid.Row="3" Margin="15"
-            Command="{Binding GoBack}"/>
+				<StackPanel IsVisible="{Binding TruckAuctionVis}">
+					<TextBlock Text="{Binding vLoadCapacity}" FontSize="15"/>
+					<TextBlock Text="{Binding vDimension}" FontSize="15"/>
+				</StackPanel>
+				<StackPanel IsVisible="{Binding BusAuctionVis}">
+					<TextBlock Text="{Binding vSeats}" FontSize="15"/>
+					<TextBlock Text="{Binding vSleepSpaces}" FontSize="15"/>
+					<TextBlock Text="{Binding vToilet}" FontSize="15"/>
+					<TextBlock Text="{Binding vDimension}" FontSize="15"/>
+				</StackPanel>
+				<StackPanel IsVisible="{Binding PrivateCarAuctionVis}">
+					<TextBlock Text="{Binding vIsofix}" FontSize="15"/>
+					<TextBlock Text="{Binding vTrunkDimension}" FontSize="15"/>
+				</StackPanel>
+				<StackPanel IsVisible="{Binding ProfCarAuctionVis}">
+					<TextBlock Text="{Binding vTrunkDimension}" FontSize="15"/>
+					<TextBlock Text="{Binding vLoadCapacity}" FontSize="15"/>
+					<TextBlock Text="{Binding vSafetyBar}" FontSize="15"/>
 
-    <!-- Right Column -->
-    <Grid Grid.Column="1" Grid.RowSpan="4"
-			  RowDefinitions="0.2*,0.2*,0.2*, 1*">
+				</StackPanel>
 
-      <!-- Auction Closing -->
-      <StackPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom"
-						Margin="15" Orientation="Horizontal">
-        <TextBlock Text="Closing" FontSize="25" Margin="0 0 10 0"/>
-        <TextBlock Text="{Binding Closing}" FontSize="25"/>
-      </StackPanel>
+			</StackPanel>
+		</Border>
 
-      <!-- Current Bid -->
-      <StackPanel Grid.Column="1" Grid.Row="1"
-						HorizontalAlignment="Right" VerticalAlignment="Top"
-						Margin="15" Orientation="Horizontal">
-        <TextBlock Text="Current bid:" FontSize="25" Margin="0 0 10 0"/>
-        <TextBlock Text="{Binding CurrentBid}" FontSize="25"/>
-      </StackPanel>
-
-
-      <!-- Accept Btn -->
-      <Button Content="Accept" FontSize="20" Background="Green" Foreground="White"
+		<!-- Back Btn -->
+		<Button Content="Back" FontSize="20"
 					HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-					HorizontalAlignment="Right" VerticalAlignment="Top"
 					BorderThickness="1.4" BorderBrush="Black"
 					Width="150" Height="45"
-					Grid.Row="2" Grid.Column="1" Margin="15"/>
-    </Grid>
-  </Grid>
+					Grid.Row="3" Margin="15"
+				Command="{Binding GoBack}"/>
+
+		<!-- Right Column -->
+		<Grid Grid.Column="1" Grid.RowSpan="4"
+				  RowDefinitions="0.2*,0.2*,0.2*, 1*">
+
+			<!-- Auction Closing -->
+			<StackPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+							  Margin="15" Orientation="Horizontal">
+				<TextBlock Text="Closing" FontSize="25" Margin="0 0 10 0"/>
+				<TextBlock Text="{Binding Closing}" FontSize="25"/>
+			</StackPanel>
+
+			<!-- Current Bid -->
+			<StackPanel Grid.Column="1" Grid.Row="1"
+							  HorizontalAlignment="Right" VerticalAlignment="Top"
+							  Margin="15" Orientation="Horizontal">
+				<TextBlock Text="Current bid:" FontSize="25" Margin="0 0 10 0"/>
+				<TextBlock Text="{Binding CurrentBid}" FontWeight="Bold" FontSize="25"/>
+			</StackPanel>
+
+
+			<!-- Accept Btn -->
+			<Button Content="Accept" FontSize="20" Background="Green" Foreground="White"
+						  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+						  HorizontalAlignment="Right" VerticalAlignment="Top"
+						  BorderThickness="1.4" BorderBrush="Black"
+						  Width="150" Height="45"
+						  Grid.Row="2" Grid.Column="1" Margin="15"
+					Command="{Binding EndAuction}"
+					IsEnabled="{Binding IsActive}"/>
+		</Grid>
+	</Grid>
 </UserControl>

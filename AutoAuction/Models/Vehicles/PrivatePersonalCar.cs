@@ -23,9 +23,8 @@ namespace AutoAuction.Models.Vehicles
             FuelTypeEnum fuelType,
             ushort numberOfSeat,
             TrunkDimensionsStruct trunkDimensions,
-            DriversLicenseEnum driversLicense,
             bool hasIsofixFittings)
-            : base(id, name, km, registrationNumber, year, newPrice, hasTowbar, engineSize, kmPerLiter, fuelType, numberOfSeat, driversLicense, trunkDimensions)
+            : base(id, name, km, registrationNumber, year, newPrice, hasTowbar, engineSize, kmPerLiter, fuelType, numberOfSeat, trunkDimensions)
         {
             //TODO: V19 - PrivatePersonalCar constructor. DriversLicense should be 'B'
             this.HasIsofixFittings = hasIsofixFittings;
