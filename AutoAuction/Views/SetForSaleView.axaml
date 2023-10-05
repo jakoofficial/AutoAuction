@@ -47,7 +47,7 @@
 
 		<TextBox Text="{Binding TxtNewPrice}" Height="30" Margin="250 0 40 140" VerticalAlignment="Bottom" Grid.Row="1"/>
 		<TextBox Text="{Binding TxtStartingBid}" Height="30" Margin="250 0 40 100" VerticalAlignment="Bottom" Grid.Row="1"/>
-		<CalendarDatePicker SelectedDateFormat="Short" Margin="250 0 40 60" Height="30" VerticalAlignment="Bottom" Grid.Row="1"/>
+		<CalendarDatePicker SelectedDate="{Binding CloseAuctionTime}" SelectedDateFormat="Short" Margin="250 0 40 60" Height="30" VerticalAlignment="Bottom" Grid.Row="1"/>
 		
 
 
@@ -68,7 +68,7 @@
 			</Grid>
 		</Grid>
 
-		<Button Command="{Binding}" Content="Cancel" Width="150" FontSize="15" Grid.Column="0" Grid.Row="1"
+		<Button Command="{Binding CancelBtn}" Content="Cancel" Width="150" FontSize="15" Grid.Column="0" Grid.Row="1"
 				HorizontalContentAlignment="Center" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
 		
 		<TextBlock Text="One or more Values are incorrect." FontSize="20" Foreground="Red" IsVisible="{Binding CreationError}"
