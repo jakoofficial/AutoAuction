@@ -24,9 +24,8 @@ namespace AutoAuction.Models.Vehicles
             double kmPerLiter,
             FuelTypeEnum fuelType,
             ushort numberOfSeat,
-            DriversLicenseEnum driversLicense,
             TrunkDimensionsStruct trunkDimensions)
-            : base(id, name, km, registrationNumber, year, newPrice, hasTowbar, engineSize, kmPerLiter, fuelType, driversLicense)
+            : base(id, name, km, registrationNumber, year, newPrice, hasTowbar, engineSize, kmPerLiter, fuelType)
         {
             this.NumberOfSeat = numberOfSeat;
             this.TrunkDimensions = trunkDimensions;

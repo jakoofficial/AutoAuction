@@ -13,7 +13,7 @@ namespace AutoAuction.ViewModels
     public class LoginViewModel : ViewModelBase
     {
         //TODO: Change username and password before turnning in!
-        private string _username = "priv1";
+        private string _username = "AAAA";
 
         public string Username
         {
@@ -21,7 +21,7 @@ namespace AutoAuction.ViewModels
             set => this.RaiseAndSetIfChanged(ref _username, value);
         }
 
-        private string _password = "0123456789";
+        private string _password = "1234567890";
 
         public string Password
         {

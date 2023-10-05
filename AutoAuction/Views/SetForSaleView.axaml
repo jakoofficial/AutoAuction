@@ -13,7 +13,7 @@
 		<StackPanel Orientation="Horizontal" Grid.Column="0">
 			<StackPanel Orientation="Vertical">
 				<TextBlock Text="Name:" FontSize="20" MinHeight="30" Margin="0 10 0 0"/>
-				<TextBlock Text="Milage:" FontSize="20" MinHeight="30"  Margin="0 10 0 0"/>
+				<TextBlock Text="Kilometrage:" FontSize="20" MinHeight="30"  Margin="0 10 0 0"/>
 				<TextBlock Text="Registration Number:" FontSize="20" MinHeight="30" Margin="0 10 0 0"/>
 				<TextBlock Text="Year:" FontSize="20" MinHeight="30" Margin="0 10 0 0"/>
 				<TextBlock Text="Km/l:" FontSize="20" MinHeight="30" Margin="0 10 0 0"/>
@@ -23,34 +23,41 @@
 			</StackPanel>
 
 			<StackPanel Orientation="Vertical" Margin="50 0 0 0">
-				<TextBox MinWidth="200" MinHeight="30" Height="30" Watermark="Name" Margin="0 10 0 0"/>
-				<TextBox MinWidth="200" MinHeight="30" Height="30" Watermark="Milage" Margin="0 10 0 0"/>
-				<TextBox MinWidth="200" MinHeight="30" Height="30" Watermark="#" Margin="0 10 0 0"/>
-				<ComboBox Name="CBYear" Grid.Column="1" MinWidth="200" Margin="0 10 0 0"/>
-				<TextBox MinWidth="200" MinHeight="30" Height="30" Watermark="km" Margin="0 10 0 0"/>
-				<TextBox MinWidth="200" MinHeight="30" Height="30" Watermark="liters" Margin="0 10 0 0"/>
-				<ComboBox Name="CBFuelType" Grid.Column="1" MinWidth="200" Margin="0 10 0 0"/>
+				<TextBox Text="{Binding TxtName}" MinWidth="200" MinHeight="30" Height="30" Watermark="Name" Margin="0 10 0 0"/>
+				<TextBox Text="{Binding TxtKilometrage}" MinWidth="200" MinHeight="30" Height="30" Watermark="Km" Margin="0 10 0 0"/>
+				<TextBox Text="{Binding TxtRegNumber}" MinWidth="200" MinHeight="30" Height="30" Watermark="#" Margin="0 10 0 0"/>
+				<ComboBox  ItemsSource="{Binding YearList}" SelectedValue="{Binding CurrentYear}" Grid.Column="1" MinWidth="200" Margin="0 10 0 0"/>
+				<TextBox Text="{Binding TxtKm}" MinWidth="200" MinHeight="30" Height="30" Watermark="Km" Margin="0 10 0 0"/>
+				<TextBox Text="{Binding TxtEngineSize}" MinWidth="200" MinHeight="30" Height="30" Watermark="Liters" Margin="0 10 0 0"/>
+				<ComboBox SelectedIndex="{Binding SelectedFuelType}" Grid.Column="1" MinWidth="200" Margin="0 10 0 0">
+					<ComboBoxItem> Diesel </ComboBoxItem>
+					<ComboBoxItem> Benzin </ComboBoxItem>
+				</ComboBox>
 				<StackPanel Orientation="Horizontal" Margin="0 10 0 0" MinHeight="30">
-					<RadioButton Content="Yes"/>
-					<RadioButton Content="No" Margin="50 0 0 0"/>
+					<RadioButton GroupName="grpTowbar" IsChecked="{Binding Towbar}" Content="Yes"/>
+					<RadioButton GroupName="grpTowbar" IsChecked="{Binding !Towbar}" Content="No" Margin="50 0 0 0"/>
 				</StackPanel>
 			</StackPanel>
 		</StackPanel>
 
 		<!-- The bottom text, Starting bid and Close Auction. -->
+		<TextBlock Text="New Price:" FontSize="20" Margin="0 0 0 140" VerticalAlignment="Bottom" Grid.Row="1"/>
 		<TextBlock Text="Starting bid:" FontSize="20" Margin="0 0 0 100" VerticalAlignment="Bottom" Grid.Row="1"/>
 		<TextBlock Text="Close Auction:" FontSize="20" Margin="0 0 0 60" VerticalAlignment="Bottom" Grid.Row="1"/>
 
-		<TextBox Height="30" FontSize="20"  Margin="250 0 40 55" VerticalAlignment="Bottom" Grid.Row="1"/>
-		<CalendarDatePicker SelectedDateFormat="Short" Margin="250 0 40 100" Height="30" VerticalAlignment="Bottom" Grid.Row="1"/>
+		<TextBox Text="{Binding TxtNewPrice}" Height="30" Margin="250 0 40 140" VerticalAlignment="Bottom" Grid.Row="1"/>
+		<TextBox Text="{Binding TxtStartingBid}" Height="30" Margin="250 0 40 100" VerticalAlignment="Bottom" Grid.Row="1"/>
+		<CalendarDatePicker SelectedDateFormat="Short" Margin="250 0 40 60" Height="30" VerticalAlignment="Bottom" Grid.Row="1"/>
 		
 
 
 		<!--Right side, Picking a Vehicle type.-->
 		<Grid Grid.Column="1" ColumnDefinitions="1*, 2*" RowDefinitions="0.1*, 1*">
 			<TextBlock Text="Vehicle Type:" FontSize="20" Grid.Column="0" Margin="30 5 0 0"/>
-			<ComboBox  SelectedIndex="{Binding SelectedCarIndex}" Grid.Column="1">
-				<ComboBoxItem> -- Choose a Vehicle Type --</ComboBoxItem>
+			<TextBlock Text="Please select a Vehicle Type!" FontSize="20" Foreground="Red" 
+					   Margin="80 60 0 0" Grid.ColumnSpan="2" IsVisible="{Binding NoType}"/>
+			<ComboBox SelectedIndex="{Binding SelectedCarIndex}" Grid.Column="1">
+				<ComboBoxItem> -- Select a Vehicle Type --</ComboBoxItem>
 				<ComboBoxItem>Truck</ComboBoxItem>
 				<ComboBoxItem>Bus</ComboBoxItem>
 				<ComboBoxItem>Personal Vehicle</ComboBoxItem>
@@ -63,7 +70,10 @@
 
 		<Button Command="{Binding}" Content="Cancel" Width="150" FontSize="15" Grid.Column="0" Grid.Row="1"
 				HorizontalContentAlignment="Center" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-		<Button Command="{Binding}" Content="Create Auction" Width="150" FontSize="15" Grid.Column="1" Grid.Row="1"
+		
+		<TextBlock Text="One or more Values are incorrect." FontSize="20" Foreground="Red" IsVisible="{Binding CreationError}"
+				   Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom"/>
+		<Button Command="{Binding CreateVehicle}" Content="Create Auction" Width="150" FontSize="15" Grid.Column="1" Grid.Row="1"
 				HorizontalContentAlignment="Center" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
 	</Grid>
 </UserControl>

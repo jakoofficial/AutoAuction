@@ -185,7 +185,7 @@ namespace AutoAuction.ViewModels
 				}
 				else CorporateErrorMsg = false;
 
-				CorporateUser cpUser = new CorporateUser(Username, Password, uintZipCode, uintCVRNumber, decimalCredit, 0M);
+				CorporateUser cpUser = new CorporateUser(Username, Password, uintZipCode, CVRNumber, decimalCredit, 0M);
 
 				string? SQLError = Database.Instance.CreateUser(cpUser);
 
