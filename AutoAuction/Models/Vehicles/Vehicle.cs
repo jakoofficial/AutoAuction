@@ -59,7 +59,7 @@ namespace AutoAuction.Models.Vehicles
                         this.KmPerLiter= reader.GetDouble(7);
                         this.FuelType = (FuelTypeEnum)reader.GetInt32(8);
                         this.DriversLicense = (DriversLicenseEnum)reader.GetInt32(9);
-
+                        this._energyClass = GetEnergyClass();
                     }
                 }
             }

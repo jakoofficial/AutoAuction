@@ -246,42 +246,42 @@ namespace AutoAuction.ViewModels
 
         public void CreateVehicle()
         {
-            switch (SelectedCarIndex)
-            {
-                case 0:
-                    NoType = true;
-                    return;
-                case 1:
-                    NoType = false;
-                    try
-                    {
-                        Truck t = createTruck();
-                        t.UploadToDB();
-                        AuctionHouse.SetForSale(t, Database.Instance.GetUser(User.Instance.UserName), Convert.ToDecimal(TxtStartingBid));
-                        CreationError = false;
-                    }
-                    catch (Exception)
-                    {
-                        CreationError = true;
-                        return;
-                    }
-                    break;
-                case 2:
-                    NoType = false;
-                    try
-                    {
-                        Bus b = createBus();
-                        b.UploadToDB();
-                        AuctionHouse.SetForSale(b, Database.Instance.GetUser(User.Instance.UserName), Convert.ToDecimal(TxtStartingBid));
-                        CreationError = false;
-                    }
-                    catch (Exception)
-                    {
-                        CreationError = true;
-                        return;
-                    }
-                    break;
-            }
+            //switch (SelectedCarIndex)
+            //{
+            //    case 0:
+            //        NoType = true;
+            //        return;
+            //    case 1:
+            //        NoType = false;
+            //        try
+            //        {
+            //            Truck t = createTruck();
+            //            t.UploadToDB();
+            //            AuctionHouse.SetForSale(t, Database.Instance.GetUser(User.Instance.UserName), Convert.ToDecimal(TxtStartingBid));
+            //            CreationError = false;
+            //        }
+            //        catch (Exception)
+            //        {
+            //            CreationError = true;
+            //            return;
+            //        }
+            //        break;
+            //    case 2:
+            //        NoType = false;
+            //        try
+            //        {
+            //            Bus b = createBus();
+            //            b.UploadToDB();
+            //            AuctionHouse.SetForSale(b, Database.Instance.GetUser(User.Instance.UserName), Convert.ToDecimal(TxtStartingBid));
+            //            CreationError = false;
+            //        }
+            //        catch (Exception)
+            //        {
+            //            CreationError = true;
+            //            return;
+            //        }
+            //        break;
+            //}
         }
     }
 }
