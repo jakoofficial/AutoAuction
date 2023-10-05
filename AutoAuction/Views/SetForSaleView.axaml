@@ -27,8 +27,8 @@
 				<TextBox Text="{Binding TxtKilometrage}" MinWidth="200" MinHeight="30" Height="30" Watermark="Km" Margin="0 10 0 0"/>
 				<TextBox Text="{Binding TxtRegNumber}" MinWidth="200" MinHeight="30" Height="30" Watermark="#" Margin="0 10 0 0"/>
 				<ComboBox  ItemsSource="{Binding YearList}" SelectedValue="{Binding CurrentYear}" Grid.Column="1" MinWidth="200" Margin="0 10 0 0"/>
-				<TextBox MinWidth="200" MinHeight="30" Height="30" Watermark="Km" Margin="0 10 0 0"/>
-				<TextBox MinWidth="200" MinHeight="30" Height="30" Watermark="Liters" Margin="0 10 0 0"/>
+				<TextBox Text="{Binding TxtKm}" MinWidth="200" MinHeight="30" Height="30" Watermark="Km" Margin="0 10 0 0"/>
+				<TextBox Text="{Binding TxtEngineSize}" MinWidth="200" MinHeight="30" Height="30" Watermark="Liters" Margin="0 10 0 0"/>
 				<ComboBox SelectedIndex="{Binding SelectedFuelType}" Grid.Column="1" MinWidth="200" Margin="0 10 0 0">
 					<ComboBoxItem> Diesel </ComboBoxItem>
 					<ComboBoxItem> Benzin </ComboBoxItem>
@@ -45,9 +45,9 @@
 		<TextBlock Text="Starting bid:" FontSize="20" Margin="0 0 0 100" VerticalAlignment="Bottom" Grid.Row="1"/>
 		<TextBlock Text="Close Auction:" FontSize="20" Margin="0 0 0 60" VerticalAlignment="Bottom" Grid.Row="1"/>
 
-		<TextBox Height="30" FontSize="20"  Margin="250 0 40 140" VerticalAlignment="Bottom" Grid.Row="1"/>
-		<TextBox Height="30" FontSize="20"  Margin="250 0 40 100" VerticalAlignment="Bottom" Grid.Row="1"/>
-		<CalendarDatePicker SelectedDateFormat="Short" Margin="250 0 40 60" Height="30" VerticalAlignment="Bottom" Grid.Row="1"/>
+		<TextBox Text="{Binding TxtNewPrice}" Height="30" Margin="250 0 40 140" VerticalAlignment="Bottom" Grid.Row="1"/>
+		<TextBox Text="{Binding TxtStartingBid}" Height="30" Margin="250 0 40 100" VerticalAlignment="Bottom" Grid.Row="1"/>
+		<CalendarDatePicker SelectedDate="{Binding CloseAuctionTime}" SelectedDateFormat="Short" Margin="250 0 40 60" Height="30" VerticalAlignment="Bottom" Grid.Row="1"/>
 		
 
 
@@ -68,9 +68,12 @@
 			</Grid>
 		</Grid>
 
-		<Button Command="{Binding}" Content="Cancel" Width="150" FontSize="15" Grid.Column="0" Grid.Row="1"
+		<Button Command="{Binding CancelBtn}" Content="Cancel" Width="150" FontSize="15" Grid.Column="0" Grid.Row="1"
 				HorizontalContentAlignment="Center" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-		<Button Command="{Binding}" Content="Create Auction" Width="150" FontSize="15" Grid.Column="1" Grid.Row="1"
+		
+		<TextBlock Text="One or more Values are incorrect." FontSize="20" Foreground="Red" IsVisible="{Binding CreationError}"
+				   Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom"/>
+		<Button Command="{Binding CreateVehicle}" Content="Create Auction" Width="150" FontSize="15" Grid.Column="1" Grid.Row="1"
 				HorizontalContentAlignment="Center" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
 	</Grid>
 </UserControl>
