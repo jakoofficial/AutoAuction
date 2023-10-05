@@ -71,7 +71,7 @@ namespace AutoAuction.ViewModels
             CAuction = a;
             setValues();
         }
-        public void UpdateCurrentBid()
+        public void GetAuctionPrice()
         {
             string s = Database.Instance.ExecScalar($"exec GetAuctionPrice {ID}");
             if (!string.IsNullOrEmpty(s))
@@ -110,6 +110,11 @@ namespace AutoAuction.ViewModels
                 windowManager.ShowWindow(window);
             }
             else { MakeABidTxt = "Window Is Already Opened"; }
+        }
+
+        public void GoBack()
+        {
+            SetContentArea.Navigate(new HomeScreenViewModel());
         }
     }
 }
