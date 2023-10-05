@@ -8,7 +8,7 @@ namespace AutoAuction.Models
 {
     public class CorporateUser : User
     {
-        public CorporateUser(string userName, string password, uint zipCode, uint cvrNummer, decimal credit, decimal balance ) : base(userName, password, zipCode, balance)
+        public CorporateUser(string userName, string password, uint zipCode, string cvrNummer, decimal credit, decimal balance ) : base(userName, password, zipCode, balance)
         {
             this.CVRNumber = cvrNummer;
             this.Credit = credit;
@@ -16,7 +16,7 @@ namespace AutoAuction.Models
             //TODO: U7 - Set constructor 
             //TODO: U8 - Add to database and set ID
         }
-        public uint CVRNumber { get; set; }
+        public string CVRNumber { get; set; }
         public decimal Credit { get; set; }
 
         /// <summary>

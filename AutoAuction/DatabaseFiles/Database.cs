@@ -47,7 +47,7 @@ namespace AutoAuction.DatabaseFiles
                             {
                                 return new CorporateUser(username, "",
                                     (uint)reader.GetInt32(2),
-                                    (uint)reader.GetInt32(5),
+                                    reader.GetString(5),
                                     reader.GetDecimal(3),
                                     reader.GetDecimal(4));
                             }
@@ -55,7 +55,7 @@ namespace AutoAuction.DatabaseFiles
                             {
                                 return new PrivateUser(username, "",
                                 (uint)reader.GetInt32(2),
-                                (uint)reader.GetInt64(4),
+                                reader.GetString(4),
                                 reader.GetDecimal(3));
                             }
 
@@ -137,7 +137,7 @@ namespace AutoAuction.DatabaseFiles
 
             try
             {
-                ExecNonQuery($"EXEC CreatePrivateUser '{user.UserName}', '{user.Password}', {user.ZipCode}, {user.CPRNumber}");
+                ExecNonQuery($"EXEC CreatePrivateUser '{user.UserName}', '{user.Password}', {user.ZipCode}, '{user.CPRNumber}'");
                 ConnectionString = "";
                 return null;
             }
@@ -159,7 +159,7 @@ namespace AutoAuction.DatabaseFiles
             LogInWithUser("sa", "H2PD071123_Gruppe1");
             try
             {
-                ExecNonQuery($"CreateCorporateUser '{user.UserName}', '{user.Password}', {user.ZipCode}, {user.CVRNumber}, {user.Credit.ToString(new CultureInfo("en-US"))}");
+                ExecNonQuery($"CreateCorporateUser '{user.UserName}', '{user.Password}', {user.ZipCode}, '{user.CVRNumber}', {user.Credit.ToString(new CultureInfo("en-US"))}");
                 ConnectionString = "";
                 return null;
             }

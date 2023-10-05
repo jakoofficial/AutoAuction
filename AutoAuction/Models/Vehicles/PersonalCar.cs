@@ -101,5 +101,15 @@ namespace AutoAuction.Models.Vehicles
             pCarString.Append($"Trunk Dimensions: {TrunkDimensions.ToString()}, ");
             return pCarString.ToString();
         }
+
+        public override void UploadToDB()
+        {
+            string idFromDB = Database.Instance.ExecScalar($"EXEC AddPersonalCar '{Name}', {Km.ToString(sqlCulture)}, '{RegistrationNumber}', {Year}, {NewPrice.ToString(sqlCulture)}, " +
+                $"{HasTowbar}, {EngineSize.ToString(sqlCulture)}, {KmPerLiter.ToString(sqlCulture)}, {(int)FuelType}, {(int)DriversLicense}, 0, " +
+                $"{NumberOfSeat}, {TrunkDimensions.Height.ToString(sqlCulture)}, {TrunkDimensions.Width.ToString(sqlCulture)}, {TrunkDimensions.Depth.ToString(sqlCulture)}, 0");
+
+            uint.TryParse( idFromDB, out uint id);
+            ID = id;
+        }
     }
 }

@@ -131,6 +131,18 @@ namespace AutoAuction.Models
         public virtual decimal Balance { get; set; }
 
         public uint Zipcode { get; set; }
+        public string AuctionsWon { get; set; } = "0";
+        public string YourAuctions { get; set; } = "0";
+
+        public void GetAuctionsWon()
+        {
+            AuctionsWon = Database.Instance.ExecScalar($"exec GetUserAuctionWon '{User.Instance.UserName}'");
+        }
+
+        public void CountUserAuctions()
+        {
+            YourAuctions = Database.Instance.ExecScalar($"exec GetUserAuctions '{User.Instance.UserName}'");
+        }
 
         /// <summary>
         /// A method that ...

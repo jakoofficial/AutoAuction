@@ -6,7 +6,7 @@ name VARCHAR(max) NOT NULL,
 km FLOAT NOT NULL,
 registrationNumber VARCHAR(max) NOT NULL,
 year INT NOT NULL,
-newPrice DECIMAL NOT NULL,
+newPrice Decimal(18,2) NOT NULL,
 hasTowbar BIT NOT NULL,
 engineSize FLOAT NOT NULL,
 kmPerLiter FLOAT NOT NULL,
@@ -96,7 +96,7 @@ USE AutoAuction
 GO
 CREATE TABLE PrivateUser (
     Username VARCHAR(300) NOT NULL,
-    CPRNumber INT NOT NULL UNIQUE CHECK (len(CPRNumber)=10),
+    CPRNumber char(10) NOT NULL UNIQUE CHECK (len(CPRNumber)=10),
     FOREIGN KEY (Username) REFERENCES UserTable (Username) ON DELETE CASCADE
 );
 
@@ -104,7 +104,7 @@ USE AutoAuction
 GO
 CREATE TABLE CorporateUser (
     Username VARCHAR(300) NOT NULL,
-    CVRNumber INT NOT NULL UNIQUE CHECK (len(CVRNumber)=8),
+    CVRNumber char(8) NOT NULL UNIQUE CHECK (len(CVRNumber)=8),
     FOREIGN KEY (Username) REFERENCES UserTable (Username) ON DELETE CASCADE
 );
 

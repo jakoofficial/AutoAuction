@@ -8,14 +8,14 @@ namespace AutoAuction.Models
 {
     public class PrivateUser : User
     {
-        public PrivateUser(string userName, string password, uint zipCode, uint cprNummer, decimal balance) : base(userName, password, zipCode, balance)
+        public PrivateUser(string userName, string password, uint zipCode, string cprNummer, decimal balance) : base(userName, password, zipCode, balance)
         {
             this.CPRNumber = cprNummer;
             this.Balance = balance;
             //TODO: U10 - Set constructor
             //TODO: U11 - Add to database and set ID
         }
-        public uint CPRNumber { get; set; }
+        public string CPRNumber { get; set; }
         private decimal _balance;
 
         public override decimal Balance

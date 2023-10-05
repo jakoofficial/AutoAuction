@@ -1,4 +1,3 @@
-
 DROP PROCEDURE CreateAuction
 GO
 
