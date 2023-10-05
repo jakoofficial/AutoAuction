@@ -30,7 +30,7 @@ namespace AutoAuction.Models
                 {
                     while (reader.Read())
                     {
-                        Auction a = new Auction(Auction.GetAuctionVehicle((uint)reader.GetInt32(3)), Database.Instance.GetUser(reader.GetString(4)),
+                        Auction a = new Auction((uint)reader.GetInt32(0), Auction.GetAuctionVehicle((uint)reader.GetInt32(3)), Database.Instance.GetUser(reader.GetString(4)),
                             Database.Instance.GetUser(reader.GetString(5)), reader.GetDecimal(1), reader.GetDecimal(2), reader.GetBoolean(6), reader.GetDateTime(7));
                         Auctions.Add(a);
                         a = null;
