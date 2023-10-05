@@ -21,10 +21,9 @@ namespace AutoAuction.Models.Vehicles
             double kmPerLiter,
             FuelTypeEnum fuelType,
             VehicleDimensionsStruct vehicleDimension,
-            DriversLicenseEnum driversLicense,
             ushort numberOfSeats,
             ushort numberOfSleepingSpaces,
-            bool hasToilet) : base(0, name, km, registrationNumber, year, newPrice, hasTowbar, engineSize, kmPerLiter, fuelType, driversLicense, vehicleDimension)
+            bool hasToilet) : base(0, name, km, registrationNumber, year, newPrice, hasTowbar, engineSize, kmPerLiter, fuelType, vehicleDimension)
         {
             if (HasTowbar)
             {
