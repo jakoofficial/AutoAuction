@@ -261,17 +261,16 @@ namespace AutoAuction.ViewModels
         }
         PrivatePersonalCar createPrivatePersonalCar()
         {
-            PrivatePersonalCar privCar = new PrivatePersonalCar(null, TxtName, Convert.ToDouble(TxtKm), TxtRegNumber, CurrentYear, Convert.ToDecimal(TxtNewPrice), Towbar, Convert.ToDouble(TxtEngineSize), Convert.ToDouble(TxtKilometrage),
-                (Vehicle.FuelTypeEnum)(selectedFuelType), (new PersonalCar.TrunkDimensionsStruct(Convert.ToDouble(PrivateCarVM.Height), Convert.ToDouble(PrivateCarVM.Width), Convert.ToDouble(PrivateCarVM.Depth))),
-, PrivateCarVM.HasIsoFix);
+            PrivatePersonalCar privCar = new PrivatePersonalCar(0, TxtName, Convert.ToDouble(TxtKm), TxtRegNumber, CurrentYear, Convert.ToDecimal(TxtNewPrice), Towbar, Convert.ToDouble(TxtEngineSize), Convert.ToDouble(TxtKilometrage),
+                (Vehicle.FuelTypeEnum)(selectedFuelType), Convert.ToUInt16(PrivateCarVM.NumberOfSeats), (new PersonalCar.TrunkDimensionsStruct(Convert.ToDouble(PrivateCarVM.Height), Convert.ToDouble(PrivateCarVM.Width), Convert.ToDouble(PrivateCarVM.Depth))), PrivateCarVM.HasIsofix);
             return privCar;
         }
         ProfessionalPersonalCar createProfessionalPersonalCar()
         {
-            ProfessionalPersonalCar proCar = new ProfessionalPersonalCar(null, TxtName, Convert.ToDouble(TxtKm), TxtRegNumber, CurrentYear, Convert.ToDecimal(TxtNewPrice), Towbar, Convert.ToDouble(TxtEngineSize), Convert.ToDouble(TxtKilometrage),
-                (Vehicle.FuelTypeEnum)(selectedFuelType), (new PersonalCar.TrunkDimensionsStruct(Convert.ToDouble(PrivateCarVM.Height), Convert.ToDouble(PrivateCarVM.Width), Convert.ToDouble(PrivateCarVM.Depth))),
-                Convert.ToUInt16(BusVM.NumberOfSeats), (ushort)Convert.ToInt16(BusVM.SleepingSpots), BusVM.HasToilet);
-            return bus;
+            ProfessionalPersonalCar proCar = new ProfessionalPersonalCar(0, TxtName, Convert.ToDouble(TxtKm), TxtRegNumber, CurrentYear, Convert.ToDecimal(TxtNewPrice), Convert.ToDouble(TxtEngineSize), Convert.ToDouble(TxtKilometrage),
+                (Vehicle.FuelTypeEnum)(selectedFuelType), Convert.ToUInt16(ProfessionalCarVM.NumberOfSeats), (new PersonalCar.TrunkDimensionsStruct(Convert.ToDouble(ProfessionalCarVM.Height), Convert.ToDouble(ProfessionalCarVM.Width), Convert.ToDouble(ProfessionalCarVM.Depth))), ProfessionalCarVM.HasSafetybar, Convert.ToDouble(ProfessionalCarVM.LoadCapacity));
+
+            return proCar;
         }
 
         #endregion
@@ -300,13 +299,43 @@ namespace AutoAuction.ViewModels
                     break;
                 case 2:
                     NoType = false;
-                    Bus b = createBus();
-                    b.UploadToDB();
-                    AuctionHouse.SetForSale(b, Database.Instance.GetUser(User.Instance.UserName), Convert.ToDecimal(TxtStartingBid), CloseAuctionTime);
-                    CreationError = false;
                     try
                     {
-                        
+                        Bus b = createBus();
+                        b.UploadToDB();
+                        AuctionHouse.SetForSale(b, Database.Instance.GetUser(User.Instance.UserName), Convert.ToDecimal(TxtStartingBid), CloseAuctionTime);
+                        CreationError = false;
+
+                    }
+                    catch (Exception)
+                    {
+                        CreationError = true;
+                        return;
+                    }
+                    break;
+                case 3:
+                    NoType = false;
+                    try
+                    {
+                        PrivatePersonalCar privCar = createPrivatePersonalCar();
+                        privCar.UploadToDB();
+                        AuctionHouse.SetForSale(privCar, Database.Instance.GetUser(User.Instance.UserName), Convert.ToDecimal(TxtStartingBid), CloseAuctionTime);
+                        CreationError = false;
+                    }
+                    catch (Exception)
+                    {
+                        CreationError = true;
+                        return;
+                    }
+                    break;
+                case 4:
+                    NoType = false;
+                    try
+                    {
+                        ProfessionalPersonalCar proCar = createProfessionalPersonalCar();
+                        proCar.UploadToDB();
+                        AuctionHouse.SetForSale(proCar, Database.Instance.GetUser(User.Instance.UserName), Convert.ToDecimal(TxtStartingBid), CloseAuctionTime);
+                        CreationError = false;
                     }
                     catch (Exception)
                     {
