@@ -26,7 +26,7 @@
 				HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
 				BorderThickness="1.4" BorderBrush="Black"
 				Width="150" Height="45"
-				Grid.Row="3" Margin="15"/>
+				Grid.Row="3" Margin="15" Command="{Binding GoBack}"/>
 
 		<!-- Right Column -->
 		<Grid Grid.Column="1" Grid.RowSpan="4"
@@ -54,12 +54,13 @@
 				<StackPanel Orientation="Vertical" Margin="0 0 30 0">
 					<Button Content="Reload Price" FontSize="20" Background="LightBlue" Foreground="Black"
 							HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-							HorizontalAlignment="Right" VerticalAlignment="Top" Command="{Binding UpdateCurrentBid}"
+							HorizontalAlignment="Right" VerticalAlignment="Top" Command="{Binding GetAuctionPrice}"
 							BorderThickness="1.4" BorderBrush="Black"
 							Width="150" Height="45" />
 					<TextBlock Text="{Binding ReloadPriceTxt}"
 							   HorizontalAlignment="Right"/>
 				</StackPanel>
+				<!--Make a Bid-->
 				<StackPanel Orientation="Vertical">
 					<Button Content="Make a bid" FontSize="20" Background="Green" Foreground="White"
 							HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
