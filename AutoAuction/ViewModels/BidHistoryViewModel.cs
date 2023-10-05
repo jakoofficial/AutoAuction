@@ -1,8 +1,11 @@
-﻿using AutoAuction.Models;
+﻿using AutoAuction.DatabaseFiles;
+using AutoAuction.Models;
+using AutoAuction.Models.Vehicles;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,22 +15,42 @@ namespace AutoAuction.ViewModels
     public class BidHistoryViewModel : ViewModelBase
     {
         public string d { get; set; }
-        public ObservableCollection<Auction> _dd { get; set; }
 
-        private ObservableCollection<Auction> ddd;
-        public ObservableCollection<Auction> test
+        private ObservableCollection<Auction> _bidHistory = new();
+        public ObservableCollection<Auction> BidHistory
         {
-            get => ddd;
-            set => this.RaiseAndSetIfChanged(ref ddd, value);
+            get => _bidHistory;
+            set => this.RaiseAndSetIfChanged(ref _bidHistory, value);
         }
+
         public BidHistoryViewModel()
         {
-            //Auction n = new Auction(new Bus("Ooga", 20, "regiNR", 2010, 203212, false, 3232, 2312, Vehicle.FuelTypeEnum.Diesel,
-            //   new HeavyVehicle.VehicleDimensionsStruct(20, 20, 20), Vehicle.DriversLicenseEnum.B, 2, 1, true),
-            //   new PrivateUser("User", "woaaaaah", 1029, 3389992827), 231);
+            getBidHistory();
+        }
 
-            //_d = new ObservableCollection<Auction>();
-            //_d.Add(n);
+        private void getBidHistory()
+        {
+            SqlConnection con = new(Database.Instance.ConnectionString);
+
+            using (con)
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand($"exec GetBidHistory '{User.Instance.UserName}'", con);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        BidHistory.Add(new Auction(Auction.GetAuctionVehicle((uint)reader.GetInt32(0)), Database.Instance.GetUser(reader.GetString(1)),
+                            Database.Instance.GetUser(reader.GetString(2)), reader.GetDecimal(3), reader.GetDecimal(4), reader.GetBoolean(5)));
+                    }
+                }
+            }
+        }
+
+        public void GoBack()
+        {
+            SetContentArea.Navigate(new HomeScreenViewModel());
         }
 
     }

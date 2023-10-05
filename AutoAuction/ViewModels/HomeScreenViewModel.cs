@@ -35,6 +35,17 @@ namespace AutoAuction.ViewModels
             }
         }
 
+        private Auction myCurrentSelectedAuction;
+        public Auction MyCurrentSelectedAuction
+        {
+            get => myCurrentSelectedAuction;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref myCurrentSelectedAuction, value);
+                GoToCurrentSelectedAuction(MyCurrentSelectedAuction);
+            }
+        }
+
         private ObservableCollection<Auction> currentAuctions = new();
         public ObservableCollection<Auction> CurrentAuctions
         {
@@ -62,6 +73,10 @@ namespace AutoAuction.ViewModels
             getMyAuctions();
         }
 
+        public void GoToCurrentSelectedAuction(Auction a)
+        {
+            SetContentArea.Navigate(new BuyerOfAuctionViewModel(a));
+        }
         public void GoToMySelectedAuction(Auction a)
         {
             SetContentArea.Navigate(new SellerOfAuctionViewModel(a));
