@@ -16,11 +16,11 @@ namespace AutoAuction.ViewModels
             set => this.RaiseAndSetIfChanged(ref _height, value);
         }
 
-        private string _weight = "";
-        public string Weight
+        private string _width = "";
+        public string Width
         {
-            get => _weight;
-            set => this.RaiseAndSetIfChanged(ref _weight, value);
+            get => _width;
+            set => this.RaiseAndSetIfChanged(ref _width, value);
         }
 
         private string _depth = "";

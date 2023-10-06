@@ -12,7 +12,6 @@ using AutoAuction.Models;
 using AutoAuction.DatabaseFiles;
 using System.Diagnostics;
 using System.Collections.ObjectModel;
-using static AutoAuction.Models.Vehicles.Vehicle;
 using System.ComponentModel;
 using Avalonia.Controls.Primitives;
 
@@ -20,16 +19,22 @@ namespace AutoAuction.ViewModels
 {
     public class SetForSaleViewModel : ViewModelBase
     {
+        /// <summary>
+        /// The Views in the region below, are used to display the specific properties, each object type needs.
+        /// Ex. Truck has the Truck Dimensions, that include Height, Weight and Length. Truck also contains Load Capacity.
+        /// </summary>
         #region View related regions.
+
+
         BusViewModel busViewModel = new();
-        public BusViewModel BusViewModel
+        public BusViewModel BusVM
         {
             get => busViewModel;
             set => this.RaiseAndSetIfChanged(ref busViewModel, value);
         }
 
         TruckViewModel truckViewModel = new();
-        public TruckViewModel TruckViewModel
+        public TruckViewModel TruckVM
         {
             get => truckViewModel;
             set => this.RaiseAndSetIfChanged(ref truckViewModel, value);
@@ -37,14 +42,14 @@ namespace AutoAuction.ViewModels
         }
 
         PrivateCarViewModel privateCarViewModel = new();
-        public PrivateCarViewModel PrivateCarViewModel
+        public PrivateCarViewModel PrivateCarVM
         {
             get => privateCarViewModel;
             set => this.RaiseAndSetIfChanged(ref privateCarViewModel, value);
         }
 
         ProfessionalCarViewModel professionalCarViewModel = new();
-        public ProfessionalCarViewModel ProfessionalCarViewModel
+        public ProfessionalCarViewModel ProfessionalCarVM
         {
             get => professionalCarViewModel;
             set => this.RaiseAndSetIfChanged(ref professionalCarViewModel, value);
@@ -69,6 +74,10 @@ namespace AutoAuction.ViewModels
         }
 
         #endregion
+
+        /// <summary>
+        /// Region below contains full properties, that are bound to a TextBox, ComboBox, RadioButton or Calendar in the View.
+        /// </summary>
         #region Textboxes
         string txtName;
         public string TxtName
@@ -169,6 +178,12 @@ namespace AutoAuction.ViewModels
             set => this.RaiseAndSetIfChanged(ref creationError, value);
         }
 
+        DateTime closeAuctionTime = DateTime.Now;
+        public DateTime CloseAuctionTime
+        {
+            get => closeAuctionTime;
+            set => this.RaiseAndSetIfChanged(ref closeAuctionTime, value);
+        }
         #endregion
 
 
@@ -179,6 +194,9 @@ namespace AutoAuction.ViewModels
             CbYears();
         }
 
+        /// <summary>
+        /// Sets ActiveView, to another ViewModel depending on which Type of Vehicle, the user is creating. 
+        /// </summary>
         void displayVehicleType()
         {
             switch (SelectedCarIndex)
@@ -187,16 +205,16 @@ namespace AutoAuction.ViewModels
                     ActiveView = null;
                     break;
                 case 1:
-                    ActiveView = TruckViewModel;
+                    ActiveView = TruckVM;
                     break;
                 case 2:
-                    ActiveView = BusViewModel;
+                    ActiveView = BusVM;
                     break;
                 case 3:
-                    ActiveView = PrivateCarViewModel;
+                    ActiveView = PrivateCarVM;
                     break;
                 case 4:
-                    ActiveView = ProfessionalCarViewModel;
+                    ActiveView = ProfessionalCarVM;
                     break;
             }
         }
@@ -229,59 +247,108 @@ namespace AutoAuction.ViewModels
         Truck createTruck()
         {
             Truck truck = new Truck(TxtName, Convert.ToDouble(TxtKm), TxtRegNumber, CurrentYear, Convert.ToDecimal(TxtNewPrice), Towbar, Convert.ToDouble(TxtEngineSize), Convert.ToDouble(TxtKilometrage), (Vehicle.FuelTypeEnum)selectedFuelType,
-                            (new HeavyVehicle.VehicleDimensionsStruct(Convert.ToDouble(TruckViewModel.TxtHeight), Convert.ToDouble(TruckViewModel.TxtWeight), Convert.ToDouble(TruckViewModel.TxtLength))),
-                            Convert.ToDouble(TruckViewModel.TxtLoadCapacity));
+                            (new HeavyVehicle.VehicleDimensionsStruct(Convert.ToDouble(TruckVM.TxtHeight), Convert.ToDouble(TruckVM.TxtWeight), Convert.ToDouble(TruckVM.TxtLength))),
+                            Convert.ToDouble(TruckVM.TxtLoadCapacity));
             return truck;
 
         }
         Bus createBus()
         {
             Bus bus = new Bus(TxtName, Convert.ToDouble(TxtKm), TxtRegNumber, CurrentYear, Convert.ToDecimal(TxtNewPrice), Towbar, Convert.ToDouble(TxtEngineSize), Convert.ToDouble(TxtKilometrage),
-                (Vehicle.FuelTypeEnum)(selectedFuelType), (new HeavyVehicle.VehicleDimensionsStruct(Convert.ToDouble(BusViewModel.Height), Convert.ToDouble(BusViewModel.Weight), Convert.ToDouble(BusViewModel.Length))),
-                (ushort)Convert.ToInt32(BusViewModel.NumberOfSeats), (ushort)Convert.ToInt32(BusViewModel.NumberOfSeats), busViewModel.HasToilet);
+                (Vehicle.FuelTypeEnum)(selectedFuelType), (new HeavyVehicle.VehicleDimensionsStruct(Convert.ToDouble(BusVM.Height), Convert.ToDouble(BusVM.Weight), Convert.ToDouble(BusVM.Length))),
+                Convert.ToUInt16(BusVM.NumberOfSeats), (ushort)Convert.ToInt16(BusVM.SleepingSpots), BusVM.HasToilet);
             return bus;
+        }
+        PrivatePersonalCar createPrivatePersonalCar()
+        {
+            PrivatePersonalCar privCar = new PrivatePersonalCar(0, TxtName, Convert.ToDouble(TxtKm), TxtRegNumber, CurrentYear, Convert.ToDecimal(TxtNewPrice), Towbar, Convert.ToDouble(TxtEngineSize), Convert.ToDouble(TxtKilometrage),
+                (Vehicle.FuelTypeEnum)(selectedFuelType), Convert.ToUInt16(PrivateCarVM.NumberOfSeats), (new PersonalCar.TrunkDimensionsStruct(Convert.ToDouble(PrivateCarVM.Height), Convert.ToDouble(PrivateCarVM.Width), Convert.ToDouble(PrivateCarVM.Depth))), PrivateCarVM.HasIsofix);
+            return privCar;
+        }
+        ProfessionalPersonalCar createProfessionalPersonalCar()
+        {
+            ProfessionalPersonalCar proCar = new ProfessionalPersonalCar(0, TxtName, Convert.ToDouble(TxtKm), TxtRegNumber, CurrentYear, Convert.ToDecimal(TxtNewPrice), Convert.ToDouble(TxtEngineSize), Convert.ToDouble(TxtKilometrage),
+                (Vehicle.FuelTypeEnum)(selectedFuelType), Convert.ToUInt16(ProfessionalCarVM.NumberOfSeats), (new PersonalCar.TrunkDimensionsStruct(Convert.ToDouble(ProfessionalCarVM.Height), Convert.ToDouble(ProfessionalCarVM.Width), Convert.ToDouble(ProfessionalCarVM.Depth))), ProfessionalCarVM.HasSafetybar, Convert.ToDouble(ProfessionalCarVM.LoadCapacity));
+
+            return proCar;
         }
 
         #endregion
 
         public void CreateVehicle()
         {
-            //switch (SelectedCarIndex)
-            //{
-            //    case 0:
-            //        NoType = true;
-            //        return;
-            //    case 1:
-            //        NoType = false;
-            //        try
-            //        {
-            //            Truck t = createTruck();
-            //            t.UploadToDB();
-            //            AuctionHouse.SetForSale(t, Database.Instance.GetUser(User.Instance.UserName), Convert.ToDecimal(TxtStartingBid));
-            //            CreationError = false;
-            //        }
-            //        catch (Exception)
-            //        {
-            //            CreationError = true;
-            //            return;
-            //        }
-            //        break;
-            //    case 2:
-            //        NoType = false;
-            //        try
-            //        {
-            //            Bus b = createBus();
-            //            b.UploadToDB();
-            //            AuctionHouse.SetForSale(b, Database.Instance.GetUser(User.Instance.UserName), Convert.ToDecimal(TxtStartingBid));
-            //            CreationError = false;
-            //        }
-            //        catch (Exception)
-            //        {
-            //            CreationError = true;
-            //            return;
-            //        }
-            //        break;
-            //}
+            switch (SelectedCarIndex)
+            {
+                case 0:
+                    NoType = true;
+                    return;
+                case 1:
+                    NoType = false;
+                    try
+                    {
+                        Truck t = createTruck();
+                        t.UploadToDB();
+                        AuctionHouse.SetForSale(t, Database.Instance.GetUser(User.Instance.UserName), Convert.ToDecimal(TxtStartingBid), CloseAuctionTime);
+                        CreationError = false;
+                    }
+                    catch (Exception)
+                    {
+                        CreationError = true;
+                        return;
+                    }
+                    break;
+                case 2:
+                    NoType = false;
+                    try
+                    {
+                        Bus b = createBus();
+                        b.UploadToDB();
+                        AuctionHouse.SetForSale(b, Database.Instance.GetUser(User.Instance.UserName), Convert.ToDecimal(TxtStartingBid), CloseAuctionTime);
+                        CreationError = false;
+
+                    }
+                    catch (Exception)
+                    {
+                        CreationError = true;
+                        return;
+                    }
+                    break;
+                case 3:
+                    NoType = false;
+                    try
+                    {
+                        PrivatePersonalCar privCar = createPrivatePersonalCar();
+                        privCar.UploadToDB();
+                        AuctionHouse.SetForSale(privCar, Database.Instance.GetUser(User.Instance.UserName), Convert.ToDecimal(TxtStartingBid), CloseAuctionTime);
+                        CreationError = false;
+                    }
+                    catch (Exception)
+                    {
+                        CreationError = true;
+                        return;
+                    }
+                    break;
+                case 4:
+                    NoType = false;
+                    try
+                    {
+                        ProfessionalPersonalCar proCar = createProfessionalPersonalCar();
+                        proCar.UploadToDB();
+                        AuctionHouse.SetForSale(proCar, Database.Instance.GetUser(User.Instance.UserName), Convert.ToDecimal(TxtStartingBid), CloseAuctionTime);
+                        CreationError = false;
+                    }
+                    catch (Exception)
+                    {
+                        CreationError = true;
+                        return;
+                    }
+                    break;
+            }
+        }
+
+        public void CancelBtn()
+        {
+            SetContentArea.Navigate(new HomeScreenViewModel());
         }
     }
 }

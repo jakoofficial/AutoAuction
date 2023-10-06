@@ -20,7 +20,7 @@
 			<!-- Right side Answers/Input-->
 			<StackPanel Orientation="Vertical" Margin="50 40 0 0">
 				<TextBox Text="{Binding Height}" MinWidth="200" Height="30" Watermark="meters" MinHeight="30"/>
-				<TextBox Text="{Binding Weight}" MinWidth="200" Height="30" Watermark="meters" MinHeight="30"/>
+				<TextBox Text="{Binding Width}" MinWidth="200" Height="30" Watermark="meters" MinHeight="30"/>
 				<TextBox Text="{Binding Depth}" MinWidth="200" Height="30" Watermark="meters" MinHeight="30"/>
 				<TextBox Text="{Binding NumberOfSeats}" MinWidth="200" Height="30" Watermark="#" Margin="0 10 0 0" MinHeight="30"/>
 				<StackPanel Orientation="Horizontal" Margin="0 10 0 0" MinHeight="30">
